@@ -1,113 +1,137 @@
-/***************************************************************************
- *   Copyright (C) 2008 by Tobias Heer                                     *
- *   heer@cs.rwth-aachen.de                                                *
- *                                                                         *
- *   Permission is hereby granted, free of charge, to any person obtaining *
- *   a copy of this software and associated documentation files (the       *
- *   "Software"), to deal in the Software without restriction, including   *
- *   without limitation the rights to use, copy, modify, merge, publish,   *
- *   distribute, sublicense, and/or sell copies of the Software, and to    *
- *   permit persons to whom the Software is furnished to do so, subject to *
- *   the following conditions:                                             *
- *                                                                         *
- *   The above copyright notice and this permission notice shall be        *
- *   included in all copies or substantial portions of the Software.       *
- *                                                                         *
- *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,       *
- *   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF    *
- *   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.*
- *   IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR     *
- *   OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, *
- *   ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR *
- *   OTHER DEALINGS IN THE SOFTWARE.                                       *
- ***************************************************************************
- * @file:   scream_common.h                                                *
- * @brief:  Common functions for the scream protocol client and server     *
- * @author: Tobias Heer <heer@cs.rwth-aachen.de>                           *
- **************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2008 by Tobias Heer <heer@cs.rwth-aachen.de>                 *
+ *                                                                            *
+ * Permission is hereby granted, free of charge, to any person obtaining      *
+ * a copy of this software and associated documentation files (the            *
+ * "Software"), to deal in the Software without restriction, including        *
+ * without limitation the rights to use, copy, modify, merge, publish,        *
+ * distribute, sublicense, and/or sell copies of the Software, and to         *
+ * permit persons to whom the Software is furnished to do so, subject to      *
+ * the following conditions:                                                  *
+ *                                                                            *
+ * The above copyright notice and this permission notice shall be             *
+ * included in all copies or substantial portions of the Software.            *
+ *                                                                            *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,            *
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF         *
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.     *
+ * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR          *
+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,      *
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR      *
+ * OTHER DEALINGS IN THE SOFTWARE.                                            *
+ **************************************************************************//**
+ * @file scream-common.h                                                     
+ * @brief Common functions for the scream protocol client and server.
+ * @author Tobias Heer <heer@cs.rwth-aachen.de>
+ ******************************************************************************/
+
 #ifndef SCREAM_COMMON_H
 #define SCREAM_COMMON_H
 
-#include <netinet/in.h>    /* uint_X types */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/* define booleans for C */
-#define BOOL int
-#define TRUE  1
-#define FALSE 0
+#include <inttypes.h> /* uint_X types */
 
-/** default port number **/
+/** Define boolean data type for C. */
+typedef enum bool
+  {
+    FALSE = 0, /**< False. */
+    TRUE, /**< True. */
+
+  } bool;
+
+/** Default port number. **/
 #define SC_DEFAULT_PORT 50001
 
-/** maximum data packet buffer **/
-#define SC_MAX_BUFFER   2048
+/** Maximum size for the packet buffer. **/
+#define SC_MAX_BUFFER 2048
 
-/** number of retransmssions */
+/** Number of retransmssions. */
 #define SC_RETRANSMISSIONS 20
 
-/** timeout in seconds */
+/** Timeout in seconds. */
 #define SC_PACKET_TIMEO 2
 
-typedef enum {	SC_ERR_SUCCESS =   1, 	/* It worked! 		 */
-				SC_ERR_NOMEM   =  -1,	/* Not enough memory */
-				SC_ERR_SEND    =  -2,	/* Send failed		 */
-				SC_ERR_SOCK	   =  -3,	/* Socket error */
-				SC_ERR_INPUT   =  -4,	/* Wrong user input */
-				SC_ERR_PACKET  =  -5,   /* Malformed packet (too small or wrong format) */
-				SC_ERR_STATE   =  -6,   /* State error. Unexpected input */
-				SC_ERR_DB_FULL =  -7,    /* Maximum number of clients reached */
-				SC_ERR_COMM    =  -8    /* Communication error. host does not respond */
+/** Error code. */
+typedef enum
+  {
+    SC_ERR_SUCCESS = 1, /**< It worked! */
+    SC_ERR_NOMEM = -1, /**< Not enough memory. */
+    SC_ERR_SEND = -2, /**< Send failed. */
+    SC_ERR_SOCK = -3, /**< Socket error. */
+    SC_ERR_INPUT = -4, /**< Wrong user input. */
+    SC_ERR_PACKET = -5, /**< Malformed packet (too small or wrong format). */
+    SC_ERR_STATE = -6, /**< State error. Unexpected input. */
+    SC_ERR_DB_FULL = -7, /**< Maximum number of clients reached. */
+    SC_ERR_COMM = -8, /**< Communication error. Host does not respond. */
 
-				} err_code;
+  } err_code;
 
+/** Screamer packet/message types. */
+typedef enum
+  {
+    SC_PACKET_UNKNOWN = 0, /**< Packet number 0 is reserved. Do not use. */
+    SC_PACKET_FLOOD = 1, /**< Flood packet. */
+    SC_PACKET_MAX = 2, /**< Maximum packet type number. */
 
-typedef enum {	SC_PACKET_UNKNOWN =   0, /*packet number 0 is reserved. Do not use. */
-		SC_PACKET_FLOOD     = 1,
-		SC_PACKET_MAX      =  2 /* maximum packet type number */
-		
-		} scream_packet_type;
+  } scream_packet_type;
 
-
-typedef struct {
-	uint8_t  type;	/** @brief: packet type**/
+/** A general packet. */
+typedef struct
+{
+  uint8_t type; /**< Packet type indicator. **/
 } __attribute__((__packed__)) scream_packet_general;
 
-
-/** @brief: packet  DATA**/
-typedef struct {
-	uint8_t  type;				/** @brief: packet type DATA**/
-	uint16_t seq;				/** sequence numbers */
-	uint8_t  data[0];			/** variable data field*/
+/** A flood packet. */
+typedef struct
+{
+  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_FLOOD. */
+  uint16_t seq; /**< Sequence numbers. */
+  uint8_t data[0]; /**< Flood data. */
 } __attribute__((__packed__)) scream_packet_flood;
 
-
-/* common functions */
-
-/**
- * Check if a piece of memory is a scream packet
- *
- * @param	buffer			input byte array
- * @param	len				length of the buffer
- * @return					TRUE if the packet is a general scream packet, FALSE otherwise
- **/
-BOOL scream_is_packet(const char* buffer, const int len);
+/* Common functions */
 
 /**
- * Check if a piece of memory is a scream packet
+ * Check if a piece of memory is a scream packet.
  *
- * @param	packet			a valid scream general packet @see: scream_is_packet
- * @param	len				length of the buffer
- * @param	len				the expected packet type @see: scream_packet_type
- * @return					TRUE if the packet is valid, FALSE otherwise
- **/
-BOOL scream_check_packet(const scream_packet_general* packet, const int len, const scream_packet_type type);
-
+ * @param [in] buffer piece of memory to be checked.
+ * @param [in] len length of the buffer.
+ *
+ * @return #bool::TRUE if the packet is a ::scream_packet_general,
+ *         #bool::FALSE otherwise.
+ */
+bool
+is_scream_packet (const void *buffer, int len);
 
 /**
- * Return a string for a scream packet type
+ * Check if a piece of memory is of a certain scream packet.
  *
- * @type	len				the expected packet type @see: scream_packet_type
- * @return					TRUE if the packet is valid, FALSE otherwise
- **/
-const char* scream_packet_name(const scream_packet_type type);
+ * @param [in] packet a valid ::scream_packet_general. @see is_scream_packet
+ * @param [in] len the length of the buffer.
+ * @param [in] type the expected packet type. @see scream_packet_type
+ *
+ * @return #bool::TRUE if the packet is valid, #bool::FALSE otherwise.
+ */
+bool
+check_scream_packet (const scream_packet_general *packet,
+		     int len,
+		     scream_packet_type type);
+
+/**
+ * Convert a type to a printable string.
+ *
+ * @param [in] type the packet type to be converted. @see scream_packet_type
+ *
+ * @return The string representing the given type.
+ */
+const char *
+get_scream_type_name (scream_packet_type type);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SCREAM_COMMON_H */
