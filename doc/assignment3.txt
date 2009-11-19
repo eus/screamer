@@ -1,0 +1,90 @@
+Assignment 3
+
+Mobility support for the scream protocol
+
+This week you will add mobility and multihoming support for the screamer
+client. Your task will be to a) design a suitable mobility and multihoming
+solution, b) implement it, c) test it, d) document it, and e) run it on the
+N810.
+
+a) The client should be able to use several interfaces to talk to the server.
+Before opening a connection, the client checks which interfaces it can send
+and receive data on. Therefore, it implements a return-routability check in
+the handshake. During a return-routability check, two communicating hosts send
+packets over all interfaces to determine if the path between these interfaces
+is suitable for packet transmission.
+
+1.) The client should send address verification packets to the server
+during the handshake phase. It sends these packets from each of its public
+interfaces (use bind to set the source interfaces).
+
+2.) The server acknowledges the address verification packets and sends back
+the acknowledgements to the respective source interfaces (addresses) of the
+client.
+
+3.) The client selects one interface (on which it got an acknowledgement) as the
+primary interface and starts sending FLOOD packets to the server. All signaling
+(FLOOD, RESET, RESULT, ...) packets will be sent over this interface. The
+other interfaces serve as backup interfaces if the primary inetrface fails.
+The server performs the logging as implemented in assignment 2 (task 1.e).
+
+b) The client should observe mobility events by a change of the network
+addresses assigned to its interfaces. It notifies the server of any change in
+the set of IP addresses and selects a new primary interface. This happens
+concurrently with the sending of FLOOD packets. HINT: you should implement the
+process of observing the interfaces and mobility management as THREAD (pthread).
+The client polls the list of interfaces periodically and reacts on changes. Do
+not use fork(...)!
+
+1.) The client periodically checks whether its set of IP addresses has
+changed. It considers all IPv4 addresses of all public interfaces (ignore
+the loopback interface).
+
+2.) Whenever the IP address assignment of an interface changes, the client
+initiates an UPDATE process to notify the server of this change. Similar
+to the handshake, the client performs an return-routability test. To this
+end, the client sends address verification packets from all of its
+source addresses. The server will return acknowledgements to the respective
+client addresses.
+The client will then select a new network address (one it got
+an acknowledgement for) as the primary address.
+HINT: Try to reuse the code from the return routability check (Task a).
+
+3.) Implement two behaviours for sending FLOOD packets during the update
+process:
+a) The client stops sending flood packet while executing the update.
+b) The client continues sending flood packets on the primary
+interface (although this interface address might not be valid anymore).
+HINT: use mutexes for controlling the interaction between mobility
+management thread and flood routine.
+
+4.) Design a simple security mechanism that prevents malicious users from
+sending forged updates. Write a short statement why you think your
+security mechanism is sufficient and elaborate on the assumptions you make
+(capabilities of the attacker, etc.).
+
+c) Write a handover script (shell script). That randomly assigns IP addresses
+from your address range to your client virtual machine. It should periodically
+set a new IP address. This should initiate the update process. HINT: Use
+ifconfig to set the IP address of an interface.
+
+d) Comment in doxygen style. We will also grade the comments this time.
+
+e) Compile your program using scratchbox. Try to run it on the N810 as client.
+
+BONUS: Implement support for NAT traversal. Assume the client is behind a
+Network Address Translator. Are your security mechanisms affected by
+NATS?
+
+
+Additional Hints:
+------------
+
+A) DETERMINE THE INTERFACES AND ADDRESSES
+Use getifaddrs (defined in ifaddrs.h) for polling the interfaces.
+
+B) CREATE A SOCKET FOR EACH INTERFACE
+Use distinct sockets for each interface on the client. Use bind to set the
+source address of the socket. This sets the interface for a socket.
+
+C) USE pthreads AND mutexes.

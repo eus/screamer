@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2008 by Tobias Heer <heer@cs.rwth-aachen.de>                 *
+ * Copyright (C) 2008  Tobias Heer <heer@cs.rwth-aachen.de>                   *
  * Copyright (C) 2009  Tadeus Prastowo <eus@member.fsf.org>                   *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining      *
@@ -75,20 +75,27 @@ main (const int argc,  char * const argv[])
     {
       switch (c)
 	{
+	  long strnum;
+	  int has_error;
+
 	case 'p':
-	  port = (uint16_t) atoi (optarg);
+	  strnum = eus_strtol (optarg, &has_error, "port number");
+	  if (has_error)
+	    {
+	      exit (EXIT_FAILURE);
+	    }
+	  if (strnum < 0 || strnum > 65535)
+	    {
+	      fprintf (stderr,
+		       "Error: port number must be between 0 and 65535\n");
+	      exit (EXIT_FAILURE);
+	    }
+	  port = (uint16_t) strnum;
 	  break;
 	case 'h':
 	  usage (argv[0]);
 	  exit (EXIT_SUCCESS);
 	}
-    }
-
-  /* Exit if input was invalid */
-  if (err != SC_ERR_SUCCESS)
-    {
-      fprintf (stderr, "Error parsing input.\n");
-      exit (EXIT_FAILURE);
     }
 
   /* check if user provided destination host and port */

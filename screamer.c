@@ -60,27 +60,72 @@ main (int argc, char *argv[])
 
   /* extract command line parameters */
   int c;
-  int err = SC_ERR_SUCCESS;
 
-  while ((c = getopt (argc, argv, "hd:p:i:s:b:t")) != -1
-	 && err == SC_ERR_SUCCESS)
+  while ((c = getopt (argc, argv, "hd:p:i:s:b:t")) != -1)
     {
+      long strnum;
+      int has_error;
+
       switch (c)
 	{
 	case 'd':
 	  host_name = optarg;
 	  break;
 	case 'p':
-	  port = (uint16_t) atoi (optarg);
+	  strnum = eus_strtol (optarg, &has_error, "port number");
+	  if (has_error)
+	    {
+	      exit (EXIT_FAILURE);
+	    }
+	  if (strnum < 0 || strnum > 65535)
+	    {
+	      fprintf (stderr,
+		       "Error: port number must be between 0 and 65535\n");
+	      exit (EXIT_FAILURE);
+	    }
+	  port = (uint16_t) strnum;
 	  break;
 	case 'i':
-	  iterations = atoi (optarg);
+	  strnum = eus_strtol (optarg, &has_error, "iterations");
+	  if (has_error)
+	    {
+	      exit (EXIT_FAILURE);
+	    }
+	  if (strnum < 0)
+	    {
+	      fprintf (stderr,
+		       "Error: iterations must be a positive integer\n");
+	      exit (EXIT_FAILURE);
+	    }
+	  iterations = (size_t) strnum;
 	  break;
 	case 's':
-	  sleep_time = atoi (optarg);
+	  strnum = eus_strtol (optarg, &has_error, "sleep time");
+	  if (has_error)
+	    {
+	      exit (EXIT_FAILURE);
+	    }
+	  if (strnum < 0)
+	    {
+	      fprintf (stderr,
+		       "Error: sleep time must be a positive integer\n");
+	      exit (EXIT_FAILURE);
+	    }
+	  sleep_time = strnum;
 	  break;
 	case 'b':
-	  flood_size = atoi (optarg);
+	  strnum = eus_strtol (optarg, &has_error, "flood size");
+	  if (has_error)
+	    {
+	      exit (EXIT_FAILURE);
+	    }
+	  if (strnum < 0)
+	    {
+	      fprintf (stderr,
+		       "Error: flood size must be a positive integer\n");
+	      exit (EXIT_FAILURE);
+	    }
+	  flood_size = (size_t) strnum;
 	  break;
 	case 't':
 	  test_mode = TRUE;
@@ -90,13 +135,6 @@ main (int argc, char *argv[])
 	  usage (argv[0]);
 	  exit (EXIT_SUCCESS);
 	}
-    }
-
-  /* exit if input was invalid */
-  if (err != SC_ERR_SUCCESS)
-    {
-      fprintf (stderr, "Error parsing input.\n");
-      exit (EXIT_FAILURE);
     }
 
   /* check if user provided destination host and port */

@@ -29,6 +29,7 @@
 #include <sys/ioctl.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <limits.h>
 #include "scream-common.h"
 
 bool
@@ -196,10 +197,57 @@ eus_strtoul (const char *str, int *has_error, const char *what_is_str)
 unsigned long long
 eus_strtoull (const char *str, int *has_error, const char *what_is_str)
 {
-  unsigned long result;
+  unsigned long long result;
 
   errno = 0;
+
   result = strtoull (str, NULL, 10);
+  switch (errno)
+    {
+    case EINVAL:
+      fprintf (stderr, "Error: %s is not an integer\n", what_is_str);
+      *has_error = 1;
+      return 0;
+    case ERANGE:
+      fprintf (stderr, "Error: %s is too big\n", what_is_str);
+      *has_error = 1;
+      return 0;
+    }
+
+  *has_error = 0;
+  return result;
+}
+
+long
+eus_strtol (const char *str, int *has_error, const char *what_is_str)
+{
+  long result;
+
+  errno = 0;
+  result = strtol (str, NULL, 10);
+  switch (errno)
+    {
+    case EINVAL:
+      fprintf (stderr, "Error: %s is not an integer\n", what_is_str);
+      *has_error = 1;
+      return 0;
+    case ERANGE:
+      fprintf (stderr, "Error: %s is too big\n", what_is_str);
+      *has_error = 1;
+      return 0;
+    }
+
+  *has_error = 0;
+  return result;
+}
+
+long long
+eus_strtoll (const char *str, int *has_error, const char *what_is_str)
+{
+  long long result;
+
+  errno = 0;
+  result = strtoll (str, NULL, 10);
   switch (errno)
     {
     case EINVAL:

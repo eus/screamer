@@ -249,6 +249,32 @@ unsigned long long
 eus_strtoull (const char *str, int *has_error, const char *what_is_str);
 
 /**
+ * Convert a string into an integer of type long.
+ *
+ * @param [in] str the string to be converted.
+ * @param [out] has_error is set to zero if there is no conversion failure,
+ *                        to one if there is a failure.
+ * @param [in] what_is_str the context to be printed in the error message.
+ *
+ * @return The integer represented by the string.
+ */
+long
+eus_strtol (const char *str, int *has_error, const char *what_is_str);
+
+/**
+ * Convert a string into an integer of type long long.
+ *
+ * @param [in] str the string to be converted.
+ * @param [out] has_error is set to zero if there is no conversion failure,
+ *                        to one if there is a failure.
+ * @param [in] what_is_str the context to be printed in the error message.
+ *
+ * @return The integer represented by the string.
+ */
+long long
+eus_strtoll (const char *str, int *has_error, const char *what_is_str);
+
+/**
  * Set a receiving timeout on a socket.
  *
  * @param [in] socket the socket whose receiving timeout is to be set.

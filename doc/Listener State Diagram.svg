@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="Listener State Diagram.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/eus/Desktop/Listener State Diagram.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path6370"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         id="path6367"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.4) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;">
+      <path
+         id="path3197"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(0,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.6410022"
+     inkscape:cx="328.59003"
+     inkscape:cy="337.58933"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="768"
+     inkscape:window-height="726"
+     inkscape:window-x="128"
+     inkscape:window-y="60" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g4122"
+       transform="translate(598.85156,201.27318)">
+      <text
+         id="text4040"
+         y="277.89523"
+         x="74.973351"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           y="277.89523"
+           x="74.973351"
+           id="tspan4042"
+           sodipodi:role="line">FLOOD</tspan><tspan
+           id="tspan4044"
+           y="290.39523"
+           x="74.973351"
+           sodipodi:role="line">RECEIVED</tspan></text>
+      <path
+         transform="translate(-159.6253,75.650909)"
+         d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+         sodipodi:ry="43.670044"
+         sodipodi:rx="43.670044"
+         sodipodi:cy="204.85419"
+         sodipodi:cx="234.58156"
+         id="path4084"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4092"
+       transform="translate(89.728465,277.57941)">
+      <text
+         id="text4014"
+         y="207.839"
+         x="255.117"
+         style="font-size:10px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+           y="207.839"
+           x="255.117"
+           sodipodi:role="line"
+           id="tspan4020">LISTEN</tspan></text>
+      <path
+         transform="translate(20.591599,-0.6553192)"
+         d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+         sodipodi:ry="43.670044"
+         sodipodi:rx="43.670044"
+         sodipodi:cy="204.85419"
+         sodipodi:cx="234.58156"
+         id="path4072"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4098"
+       transform="translate(82.756545,497.0209)">
+      <text
+         id="text4006"
+         y="312.88965"
+         x="261.75446"
+         style="font-size:10px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+           y="312.88965"
+           x="261.75446"
+           sodipodi:role="line"
+           id="tspan4022">REGISTER</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+           y="325.38965"
+           x="261.75446"
+           sodipodi:role="line"
+           id="tspan3522">RECEIVED</tspan></text>
+      <path
+         transform="translate(27.563522,110.64532)"
+         d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+         sodipodi:ry="43.670044"
+         sodipodi:rx="43.670044"
+         sodipodi:cy="204.85419"
+         sodipodi:cx="234.58156"
+         id="path4076"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4134"
+       transform="translate(243.12406,-25.216277)">
+      <g
+         style="fill:#000000;fill-opacity:1"
+         transform="translate(-279.60775,37.917543)"
+         id="g4136">
+        <text
+           xml:space="preserve"
+           style="font-size:10px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           x="381.25836"
+           y="174.76122"
+           id="text4138"><tspan
+             id="tspan4140"
+             sodipodi:role="line"
+             x="381.25836"
+             y="174.76122"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif">START</tspan></text>
+      </g>
+      <path
+         transform="translate(-132.80399,5.2928329)"
+         d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+         sodipodi:ry="43.670044"
+         sodipodi:rx="43.670044"
+         sodipodi:cy="204.85419"
+         sodipodi:cx="234.58156"
+         id="path4142"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 344.90446,228.29821 L 344.90446,436.58752"
+       id="path3214"
+       inkscape:connector-type="polyline" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="348.76624"
+       y="328.89508"
+       id="text3731"><tspan
+         sodipodi:role="line"
+         id="tspan3733"
+         x="348.76624"
+         y="328.89508">process user arguments</tspan><tspan
+         sodipodi:role="line"
+         x="348.76624"
+         y="341.39508"
+         id="tspan3735">send: nothing</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="112.69299"
+       y="650.98785"
+       id="text4781"><tspan
+         sodipodi:role="line"
+         id="tspan4783"
+         x="112.69299"
+         y="650.98785">recv: REGISTER</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="371.56384"
+       y="63.177784"
+       id="text11457"><tspan
+         sodipodi:role="line"
+         id="tspan11459"
+         x="371.56384"
+         y="63.177784">Listener State Diagram</tspan></text>
+    <path
+       style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;marker-start:url(#Arrow1Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 344.16437,525.175 C 344.16437,525.175 385.01216,571.66479 385.01216,646.84928 C 385.01216,722.03377 344.16437,769.39265 344.16437,769.39265"
+       id="path3614"
+       sodipodi:nodetypes="czc" />
+    <path
+       style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;marker-start:url(#Arrow1Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 308.68797,788.92815 C 308.68797,788.92815 202.36674,719.49397 202.36674,638.12495 C 202.36674,556.75595 307.39923,505.50142 307.39923,505.50142"
+       id="path4143"
+       sodipodi:nodetypes="czc" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="379.28873"
+       y="644.51123"
+       id="text4145"><tspan
+         sodipodi:role="line"
+         id="tspan4147"
+         x="379.28873"
+         y="644.51123">client bookkeeping is allocated</tspan><tspan
+         sodipodi:role="line"
+         x="379.28873"
+         y="657.01123"
+         id="tspan4149">send: ACK</tspan></text>
+    <path
+       style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;marker-start:url(#Arrow1Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 349.14945,525.86016 C 349.14945,525.86016 573.37775,572.34995 573.37775,647.53444 C 573.37775,722.71893 348.28035,770.07781 348.28035,770.07781"
+       id="path4151"
+       sodipodi:nodetypes="czc" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="565.47662"
+       y="644.16187"
+       id="text4153"><tspan
+         sodipodi:role="line"
+         id="tspan4155"
+         x="565.47662"
+         y="644.16187">client bookkeeping is full</tspan><tspan
+         sodipodi:role="line"
+         x="565.47662"
+         y="656.66187"
+         id="tspan4157">send: nothing</tspan></text>
+    <path
+       style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;marker-start:url(#Arrow1Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 383.78799,501.87073 C 383.78799,501.87073 431.56645,521.61362 508.83503,521.61362 C 586.1036,521.61362 634.77523,501.79421 634.77523,501.79421"
+       id="path4159"
+       sodipodi:nodetypes="czc" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="475.7951"
+       y="434.8754"
+       id="text4161"><tspan
+         sodipodi:role="line"
+         x="475.7951"
+         y="434.8754"
+         id="tspan4165">recv: FLOOD</tspan></text>
+    <path
+       style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;marker-start:url(#Arrow1Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 634.97013,459.70348 C 634.97013,459.70348 587.19167,439.96059 509.92309,439.96059 C 432.65452,439.96059 383.98289,459.78 383.98289,459.78"
+       id="path4169"
+       sodipodi:nodetypes="czc" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="509.68665"
+       y="532.27179"
+       id="text4173"><tspan
+         sodipodi:role="line"
+         x="509.68665"
+         y="532.27179"
+         id="tspan4177">FLOOD processed</tspan><tspan
+         sodipodi:role="line"
+         x="509.68665"
+         y="544.77179"
+         id="tspan4181">send: NOTHING</tspan></text>
+    <g
+       id="g4183"
+       transform="translate(3.880877,201.27318)">
+      <text
+         id="text4185"
+         y="277.89523"
+         x="74.973351"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           y="277.89523"
+           x="74.973351"
+           id="tspan4187"
+           sodipodi:role="line">RESET</tspan><tspan
+           id="tspan4189"
+           y="290.39523"
+           x="74.973351"
+           sodipodi:role="line">RECEIVED</tspan></text>
+      <path
+         transform="translate(-159.6253,75.650909)"
+         d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+         sodipodi:ry="43.670044"
+         sodipodi:rx="43.670044"
+         sodipodi:cy="204.85419"
+         sodipodi:cx="234.58156"
+         id="path4191"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+    </g>
+    <path
+       style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;marker-start:url(#Arrow1Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 305.36074,500.06449 C 305.36074,500.06449 270.09616,519.94437 213.06536,519.94437 C 156.03457,519.94437 120.11076,499.98744 120.11076,499.98744"
+       id="path4193"
+       sodipodi:nodetypes="czc" />
+    <path
+       style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;marker-start:url(#Arrow1Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 118.87734,464.59715 C 118.87734,464.59715 154.14192,444.71727 211.17272,444.71727 C 268.20351,444.71727 304.12732,464.6742 304.12732,464.6742"
+       id="path4195"
+       sodipodi:nodetypes="czc" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="178.96521"
+       y="440.05957"
+       id="text4197"><tspan
+         sodipodi:role="line"
+         x="178.96521"
+         y="440.05957"
+         id="tspan4201">recv: RESET</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="174.41199"
+       y="531.42249"
+       id="text4205"><tspan
+         sodipodi:role="line"
+         x="174.41199"
+         y="531.42249"
+         id="tspan4207">send: RESULT</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="227.52293"
+       y="348.51645"
+       id="text5062"><tspan
+         sodipodi:role="line"
+         x="227.52293"
+         y="348.51645"
+         id="tspan5064">destroy client association</tspan><tspan
+         sodipodi:role="line"
+         x="227.52293"
+         y="361.01645"
+         id="tspan5066">recv: ACK</tspan></text>
+    <path
+       style="opacity:0.81999990000000000;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 308.8913,456.42039 C 176.28645,337.07602 237.86409,300.53209 314.3515,450.18016"
+       id="path5068"
+       sodipodi:nodetypes="cs" />
+    <path
+       style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 323.45874,442.3438 C 211.82534,246.82983 309.1889,232.06205 333.57713,437.59105"
+       id="path5597"
+       sodipodi:nodetypes="cs" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="332.29819"
+       y="271.37173"
+       id="text5599"><tspan
+         sodipodi:role="line"
+         x="332.29819"
+         y="271.37173"
+         id="tspan5603">destroy client association due to timeout after sending RESULT</tspan><tspan
+         sodipodi:role="line"
+         x="332.29819"
+         y="283.87173"
+         id="tspan5605">send: nothing</tspan></text>
+    <text
+       id="text2477"
+       y="994.53021"
+       x="42.702511"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       xml:space="preserve"><tspan
+         y="994.53021"
+         x="42.702511"
+         sodipodi:role="line"
+         id="tspan2485">Tadeus Prastowo (#299485)</tspan><tspan
+         y="1007.0302"
+         x="42.702511"
+         sodipodi:role="line"
+         id="tspan2489">Md. Mohiuddin Khan (#299486)</tspan></text>
+  </g>
+</svg>

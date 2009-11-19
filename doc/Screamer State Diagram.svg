@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="Screamer State Diagram.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/eus/Desktop/Screamer State Diagram.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path6370"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         id="path6367"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.4) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;">
+      <path
+         id="path3197"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(0,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.57825417"
+     inkscape:cx="481.68525"
+     inkscape:cy="469.32998"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="768"
+     inkscape:window-height="726"
+     inkscape:window-x="128"
+     inkscape:window-y="42" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g11378"
+       transform="translate(86.467169,109.17373)">
+      <g
+         transform="translate(-81.265908,-18.782356)"
+         id="g4092">
+        <text
+           xml:space="preserve"
+           style="font-size:10px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           x="255.57111"
+           y="201.589"
+           id="text4014"><tspan
+             sodipodi:role="line"
+             id="tspan4016"
+             x="255.57111"
+             y="201.589"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif;fill:#000000;fill-opacity:1">ARGUMENTS</tspan><tspan
+             id="tspan4020"
+             sodipodi:role="line"
+             x="255.57111"
+             y="214.089"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif;fill:#000000;fill-opacity:1">PROCESSED</tspan></text>
+        <path
+           sodipodi:type="arc"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="path4072"
+           sodipodi:cx="234.58156"
+           sodipodi:cy="204.85419"
+           sodipodi:rx="43.670044"
+           sodipodi:ry="43.670044"
+           d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+           transform="translate(20.591599,-0.6553192)" />
+      </g>
+      <g
+         transform="translate(72.129681,216.96456)"
+         id="g4128">
+        <g
+           id="g4024"
+           transform="translate(-279.60775,37.917543)"
+           style="fill:#000000;fill-opacity:1">
+          <text
+             id="text4026"
+             y="169.61961"
+             x="381.4024"
+             style="font-size:10px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif;fill:#000000;fill-opacity:1"
+               y="169.61961"
+               x="381.4024"
+               sodipodi:role="line"
+               id="tspan4030">SEND</tspan><tspan
+               id="tspan4809"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif;fill:#000000;fill-opacity:1"
+               y="182.11961"
+               x="381.4024"
+               sodipodi:role="line">FLOOD</tspan></text>
+        </g>
+        <path
+           sodipodi:type="arc"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="path4074"
+           sodipodi:cx="234.58156"
+           sodipodi:cy="204.85419"
+           sodipodi:rx="43.670044"
+           sodipodi:ry="43.670044"
+           d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+           transform="translate(-132.80399,5.2928329)" />
+      </g>
+      <g
+         transform="translate(-88.237831,-9.2354613)"
+         id="g4098">
+        <text
+           xml:space="preserve"
+           style="font-size:10px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           x="261.75446"
+           y="312.88965"
+           id="text4006"><tspan
+             sodipodi:role="line"
+             id="tspan4008"
+             x="261.75446"
+             y="312.88965"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif;fill:#000000;fill-opacity:1">REGISTER</tspan><tspan
+             id="tspan4022"
+             sodipodi:role="line"
+             x="261.75446"
+             y="325.38965"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif;fill:#000000;fill-opacity:1">SENT</tspan></text>
+        <path
+           sodipodi:type="arc"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="path4076"
+           sodipodi:cx="234.58156"
+           sodipodi:cy="204.85419"
+           sodipodi:rx="43.670044"
+           sodipodi:ry="43.670044"
+           d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+           transform="translate(27.563522,110.64532)" />
+      </g>
+      <g
+         transform="translate(16.009178,259.79942)"
+         id="g4116">
+        <text
+           xml:space="preserve"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+           x="157.6759"
+           y="286.39737"
+           id="text4046"><tspan
+             sodipodi:role="line"
+             id="tspan4048"
+             x="157.6759"
+             y="286.39737">SEND</tspan><tspan
+             sodipodi:role="line"
+             x="157.6759"
+             y="298.89737"
+             id="tspan4050">RESET</tspan></text>
+        <path
+           sodipodi:type="arc"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="path4078"
+           sodipodi:cx="234.58156"
+           sodipodi:cy="204.85419"
+           sodipodi:rx="43.670044"
+           sodipodi:ry="43.670044"
+           d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+           transform="translate(-76.683487,84.153046)" />
+      </g>
+      <g
+         transform="translate(-47.370354,400.94882)"
+         id="g4104">
+        <g
+           id="g11463">
+          <text
+             id="text4058"
+             y="386.87711"
+             x="221.05544"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+             xml:space="preserve"><tspan
+               y="386.87711"
+               x="221.05544"
+               id="tspan4060"
+               sodipodi:role="line">PRINT</tspan><tspan
+               id="tspan4062"
+               y="399.37711"
+               x="221.05544"
+               sodipodi:role="line">INFO</tspan></text>
+          <path
+             transform="translate(-13.303955,184.6987)"
+             d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+             sodipodi:ry="43.670044"
+             sodipodi:rx="43.670044"
+             sodipodi:cy="204.85419"
+             sodipodi:cx="234.58156"
+             id="path4080"
+             style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             sodipodi:type="arc" />
+          <path
+             transform="matrix(0.8544989,0,0,0.8544989,20.82792,214.50521)"
+             d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+             sodipodi:ry="43.670044"
+             sodipodi:rx="43.670044"
+             sodipodi:cy="204.85419"
+             sodipodi:cx="234.58156"
+             id="path11461"
+             style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.17027652;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             sodipodi:type="arc" />
+        </g>
+      </g>
+      <g
+         transform="translate(70.886571,315.72157)"
+         id="g4110">
+        <text
+           xml:space="preserve"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+           x="102.79851"
+           y="351.32275"
+           id="text4052"><tspan
+             sodipodi:role="line"
+             id="tspan4054"
+             x="102.79851"
+             y="351.32275">RESET</tspan><tspan
+             sodipodi:role="line"
+             x="102.79851"
+             y="363.82275"
+             id="tspan4056">SENT</tspan></text>
+        <path
+           sodipodi:type="arc"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="path4082"
+           sodipodi:cx="234.58156"
+           sodipodi:cy="204.85419"
+           sodipodi:rx="43.670044"
+           sodipodi:ry="43.670044"
+           d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+           transform="translate(-131.56088,149.07843)" />
+      </g>
+      <g
+         transform="translate(433.4321,146.60648)"
+         id="g4122">
+        <text
+           xml:space="preserve"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+           x="74.973351"
+           y="277.89523"
+           id="text4040"><tspan
+             sodipodi:role="line"
+             id="tspan4042"
+             x="74.973351"
+             y="277.89523">FLOOD</tspan><tspan
+             sodipodi:role="line"
+             x="74.973351"
+             y="290.39523"
+             id="tspan4044">SENT</tspan></text>
+        <path
+           sodipodi:type="arc"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="path4084"
+           sodipodi:cx="234.58156"
+           sodipodi:cy="204.85419"
+           sodipodi:rx="43.670044"
+           sodipodi:ry="43.670044"
+           d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+           transform="translate(-159.6253,75.650909)" />
+      </g>
+      <g
+         transform="translate(72.129681,-145.57804)"
+         id="g4134">
+        <g
+           id="g4136"
+           transform="translate(-279.60775,37.917543)"
+           style="fill:#000000;fill-opacity:1">
+          <text
+             id="text4138"
+             y="174.76122"
+             x="381.25836"
+             style="font-size:10px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif;fill:#000000;fill-opacity:1"
+               y="174.76122"
+               x="381.25836"
+               sodipodi:role="line"
+               id="tspan4140">START</tspan></text>
+        </g>
+        <path
+           sodipodi:type="arc"
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="path4142"
+           sodipodi:cx="234.58156"
+           sodipodi:cy="204.85419"
+           sodipodi:rx="43.670044"
+           sodipodi:ry="43.670044"
+           d="M 278.2516,204.85419 A 43.670044,43.670044 0 1 1 190.91151,204.85419 A 43.670044,43.670044 0 1 1 278.2516,204.85419 z"
+           transform="translate(-132.80399,5.2928329)" />
+      </g>
+      <path
+         inkscape:connection-end="#g4092"
+         inkscape:connection-start="#g4134"
+         inkscape:connector-type="polyline"
+         id="path3214"
+         d="M 173.90725,108.73902 L 173.90725,141.24647"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-mid:url(#Arrow2Mend);marker-end:url(#Arrow2Mend);stroke-opacity:1" />
+      <text
+         id="text3731"
+         y="122.76333"
+         x="177.77187"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           y="122.76333"
+           x="177.77187"
+           id="tspan3733"
+           sodipodi:role="line">process user arguments</tspan><tspan
+           id="tspan3735"
+           y="135.26334"
+           x="177.77187"
+           sodipodi:role="line">send: nothing</tspan></text>
+      <path
+         inkscape:connection-end="#g4098"
+         inkscape:connection-start="#g4092"
+         inkscape:connector-type="polyline"
+         id="path3739"
+         d="M 173.90725,229.58656 L 173.90725,262.094"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-opacity:1" />
+      <path
+         inkscape:connection-end="#g4128"
+         inkscape:connection-start="#g4098"
+         inkscape:connector-type="polyline"
+         id="path3741"
+         d="M 173.90725,350.43409 L 173.90725,382.94154"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connection-start="#g4128"
+         inkscape:connector-type="polyline"
+         id="path3743"
+         d="M 218.07729,427.11333 C 273.69955,440.02103 327.14348,460.21517 462.37094,427.12299"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow1Mstart);marker-mid:none;marker-end:none;stroke-opacity:1;display:inline" />
+      <path
+         inkscape:connection-start="#g4128"
+         inkscape:connection-end="#g4116"
+         inkscape:connector-type="polyline"
+         id="path3745"
+         d="M 173.90725,471.28162 L 173.90725,504.63661"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-opacity:1;display:inline" />
+      <path
+         inkscape:connection-end="#g4110"
+         inkscape:connection-start="#g4116"
+         inkscape:connector-type="polyline"
+         id="path3747"
+         d="M 173.90725,592.9767 L 173.90725,625.48414"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-opacity:1" />
+      <path
+         inkscape:connection-end="#g4104"
+         inkscape:connection-start="#g4110"
+         inkscape:connector-type="polyline"
+         id="path3749"
+         d="M 173.90725,713.82423 L 173.90725,746.33166"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-opacity:1" />
+      <text
+         id="text4781"
+         y="249.9805"
+         x="177.49843"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999971999999999;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           y="249.9805"
+           x="177.49843"
+           id="tspan4783"
+           sodipodi:role="line">send: REGISTER</tspan></text>
+      <text
+         id="text4785"
+         y="370.74014"
+         x="177.69862"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999971999999999;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           y="370.74014"
+           x="177.69862"
+           id="tspan4787"
+           sodipodi:role="line">recv: ACK</tspan></text>
+      <text
+         id="text4789"
+         y="397.76639"
+         x="307.33392"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999971999999999;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           y="397.76639"
+           x="307.33392"
+           id="tspan4791"
+           sodipodi:role="line">send: FLOOD</tspan></text>
+      <text
+         id="text4793"
+         y="484.8093"
+         x="177.5619"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999971999999999;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           y="484.8093"
+           x="177.5619"
+           id="tspan4795"
+           sodipodi:role="line">all packets has been sent</tspan><tspan
+           id="tspan4797"
+           y="497.3093"
+           x="177.5619"
+           sodipodi:role="line">send: nothing</tspan></text>
+      <text
+         id="text4799"
+         y="613.37061"
+         x="177.49843"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           y="613.37061"
+           x="177.49843"
+           id="tspan4801"
+           sodipodi:role="line">send: RESET</tspan></text>
+      <text
+         id="text4803"
+         y="727.88025"
+         x="177.69862"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999971999999999;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           y="727.88025"
+           x="177.69862"
+           id="tspan4805"
+           sodipodi:role="line">recv: RESULT</tspan><tspan
+           id="tspan4807"
+           y="740.38025"
+           x="177.69862"
+           sodipodi:role="line">send: ACK</tspan></text>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connection-end="#g4122"
+         inkscape:connection-start="#g4128"
+         inkscape:connector-type="polyline"
+         id="path4811"
+         d="M 218.07729,427.11158 C 292.14328,397.99883 382.1713,393.27492 464.21831,427.11158"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow2Mend);stroke-opacity:1" />
+      <text
+         id="text7142"
+         y="455.64328"
+         x="341.53802"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999971999999999;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           style="text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1"
+           y="455.64328"
+           x="341.53802"
+           id="tspan7144"
+           sodipodi:role="line">sleep time expires</tspan><tspan
+           style="text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1"
+           id="tspan10793"
+           y="468.14328"
+           x="341.53802"
+           sodipodi:role="line">send: nothing</tspan></text>
+      <path
+         sodipodi:nodetypes="czc"
+         id="path10797"
+         d="M 129.81532,307.48099 C 129.81532,307.48099 101.6715,284.91962 101.6715,244.3091 C 101.6715,203.69859 129.81532,183.39332 129.81532,183.39332"
+         style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.03095412;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         id="text11328"
+         y="241.58278"
+         x="95.978554"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;opacity:0.81999971999999999;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           style="text-align:end;text-anchor:end;fill:#000000;fill-opacity:1"
+           y="241.58278"
+           x="95.978554"
+           id="tspan11330"
+           sodipodi:role="line">timeout</tspan><tspan
+           style="text-align:end;text-anchor:end;fill:#000000;fill-opacity:1"
+           id="tspan11332"
+           y="254.08278"
+           x="95.978554"
+           sodipodi:role="line">send: nothing</tspan></text>
+      <path
+         sodipodi:nodetypes="czc"
+         id="path11334"
+         d="M 129.75241,669.76145 C 129.75241,669.76145 101.60858,647.20008 101.60858,606.58956 C 101.60858,565.97905 129.75241,545.67378 129.75241,545.67378"
+         style="opacity:0.81999972;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.03095412;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         id="text11336"
+         y="603.86322"
+         x="95.915634"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;opacity:0.81999971999999999;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+         xml:space="preserve"><tspan
+           style="text-align:end;text-anchor:end;fill:#000000;fill-opacity:1"
+           y="603.86322"
+           x="95.915634"
+           id="tspan11338"
+           sodipodi:role="line">timeout</tspan><tspan
+           style="text-align:end;text-anchor:end;fill:#000000;fill-opacity:1"
+           id="tspan11340"
+           y="616.36322"
+           x="95.915634"
+           sodipodi:role="line">send: nothing</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       x="371.04529"
+       y="63.177784"
+       id="text11457"><tspan
+         sodipodi:role="line"
+         id="tspan11459"
+         x="371.04529"
+         y="63.177784">Screamer State Diagram</tspan></text>
+    <text
+       id="text2477"
+       y="991.33386"
+       x="51.389248"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;opacity:0.81999972;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif;-inkscape-font-specification:Bitstream Vera Serif"
+       xml:space="preserve"><tspan
+         y="991.33386"
+         x="51.389248"
+         sodipodi:role="line"
+         id="tspan2485">Tadeus Prastowo (#299485)</tspan><tspan
+         y="1003.8339"
+         x="51.389248"
+         sodipodi:role="line"
+         id="tspan2489">Md. Mohiuddin Khan (#299486)</tspan></text>
+  </g>
+</svg>

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2008 by Tobias Heer <heer@cs.rwth-aachen.de>                 *
+ * Copyright (C) 2008  Tobias Heer <heer@cs.rwth-aachen.de>                   *
  * Copyright (C) 2009  Tadeus Prastowo <eus@member.fsf.org>                   *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining      *
@@ -285,7 +285,8 @@ get_empty_slot (const struct sockaddr_in *client_addr,
 
   for (i = 0; i < db_len; i++)
     {
-      if (db->recs[i].died_at <= time (NULL))
+      if (db->recs[i].died_at != DIE_AT_ANOTHER_TIME
+	  && db->recs[i].died_at <= time (NULL))
 	{
 	  return db->recs + i;
 	}

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2008 by Tobias Heer <heer@cs.rwth-aachen.de>                 *
+ * Copyright (C) 2008  Tobias Heer <heer@cs.rwth-aachen.de>                   *
  * Copyright (C) 2009  Tadeus Prastowo <eus@member.fsf.org>                   *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining      *
