@@ -1,5 +1,6 @@
 /******************************************************************************
- * Copyright (C) 2008 by Tobias Heer <heer@cs.rwth-aachen.de>                 *
+ * Copyright (C) 2008  Tobias Heer <heer@cs.rwth-aachen.de>                   *
+ * Copyright (C) 2009  Tadeus Prastowo <eus@member.fsf.org>                   *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining      *
  * a copy of this software and associated documentation files (the            *
@@ -23,6 +24,7 @@
  * @file scream.h                                                     
  * @brief UDP flooding program.
  * @author Tobias Heer <heer@cs.rwth-aachen.de>
+ * @author Tadeus Prastowo <eus@member.fsf.org>
  *
  * This file provides the base functions for the UDP flooder screamer.
  ******************************************************************************/
@@ -36,6 +38,13 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ * The timeout for receiving ::scream_packet_ack after sending
+ * ::scream_packet_register and for receiving ::scream_packet_result after
+ * sending ::scream_packet_reset.
+ */
+#define TIMEOUT 1000000ULL
 
 /**
  * Scream base data structure.
@@ -80,6 +89,23 @@ scream_set_dest (scream_base_data *state,
 		 uint16_t port);
 
 /**
+ * Send a scream_packet_type::SC_PACKET_REGISTER packet to the destination.
+ * This will block until the registration is successful as indicated by
+ * receiving a scream_packet_type::SC_PACKET_ACK packet.
+ * 
+ * @param [in] state basic connection state information of a screamer.
+ * @param [in] sleep_time the delay between sends in microsecond.
+ * @param [in] iterations the number of scream_packet_type::SC_PACKET_FLOOD
+ *                        packets to be sent.
+ *
+ * @return   An error code.
+ */
+err_code
+scream_register (const scream_base_data *state,
+		 unsigned long long sleep_time,
+		 int iterations);
+
+/**
  * Loop, generate FLOOD data and send FLOOD data to destination.
  *
  * @param [in] state basic connection state information of a screamer.
@@ -115,6 +141,69 @@ scream_send (const scream_base_data *state,
 	     size_t buffer_size);
 
 /**
+ * Receive a UDP packet from the source specified in
+ * scream_base_data::dest_addr through scream_base_data::sock.
+ *
+ * @param [in] state basic connection state information of a screamer.
+ * @param [out] buffer the buffer to receive data.
+ * @param [in] buffer_size the size of the buffer in bytes.
+ *
+ * @return err_code::SC_ERR_COMM if no packet is received until timeout,
+ *         err_code::SC_ERR_WRONGSENDER if a packet is not received from the
+ *         specified source, err_code::SC_ERR_SUCCESS if a packet is received
+ *         from the specified source before timeout, or else
+ *         err_code::SC_ERR_RECV.
+ */
+err_code
+scream_recv (const scream_base_data *state,
+	     void *buffer,
+	     size_t buffer_size);
+
+/**
+ * Keep resending a particular message to the destination specified in
+ * scream_base_data::dest_addr through scream_base_data::sock every time
+ * a timeout happens until a particular expected message is received from
+ * the destination.
+ *
+ * @param [in] send_what the data sent to the destination.
+ * @param [in] send_what_len the length of the data sent to the destination.
+ * @param [in,out] wait_for_what the expected scream packet type must be
+ *                               specified in scream_packet_general::type and
+ *                               the received packet will be written to this
+ *                               buffer.
+ * @param [in] wait_for_what_len the actual length of the result buffer.
+ * @param [in] wait_msg the message that should be printed everytime the
+ *                      particular message is sent to the destination.
+ * @param [in] state basic connection state information of a screamer.
+ * @param [in] timeout the timeout after which the particular message is resent.
+ *
+ * @return An error code.
+ */
+err_code
+scream_send_and_wait_for (const void *send_what,
+			  size_t send_what_len,
+			  scream_packet_general *wait_for_what,
+			  size_t wait_for_what_len,
+			  const char *wait_msg,
+			  const scream_base_data *state,
+			  const struct timeval *timeout);
+	
+
+/**
+ * Send a scream_packet_type::SC_PACKET_RESET packet to the destination.
+ * This will block until a reset is successful as indicated by
+ * receiving a scream_packet_type::SC_PACKET_RESULT.
+ * 
+ * @param [in] state basic connection state information of a screamer.
+ * @param [out] result the result sent back by the server.
+ *
+ * @return An error code.
+ */
+err_code
+scream_reset (const scream_base_data *state,
+	      scream_packet_result *result);
+
+/**
  * Close socket in state.
  *
  * @param [in] state basic connection state information of a screamer.
@@ -123,6 +212,14 @@ scream_send (const scream_base_data *state,
  */
 err_code
 scream_close (scream_base_data *state);
+
+/**
+ * Print the statistics of screaming.
+ *
+ * @param [in] result the result received from the server.
+ */
+void
+print_result (const scream_packet_result *result);
 
 #ifdef __cplusplus
 }

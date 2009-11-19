@@ -1,5 +1,6 @@
 /******************************************************************************
- * Copyright (C) 2008 by Tobias Heer <heer@cs.rwth-aachen.de>                 *
+ * Copyright (C) 2008  Tobias Heer <heer@cs.rwth-aachen.de>                   *
+ * Copyright (C) 2009  Tadeus Prastowo <eus@member.fsf.org>                   *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining      *
  * a copy of this software and associated documentation files (the            *
@@ -55,6 +56,7 @@ main (int argc, char *argv[])
   size_t flood_size = 1000; /* measured in bytes */
   bool test_mode = FALSE;
   scream_base_data state; /* basic connection state information */
+  scream_packet_result result;
 
   /* extract command line parameters */
   int c;
@@ -126,6 +128,13 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
     }
 
+  /* register to a server */
+  if (scream_register (&state, sleep_time, iterations) != SC_ERR_SUCCESS)
+    {
+      fprintf (stderr, "Cannot register\n");
+      exit (EXIT_FAILURE);
+    }
+
   /* start flood loop */
   if (scream_pause_loop (&state, sleep_time, flood_size, iterations, test_mode)
       != SC_ERR_SUCCESS)
@@ -133,6 +142,13 @@ main (int argc, char *argv[])
       printf ("Loop or send error\n");
       exit (EXIT_FAILURE);
     }	
+
+  if (scream_reset (&state, &result) != SC_ERR_SUCCESS)
+    {
+      fprintf (stderr, "Cannot reset\n");
+      exit (EXIT_FAILURE);
+    }
+  send_ack (state.sock, &state.dest_addr);
 	
   /* close screamer */
   if (scream_close (&state) != SC_ERR_SUCCESS)
@@ -140,6 +156,8 @@ main (int argc, char *argv[])
       printf ("Closing socket failed\n");
       exit (EXIT_FAILURE);
     }
+
+  print_result (&result);
 
   exit(EXIT_SUCCESS);
 }

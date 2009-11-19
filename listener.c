@@ -1,5 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2008 by Tobias Heer <heer@cs.rwth-aachen.de>                 *
+ * Copyright (C) 2009  Tadeus Prastowo <eus@member.fsf.org>                   *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining      *
  * a copy of this software and associated documentation files (the            *
@@ -26,6 +27,7 @@
 #include <errno.h> /* errno (...) */
 #include <unistd.h> /* getopt (...) */
 #include <string.h> /* memcpy (...), bzero (...) */
+#include <signal.h>
 #include "listen.h"
 #include "scream-common.h"
 
@@ -38,14 +40,36 @@ usage (char *app_name)
 	   app_name);
 }
 
+static bool is_terminated = FALSE;
+
+static void
+terminate (int ignore)
+{
+  is_terminated = TRUE;
+}
+
 int
 main (const int argc,  char * const argv[])
 {
+  struct sigaction sigint_action = { .sa_handler = terminate };
+  struct client_record flood_records[CLIENT_MAX_NUM];
+  struct client_db db = {
+    .len = CLIENT_MAX_NUM,
+    .recs = flood_records,
+  };
   uint16_t port = 0;
   int err = SC_ERR_SUCCESS;
   int sock;
   int c;
   struct sockaddr_in server_addr, client_addr;
+
+  bzero (flood_records, sizeof (flood_records));
+
+  if (sigaction (SIGINT, &sigint_action, NULL) == -1)
+    {
+      perror ("Cannot install SIGINT signal handler");
+      exit (EXIT_FAILURE);
+    }
 
   while ((c = getopt(argc, argv, "hp:")) != -1 && err == SC_ERR_SUCCESS)
     {
@@ -97,11 +121,11 @@ main (const int argc,  char * const argv[])
     {
       socklen_t len;
       char buffer[SC_MAX_BUFFER];
-      int bytes_received;
+      ssize_t bytes_received;
 
       len = sizeof (client_addr);
 
-      for (;;)
+      while (!is_terminated && (err == SC_ERR_SUCCESS || err == SC_ERR_STATE))
 	{
 	  bytes_received = recvfrom (sock,
 				     buffer,
@@ -109,6 +133,13 @@ main (const int argc,  char * const argv[])
 				     0,
 				     (struct sockaddr *) &client_addr,
 				     &len);
+	  
+	  if (bytes_received == -1)
+	    {
+	      perror ("Error in retrieving packet");
+	      err = SC_ERR_RECV;
+	      continue;
+	    }
 
 	  /* check if the received data is actually a scream packet */
 	  if (is_scream_packet (buffer, len) == TRUE)
@@ -116,14 +147,11 @@ main (const int argc,  char * const argv[])
 	      err = listener_handle_packet (&client_addr,
 					    (scream_packet_general *) buffer,
 					    bytes_received,
-					    sock);
+					    sock,
+					    &db);
 	    }
 	}
     }
-
-  /* This will never happen (infinite loop).
-   * For completeness, we still clean up.
-   */
 
   close (sock);
 
