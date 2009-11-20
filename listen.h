@@ -162,6 +162,26 @@ record_packet (const struct sockaddr_in *client_addr,
 	       struct client_db *db);
 
 /**
+ * Process a ::scream_packet_reset.
+ * After determining whether or not there are some missing/out-of-order packets
+ * at the end, the flooding data of the client is sent to the client and the
+ * corresponding book-keeping entry is marked to be disassociated within
+ * #TIME_TO_DEATH.
+ *
+ * @param [in] sock the socket through which the ::scream_packet_result
+ *                  is sent.
+ * @param [in] client_addr the address of the client.
+ * @param [in] packet the ::scream_packet_reset
+ * @param [in] db the book-keeping structure to track the client.
+ *
+ * @return An error code.
+ */
+err_code
+reset_client (int sock,
+	      const struct sockaddr_in *client_addr,
+	      struct client_db *db);
+
+/**
  * Send ::scream_packet_result to the client who sent
  * ::scream_packet_reset. The ::scream_packet_result contains the
  * number of received ::scream_packet_flood, the maximum width of the

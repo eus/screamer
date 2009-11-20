@@ -42,8 +42,13 @@ listener_handle_packet (const struct sockaddr_in *client_addr,
   assert (client_addr != NULL);
   assert (packet != NULL);
 
-  printf ("Received %s packet from %s:%u\n",
-	  get_scream_type_name (packet->type),
+  printf ("Received %s", get_scream_type_name (packet->type));
+  if (packet->type == SC_PACKET_FLOOD)
+    {
+      scream_packet_flood *flood = (scream_packet_flood *) packet;
+      printf (" #%d", ntohs (flood->seq) + 1);
+    }
+  printf (" packet from %s:%u\n",
 	  inet_ntoa (client_addr->sin_addr),
 	  ntohs (client_addr->sin_port));
 
@@ -64,8 +69,7 @@ listener_handle_packet (const struct sockaddr_in *client_addr,
 			   db);
       break;
     case SC_PACKET_RESET:
-      err = send_result (sock, client_addr, db);
-      err = mark_client_for_unregistering (client_addr, db);
+      err = reset_client (sock, client_addr, db);
       break;
     case SC_PACKET_ACK:
       err = unregister_client (client_addr, db);
@@ -109,6 +113,44 @@ register_client (const struct sockaddr_in *client_addr,
 }
 
 err_code
+reset_client (int sock,
+	      const struct sockaddr_in *client_addr,
+	      struct client_db *db)
+{
+  err_code rc;
+  struct client_record *rec = get_client_record (client_addr, db);
+
+  if (rec == NULL)
+    {
+      fprintf (stderr, "Cannot reset an unexisting client\n");
+      return SC_ERR_STATE;
+    }
+
+  if (rec->died_at == DIE_AT_ANOTHER_TIME) /* log this only once */
+    {
+      /* missing packets at the end of flooding */
+      int gap = rec->amount - 1 - rec->prev_packet.seq;
+
+      if (gap > 0)
+	{
+	  printf ("\t%d packets are either lost or out-of-order\n", gap);
+	  if (rec->max_gap < gap)
+	    {
+	      rec->max_gap = gap;
+	    }
+	  rec->num_of_gaps++;
+	}
+    }
+      
+  if ((rc = send_result (sock, client_addr, db)) != SC_ERR_SUCCESS)
+    {
+      return rc;
+    }
+
+  return mark_client_for_unregistering (client_addr, db);
+}
+
+err_code
 record_packet (const struct sockaddr_in *client_addr,
 	       const scream_packet_flood *packet,
 	       unsigned long long ts,
@@ -128,6 +170,9 @@ record_packet (const struct sockaddr_in *client_addr,
     {
       unsigned long long delta_ts = ts - rec->prev_packet.ts;
 
+      printf ("\tDelay between the previous and current packet: %lu.%06lu s\n",
+	      (unsigned long) SEC_PART (delta_ts),
+	      (unsigned long) USEC_PART (delta_ts));
       rec->total_latency += delta_ts;
 
       if (rec->min_latency.is_set == FALSE)
@@ -150,16 +195,24 @@ record_packet (const struct sockaddr_in *client_addr,
 	  rec->max_latency.delta = delta_ts;
 	}
 
-      if (rec->prev_packet.seq > ntohs (packet->seq)
-	  && rec->is_out_of_order == FALSE) /* the first out-of-order */
+      if (rec->prev_packet.seq == ntohs (packet->seq))
 	{
-	  rec->is_out_of_order = TRUE;
+	  printf ("\tThe current packet is a duplicate of the previous one\n");
+	}
+      else if (rec->prev_packet.seq > ntohs (packet->seq))
+	{
+	  if (rec->is_out_of_order == FALSE) /* the first out-of-order */
+	    {
+	      rec->is_out_of_order = TRUE;
+	    }
+	  printf ("\tThe current packet is out-of-order\n");
 	}
       else if (rec->prev_packet.seq + 1 != ntohs (packet->seq)
 	       && rec->prev_packet.seq < ntohs (packet->seq))
 	{
 	  int gap = ntohs (packet->seq) - rec->prev_packet.seq - 1;
 
+	  printf ("\t%d packets are either lost or out-of-order\n", gap);
 	  if (rec->max_gap < gap)
 	    {
 	      rec->max_gap = gap;
@@ -167,6 +220,14 @@ record_packet (const struct sockaddr_in *client_addr,
 
 	  rec->num_of_gaps++;
 	}
+    }
+  else if (ntohs (packet->seq) != 0) /* packets missing at the beginning */
+    {
+      int gap = ntohs (packet->seq) - 1;
+
+      printf ("\t%d packets are either lost or out-of-order\n", gap);
+      rec->max_gap = gap;
+      rec->num_of_gaps++;
     }
 
   rec->prev_packet.ts = ts;
