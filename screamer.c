@@ -22,6 +22,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.                                            *
  ******************************************************************************/
 
+#include <sys/types.h>
+#include <ifaddrs.h>
+#include <pthread.h>
 #include <stdlib.h> /* exit (...) */
 #include <stdio.h> /* printf (...) */
 #include <errno.h> /* errno (...) */
@@ -33,7 +36,7 @@ usage (char *app_name)
 {
   fprintf (stderr,
 	   "Usage: %s -d destination -p port"
-	   " [-i iterations] [-s sleep] [-b flood_size]\n"
+	   " [-i iterations] [-s sleep] [-b flood_size] [-l sloppy]\n"
 	   "-d destination: IP address or hostname of destination host.\n"
 	   "-p port       : destination port number.\n"
 	   "-i iterations : number of packets to be sent (0 = infinite).\n"
@@ -42,7 +45,8 @@ usage (char *app_name)
 	   "                    Default is 100 ms.\n"
 	   "-b flood_size : size of the packet payload in byte.\n"
 	   "                    Default is 1000 bytes.\n"
-	   "-t            : test mode (for testing screamer and the server).\n",
+	   "-t            : test mode (for testing screamer and the server).\n"
+	   "-l            : use a sloppy manager.\n",
 	   app_name);
 }
 
@@ -58,10 +62,31 @@ main (int argc, char *argv[])
   scream_base_data state; /* basic connection state information */
   scream_packet_result result;
 
+  pthread_t manager_thread; /* responsible for monitoring NICs */
+  err_code *manager_thread_rc;
+  bool is_manager_careful = TRUE;
+  struct channel_db db = {
+    .db_len = 0,
+    .recs = NULL,
+  };
+  struct comm_channel primary_channel = {
+    .channel = NULL,
+    .sock = &state.sock,
+    .sock_lock = &state.sock_lock,
+    .is_registered = &state.is_registered,
+  };
+  struct manager_data manager_data = {
+    .main_channel = &primary_channel,
+    .channels = &db,
+    .is_stopped = FALSE,
+    .id = &state.id,
+    .dest_addr = &state.dest_addr,
+  };
+
   /* extract command line parameters */
   int c;
 
-  while ((c = getopt (argc, argv, "hd:p:i:s:b:t")) != -1)
+  while ((c = getopt (argc, argv, "hd:p:i:s:b:tl")) != -1)
     {
       long strnum;
       int has_error;
@@ -130,6 +155,9 @@ main (int argc, char *argv[])
 	case 't':
 	  test_mode = TRUE;
 	  break;
+	case 'l':
+	  is_manager_careful = FALSE;
+	  break;
 	case 'h':
 	default:
 	  usage (argv[0]);
@@ -159,10 +187,21 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
     }
 
-  /* fill the basic data structure */
+  /* fill the destination structure */
   if (scream_set_dest (&state, host_name, port) != SC_ERR_SUCCESS)
     {
-      fprintf (stderr, "Operations on socket failed\n");
+      fprintf (stderr, "Cannot set destination\n");
+      exit (EXIT_FAILURE);
+    }
+
+  if (pthread_create (&manager_thread,
+		      NULL,
+		      (is_manager_careful == TRUE
+		       ? start_careful_manager
+		       : start_sloppy_manager),
+		      &manager_data) != 0)
+    {
+      perror ("Cannot create the manager thread");
       exit (EXIT_FAILURE);
     }
 
@@ -172,6 +211,7 @@ main (int argc, char *argv[])
       fprintf (stderr, "Cannot register\n");
       exit (EXIT_FAILURE);
     }
+  state.is_registered = TRUE;
 
   /* start flood loop */
   if (scream_pause_loop (&state, sleep_time, flood_size, iterations, test_mode)
@@ -186,16 +226,35 @@ main (int argc, char *argv[])
       fprintf (stderr, "Cannot reset\n");
       exit (EXIT_FAILURE);
     }
-  send_ack (state.sock, &state.dest_addr);
-	
-  /* close screamer */
-  if (scream_close (&state) != SC_ERR_SUCCESS)
+
+  /* send ACK */
+  if (pthread_mutex_lock (&state.sock_lock) != 0)
     {
-      printf ("Closing socket failed\n");
+      perror ("Cannot lock state.sock_lock");
+      exit (EXIT_FAILURE);
+    }
+  send_ack (state.sock, &state.dest_addr);
+  if (pthread_mutex_unlock (&state.sock_lock) != 0)
+    {
+      perror ("Cannot unlock state.sock_lock");
       exit (EXIT_FAILURE);
     }
 
+  /* stop manager thread */
+  manager_data.is_stopped = TRUE;
+	
   print_result (&result);
 
-  exit(EXIT_SUCCESS);
+  pthread_join (manager_thread, (void **) &manager_thread_rc);
+
+  if (*manager_thread_rc == SC_ERR_SUCCESS)
+    {
+      exit (EXIT_SUCCESS);
+    }
+  else
+    {
+      fprintf (stderr, "Manager thread exits with a failure: %d\n",
+	       (int) *manager_thread_rc);
+      exit (EXIT_FAILURE);
+    }
 }

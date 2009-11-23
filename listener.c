@@ -126,11 +126,9 @@ main (const int argc,  char * const argv[])
     }
   else
     {
-      socklen_t len;
+      socklen_t len = sizeof (client_addr);
       char buffer[SC_MAX_BUFFER];
       ssize_t bytes_received;
-
-      len = sizeof (client_addr);
 
       while (!is_terminated && (err == SC_ERR_SUCCESS || err == SC_ERR_STATE))
 	{
@@ -148,8 +146,15 @@ main (const int argc,  char * const argv[])
 	      continue;
 	    }
 
+	  if (len != sizeof (client_addr))
+	    {
+	      fprintf (stderr, "Invalid sender address\n");
+	      err = SC_ERR_WRONGSENDER;
+	      continue;
+	    }
+
 	  /* check if the received data is actually a scream packet */
-	  if (is_scream_packet (buffer, len) == TRUE)
+	  if (is_scream_packet (buffer, bytes_received) == TRUE)
 	    {
 	      err = listener_handle_packet (&client_addr,
 					    (scream_packet_general *) buffer,

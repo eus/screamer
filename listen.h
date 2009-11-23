@@ -53,7 +53,8 @@ extern "C" {
 struct client_record
 {
   time_t died_at; /**< Unix epoch time at which the client dies. */
-  struct sockaddr_in client_addr; /**< Client address. */
+  uint32_t id; /**< The means to identify a client for an address update. */
+  struct sockaddr_in client_addr; /**< The primary client address. */
   unsigned long long sleep_time; /**< The sleep time in microsecond. */
   unsigned amount; /**< Number of FLOOD packets to be received. */
   int max_gap; /**< Maximum length of a gap. */
@@ -120,8 +121,8 @@ listener_handle_packet (const struct sockaddr_in *client_addr,
  *
  * @param [in] client_addr the address of the client.
  * @param [in] packet the ::scream_packet_register containing the
- *                    client's sleep time and the number of
- *                    ::scream_packet_flood to be sent.
+ *                    client's sleep time, the number of
+ *                    ::scream_packet_flood to be sent and the client's ID.
  * @param [in] db the book-keeping structure to track the client.
  *
  * @return An error code.
@@ -130,6 +131,21 @@ err_code
 register_client (const struct sockaddr_in *client_addr,
 		 const scream_packet_register *packet,
 		 struct client_db *db);
+
+/**
+ * Update a client address.
+ *
+ * @param [in] client_addr the address of the client.
+ * @param [in] packet the ::scream_packet_update_address containing the
+ *                    client's ID, the new IPv4 address and the new port.
+ * @param [in] db the book-keeping structure to track the client.
+ *
+ * @return An error code.
+ */
+err_code
+update_client_address (const struct sockaddr_in *client_addr,
+		       const scream_packet_update_address *packet,
+		       struct client_db *db);
 
 /**
  * Process a ::scream_packet_flood. If this is the first
@@ -162,7 +178,7 @@ record_packet (const struct sockaddr_in *client_addr,
 	       struct client_db *db);
 
 /**
- * Process a ::scream_packet_reset.
+ * Process a scream_packet_type::scream_packet_reset.
  * After determining whether or not there are some missing/out-of-order packets
  * at the end, the flooding data of the client is sent to the client and the
  * corresponding book-keeping entry is marked to be disassociated within
@@ -171,7 +187,6 @@ record_packet (const struct sockaddr_in *client_addr,
  * @param [in] sock the socket through which the ::scream_packet_result
  *                  is sent.
  * @param [in] client_addr the address of the client.
- * @param [in] packet the ::scream_packet_reset
  * @param [in] db the book-keeping structure to track the client.
  *
  * @return An error code.
@@ -199,6 +214,28 @@ err_code
 send_result (int sock,
 	     const struct sockaddr_in *client_addr,
 	     const struct client_db *db);
+
+/**
+ * Send a ::scream_packet_return_routability_ack to the destination.
+ *
+ * @param [in] sock the socket through which the packet is to be sent.
+ * @param [in] dest the destination of the packet.
+ *
+ * @return An error code.
+ */
+err_code
+send_return_routability_ack (int sock, const struct sockaddr_in *dest);
+
+/**
+ * Send a ::scream_packet_update_address_ack to the destination.
+ *
+ * @param [in] sock the socket through which the packet is to be sent.
+ * @param [in] dest the destination of the packet.
+ *
+ * @return An error code.
+ */
+err_code
+send_update_address_ack (int sock, const struct sockaddr_in *dest);
 
 /**
  * Set an absolute time after which the client slot in the book-keeping data

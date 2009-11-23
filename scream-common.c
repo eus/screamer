@@ -70,6 +70,18 @@ is_scream_packet (const void *buffer, size_t len)
     case SC_PACKET_ACK:
       expected_size = sizeof (scream_packet_ack);
       break;
+    case SC_PACKET_RETURN_ROUTABILITY:
+      expected_size = sizeof (scream_packet_return_routability);
+      break;
+    case SC_PACKET_RETURN_ROUTABILITY_ACK:
+      expected_size = sizeof (scream_packet_return_routability_ack);
+      break;
+    case SC_PACKET_UPDATE_ADDRESS:
+      expected_size = sizeof (scream_packet_update_address);
+      break;
+    case SC_PACKET_UPDATE_ADDRESS_ACK:
+      expected_size = sizeof (scream_packet_update_address_ack);
+      break;
     }
 
   if (len < expected_size)
@@ -79,51 +91,6 @@ is_scream_packet (const void *buffer, size_t len)
     }
 
   return TRUE;
-}
-
-bool
-check_scream_packet (const scream_packet_general *packet,
-		     size_t len,
-		     scream_packet_type type)
-{
-
-  err_code err = SC_ERR_SUCCESS;
-
-  /* check the type */
-  if (type != packet->type)
-    {
-      fprintf (stderr,
-	       "Packet type mismatch (Expected: %d, Given: %d)\n",
-	       type,
-	       packet->type);
-
-      return FALSE;
-    }
-
-  /* check the size of the packet */
-  switch (packet->type)
-    {
-    case SC_PACKET_FLOOD:
-      if (len < sizeof (scream_packet_flood))
-	{
-	  err =  SC_ERR_PACKET;
-	}
-      break;
-    default:
-      err = SC_ERR_PACKET;
-      fprintf (stderr, "Unknown packet type %d\n", packet->type);
-    }
-
-  /* handle errors */
-  if (err != SC_ERR_SUCCESS)
-    {
-      fprintf (stderr, "Malformed packet\n");
-      return FALSE;
-    }
-  else
-    {
-      return TRUE;
-    }
 }
 
 const char *
@@ -139,6 +106,16 @@ get_scream_type_name (const scream_packet_type type)
       return "RESET";
     case SC_PACKET_ACK:
       return "ACK";
+    case SC_PACKET_RETURN_ROUTABILITY:
+      return "RETURN ROUTABILITY";
+    case SC_PACKET_RETURN_ROUTABILITY_ACK:
+      return "RETURN ROUTABILITY ACK";
+    case SC_PACKET_UPDATE_ADDRESS:
+      return "UPDATE ADDRESS";
+    case SC_PACKET_UPDATE_ADDRESS_ACK:
+      return "UPDATE ADDRESS ACK";
+    case SC_PACKET_RESULT:
+      return "RESULT";
     default:
       return "UNKNOWN";
     }

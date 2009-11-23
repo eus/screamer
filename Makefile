@@ -1,5 +1,5 @@
-CC=gcc 
-CFLAGS=-Wall -g
+CC=cc
+CFLAGS=-Wall -g3 -pthread
 
 .PHONY: doc clean all
 

@@ -74,6 +74,18 @@ listener_handle_packet (const struct sockaddr_in *client_addr,
     case SC_PACKET_ACK:
       err = unregister_client (client_addr, db);
       break;
+    case SC_PACKET_RETURN_ROUTABILITY:
+      err = send_return_routability_ack (sock, client_addr);
+      break;
+    case SC_PACKET_UPDATE_ADDRESS:
+      if ((err
+	   = update_client_address (client_addr,
+				    (scream_packet_update_address *) packet,
+				    db)) == SC_ERR_SUCCESS)
+	{
+	  err = send_update_address_ack (sock, client_addr);
+	}
+      break;
     }
 
   return err;
@@ -105,9 +117,42 @@ register_client (const struct sockaddr_in *client_addr,
   empty_slot->sleep_time = COMBINE_SEC_USEC (ntohl (packet->sleep_time.sec),
 					     ntohl (packet->sleep_time.usec));
   empty_slot->amount = ntohl (packet->amount);
+  empty_slot->id = ntohl (packet->id);
   empty_slot->is_out_of_order = FALSE;
   empty_slot->max_latency.is_set = FALSE;
   empty_slot->min_latency.is_set = FALSE;
+
+  return SC_ERR_SUCCESS;
+}
+
+err_code
+update_client_address (const struct sockaddr_in *client_addr,
+		       const scream_packet_update_address *packet,
+		       struct client_db *db)
+{
+  size_t db_len = db->len;
+  size_t i;
+  uint32_t client_id = ntohl (packet->id);
+  struct client_record *client = NULL;
+
+  for (i = 0; i < db_len; i++)
+    {
+      if (db->recs[i].id == client_id)
+	{
+	  client = db->recs + i;
+	  break;
+	}
+    }
+
+  if (client == NULL)
+    {
+      fprintf (stderr,
+	       "Cannot update the address of an unexisting client\n");      
+      return SC_ERR_STATE;
+    }
+
+  client->client_addr.sin_addr.s_addr = packet->sin_addr;
+  client->client_addr.sin_port = packet->sin_port;
 
   return SC_ERR_SUCCESS;
 }
@@ -285,6 +330,38 @@ send_result (int sock,
 	      ntohs (client_addr->sin_port),
 	      strerror (last_errno));
 
+      return SC_ERR_SEND;
+    }
+
+  return SC_ERR_SUCCESS;
+}
+
+err_code
+send_return_routability_ack (int sock, const struct sockaddr_in *dest)
+{
+  scream_packet_return_routability_ack packet = {
+    .type = SC_PACKET_RETURN_ROUTABILITY_ACK,
+  };
+
+  if (sendto (sock, &packet, sizeof (packet), 0,
+	      (struct sockaddr *) dest, sizeof (*dest)) == -1)
+    {
+      return SC_ERR_SEND;
+    }
+
+  return SC_ERR_SUCCESS;
+}
+
+err_code
+send_update_address_ack (int sock, const struct sockaddr_in *dest)
+{
+  scream_packet_update_address_ack packet = {
+    .type = SC_PACKET_UPDATE_ADDRESS_ACK,
+  };
+
+  if (sendto (sock, &packet, sizeof (packet), 0,
+	      (struct sockaddr *) dest, sizeof (*dest)) == -1)
+    {
       return SC_ERR_SEND;
     }
 

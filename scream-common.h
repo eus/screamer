@@ -81,6 +81,10 @@ typedef enum
     SC_ERR_RECV = -9, /**< Receive failed. */
     SC_ERR_SOCKOPT = -10, /**< Setting socket option failed. */
     SC_ERR_WRONGSENDER = -11, /**< Packet received from an unexpected host. */
+    SC_ERR_LOCK = -12, /**< Screamer cannot lock the main channel. */
+    SC_ERR_UNLOCK = -13, /**< Screamer cannot unlock the main channel. */
+    SC_ERR_SIGNAL = -14, /**< Manager cannot signal the screamer. */
+    SC_ERR_NAME = -15, /**< Socket has a problematic name. */
 
   } err_code;
 
@@ -93,6 +97,19 @@ typedef enum
     SC_PACKET_RESET, /**< Reset packet. */
     SC_PACKET_RESULT, /**< Result packet. */
     SC_PACKET_ACK, /**< Acknowledgement packet. */
+    SC_PACKET_RETURN_ROUTABILITY, /**< Return-routability check packet. */
+    SC_PACKET_RETURN_ROUTABILITY_ACK, /**<
+				       * The acknowledgment packet for a return-
+				       * routability check.
+				       */
+    SC_PACKET_UPDATE_ADDRESS, /**<
+			       * A screamer updates its address for the
+			       * subsequent communication
+			       */
+    SC_PACKET_UPDATE_ADDRESS_ACK, /**<
+				   * The acknowledgment packet for an
+				   * address update.
+				   */
     SC_PACKET_MAX, /**< Maximum packet type number. */
 
   } scream_packet_type;
@@ -102,6 +119,36 @@ typedef struct
 {
   uint8_t type; /**< Packet type indicator. */
 } __attribute__((__packed__)) scream_packet_general;
+
+/**
+ * A return routability packet.
+ * The value of scream_packet_return_routability::type must be
+ * scream_packet_type::SC_PACKET_RETURN_ROUTABILITY.
+ */
+typedef scream_packet_general scream_packet_return_routability;
+
+/**
+ * A return routability acknowledgment packet.
+ * The value of scream_packet_return_routability_ack::type must be
+ * scream_packet_type::SC_PACKET_RETURN_ROUTABILITY_ACK.
+ */
+typedef scream_packet_general scream_packet_return_routability_ack;
+
+/** An update address packet. */
+typedef struct
+{
+  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_UPDATE_ADDRESS. */
+  uint32_t id; /**< The client ID. */
+  uint32_t sin_addr; /**< The new IPv4 address. */
+  uint16_t sin_port; /**< The new port. */
+} __attribute__((__packed__)) scream_packet_update_address;
+
+/**
+ * An update address acknowledgment packet.
+ * The value of scream_packet_update_address_ack::type must be
+ * scream_packet_type::SC_PACKET_UPDATE_ADDRESS_ACK.
+ */
+typedef scream_packet_general scream_packet_update_address_ack;
 
 /**
  * An acknowledgement packet.
@@ -135,6 +182,7 @@ typedef struct
     uint32_t usec; /**< The microsecond part of the delay. */
   } sleep_time; /**< Delay between FLOOD sends in microsecond. */
   uint32_t amount;     /**< The number of FLOOD packets to be sent. */
+  uint32_t id; /**< The client ID. */
 } __attribute__((__packed__)) scream_packet_register;
 
 /** A result packet. */
@@ -177,20 +225,6 @@ bool
 is_scream_packet (const void *buffer, size_t len);
 
 /**
- * Check if a piece of memory is of a certain scream packet.
- *
- * @param [in] packet a valid ::scream_packet_general. @see is_scream_packet
- * @param [in] len the length of the buffer.
- * @param [in] type the expected packet type. @see scream_packet_type
- *
- * @return #bool::TRUE if the packet is valid, #bool::FALSE otherwise.
- */
-bool
-check_scream_packet (const scream_packet_general *packet,
-		     size_t len,
-		     scream_packet_type type);
-
-/**
  * Convert a type to a printable string.
  *
  * @param [in] type the packet type to be converted. @see scream_packet_type
@@ -201,7 +235,7 @@ const char *
 get_scream_type_name (scream_packet_type type);
 
 /**
- * Send an ACK packet to the destination.
+ * Send a ::scream_packet_ack to the destination.
  *
  * @param [in] sock the socket through which the packet is to be sent.
  * @param [in] dest the destination of the packet.
