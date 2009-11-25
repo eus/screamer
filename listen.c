@@ -132,7 +132,7 @@ update_client_address (const struct sockaddr_in *client_addr,
 {
   size_t db_len = db->len;
   size_t i;
-  uint32_t client_id = ntohl (packet->id);
+  uint32_t client_id = packet->id;
   struct client_record *client = NULL;
 
   for (i = 0; i < db_len; i++)

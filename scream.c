@@ -114,6 +114,8 @@ scream_register (scream_base_data *state,
     .tv_usec = USEC_PART (REGISTER_TIMEOUT),
   };
 
+  register_packet.id = htonl (state->id);
+
   /* hoping that any underlying socket error can eventually be resolved by the 
    * manager thread through the selection of a new channel
    */
