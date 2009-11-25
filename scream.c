@@ -978,8 +978,6 @@ err_code
 switch_comm_channel (struct comm_channel *main_channel,
 		     struct channel_record *new_channel)	
 {
-  struct channel_record *old_channel;
-
   if (pthread_mutex_lock (main_channel->sock_lock) != 0)
     {
       perror ("Cannot lock main_channel->sock_lock");
@@ -993,12 +991,7 @@ switch_comm_channel (struct comm_channel *main_channel,
 	  perror ("Forcibly close *main_channel->sock");
 	}
     }
-  old_channel = main_channel->channel;
   main_channel->channel = new_channel;
-  if (old_channel != NULL)
-    {
-      free_channel (old_channel);
-    }
   *main_channel->sock = new_channel->sock;
 
   if (pthread_mutex_unlock (main_channel->sock_lock) != 0)
@@ -1014,8 +1007,6 @@ err_code
 switch_comm_channel_no_lock (struct comm_channel *main_channel,
 			     struct channel_record *new_channel)
 {
-  struct channel_record *old_channel;
-
   if (*main_channel->sock != -1)
     {
       if (close (*main_channel->sock) == -1)
@@ -1023,12 +1014,7 @@ switch_comm_channel_no_lock (struct comm_channel *main_channel,
 	  perror ("Forcibly close *main_channel->sock");
 	}
     }
-  old_channel = main_channel->channel;
   main_channel->channel = new_channel;
-  if (old_channel != NULL)
-    {
-      free_channel (old_channel);
-    }
   *main_channel->sock = new_channel->sock;
 
   return SC_ERR_SUCCESS;
@@ -1124,7 +1110,7 @@ start_manager (bool is_careful,
 #define CAREFUL_MANAGER_SOCK_UNLOCK()					\
   do									\
     {									\
-    if (is_careful == TRUE)						\
+      if (is_careful == TRUE && is_sock_locked == TRUE)			\
       {									\
 	printf ("%s manager unlocks the channel\n", manager_name);	\
 	if (pthread_mutex_unlock (data->main_channel->sock_lock) != 0)	\
