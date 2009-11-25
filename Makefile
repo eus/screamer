@@ -19,4 +19,4 @@ doc:
 	doxygen Doxyfile
 
 clean:
-	rm -Rf screamer listener *.o doc/generated/*
+	rm -Rf screamer listener *.o

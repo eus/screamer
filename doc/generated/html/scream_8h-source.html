@@ -182,77 +182,86 @@
 <a name="l00392"></a>00392 <span class="keywordtype">void</span>
 <a name="l00393"></a>00393 store_db_record (<span class="keyword">struct</span> <a class="code" href="structchannel__record.html">channel_record</a> *rec, <span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
 <a name="l00394"></a>00394 
-<a name="l00401"></a>00401 <span class="keywordtype">void</span>
-<a name="l00402"></a>00402 remove_db_record (<span class="keyword">struct</span> <a class="code" href="structchannel__record.html">channel_record</a> *rec, <span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
-<a name="l00403"></a>00403 
-<a name="l00413"></a>00413 <span class="keyword">struct </span><a class="code" href="structchannel__record.html">channel_record</a> *
-<a name="l00414"></a>00414 get_channel_by_name (<span class="keyword">const</span> <span class="keywordtype">char</span> *name, <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
-<a name="l00415"></a>00415 
-<a name="l00420"></a><a class="code" href="structcomm__channel.html">00420</a> <span class="keyword">struct </span><a class="code" href="structcomm__channel.html">comm_channel</a>
-<a name="l00421"></a>00421 {
-<a name="l00422"></a><a class="code" href="structcomm__channel.html#dd3a5e4625274170efc8f012d7a25b93">00422</a>   <span class="keyword">struct </span><a class="code" href="structchannel__record.html">channel_record</a> *<a class="code" href="structcomm__channel.html#dd3a5e4625274170efc8f012d7a25b93">channel</a>; 
-<a name="l00423"></a><a class="code" href="structcomm__channel.html#e714600f8548ddb32bcea41514629907">00423</a>   <span class="keywordtype">int</span> *<a class="code" href="structcomm__channel.html#e714600f8548ddb32bcea41514629907">sock</a>; 
-<a name="l00426"></a><a class="code" href="structcomm__channel.html#9efa6416f5be463ccbaa1827505b46fa">00426</a>   pthread_mutex_t *<a class="code" href="structcomm__channel.html#9efa6416f5be463ccbaa1827505b46fa">sock_lock</a>; 
-<a name="l00427"></a><a class="code" href="structcomm__channel.html#cae1700773cd095c0d0c36076b5de86a">00427</a>   <span class="keywordtype">bool</span> *<a class="code" href="structcomm__channel.html#cae1700773cd095c0d0c36076b5de86a">is_registered</a>; 
-<a name="l00431"></a>00431 };
-<a name="l00432"></a>00432 
-<a name="l00443"></a>00443 <span class="keywordtype">bool</span>
-<a name="l00444"></a>00444 probe_ifs (<span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
-<a name="l00445"></a>00445 
-<a name="l00460"></a>00460 <span class="keyword">struct </span><a class="code" href="structchannel__record.html">channel_record</a> *
-<a name="l00461"></a>00461 check_return_routability (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *dest_addr,
-<a name="l00462"></a>00462                           <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db,
-<a name="l00463"></a>00463                           <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structcomm__channel.html">comm_channel</a> *main_channel);
-<a name="l00464"></a>00464 
-<a name="l00474"></a>00474 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00475"></a>00475 get_address (<span class="keywordtype">int</span> <a class="code" href="structchannel__record.html#5812f224f5762d87f4960f6ebd3d4e80">sock</a>, <span class="keyword">struct</span> sockaddr_in *name);
-<a name="l00476"></a>00476 
-<a name="l00495"></a>00495 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00496"></a>00496 update_address (<span class="keywordtype">int</span> <a class="code" href="structchannel__record.html#5812f224f5762d87f4960f6ebd3d4e80">sock</a>,
-<a name="l00497"></a>00497                 uint32_t <span class="keywordtype">id</span>,
-<a name="l00498"></a>00498                 <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *new_addr,
-<a name="l00499"></a>00499                 <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *dest_addr,
-<a name="l00500"></a>00500                 <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structcomm__channel.html">comm_channel</a> *main_channel);
-<a name="l00501"></a>00501 
-<a name="l00511"></a>00511 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00512"></a>00512 switch_comm_channel (<span class="keyword">struct</span> <a class="code" href="structcomm__channel.html">comm_channel</a> *main_channel,
-<a name="l00513"></a>00513                      <span class="keyword">struct</span> <a class="code" href="structchannel__record.html">channel_record</a> *new_channel);
-<a name="l00514"></a>00514 
-<a name="l00524"></a>00524 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00525"></a>00525 switch_comm_channel_no_lock (<span class="keyword">struct</span> <a class="code" href="structcomm__channel.html">comm_channel</a> *main_channel,
-<a name="l00526"></a>00526                              <span class="keyword">struct</span> <a class="code" href="structchannel__record.html">channel_record</a> *new_channel);
-<a name="l00527"></a>00527 
-<a name="l00529"></a><a class="code" href="structmanager__data.html">00529</a> <span class="keyword">struct </span><a class="code" href="structmanager__data.html">manager_data</a>
-<a name="l00530"></a>00530 {
-<a name="l00531"></a><a class="code" href="structmanager__data.html#08b5592f1562494b94248ed43464cec5">00531</a>   <span class="keyword">struct </span><a class="code" href="structcomm__channel.html">comm_channel</a> *<a class="code" href="structmanager__data.html#08b5592f1562494b94248ed43464cec5">main_channel</a>; 
-<a name="l00532"></a><a class="code" href="structmanager__data.html#4da422d129032eecda3be7211ada6b10">00532</a>   <span class="keyword">struct </span><a class="code" href="structchannel__db.html">channel_db</a> *<a class="code" href="structmanager__data.html#4da422d129032eecda3be7211ada6b10">channels</a>; 
-<a name="l00533"></a><a class="code" href="structmanager__data.html#e87d7549c81b9f45c69da1579a127ce5">00533</a>   <span class="keywordtype">bool</span> <a class="code" href="structmanager__data.html#e87d7549c81b9f45c69da1579a127ce5">is_stopped</a>; 
-<a name="l00534"></a><a class="code" href="structmanager__data.html#fb2cab6ad035cec7c73c9160200652fc">00534</a>   <span class="keyword">const</span> uint32_t *<a class="code" href="structmanager__data.html#fb2cab6ad035cec7c73c9160200652fc">id</a>; 
-<a name="l00535"></a><a class="code" href="structmanager__data.html#fc4e314fc6bf9082d39c6b8144dfe2ed">00535</a>   <span class="keyword">const</span> <span class="keyword">struct </span>sockaddr_in *<a class="code" href="structmanager__data.html#fc4e314fc6bf9082d39c6b8144dfe2ed">dest_addr</a>; 
-<a name="l00536"></a><a class="code" href="structmanager__data.html#39368434a31fcceccd3c055bcf06feae">00536</a>   <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> <a class="code" href="structmanager__data.html#39368434a31fcceccd3c055bcf06feae">exit_code</a>; 
-<a name="l00537"></a>00537 };
-<a name="l00538"></a>00538 
-<a name="l00551"></a>00551 <span class="keywordtype">void</span>
-<a name="l00552"></a>00552 reset_new_and_modified_flags (<span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
-<a name="l00553"></a>00553 
-<a name="l00567"></a>00567 <span class="keywordtype">void</span>
-<a name="l00568"></a>00568 start_manager (<span class="keywordtype">bool</span> is_careful,
-<a name="l00569"></a>00569                <span class="keyword">const</span> <span class="keywordtype">char</span> *manager_name,
-<a name="l00570"></a>00570                <span class="keyword">struct</span> <a class="code" href="structmanager__data.html">manager_data</a> *data);
-<a name="l00571"></a>00571 
-<a name="l00583"></a>00583 <span class="keywordtype">void</span> *
-<a name="l00584"></a>00584 start_careful_manager (<span class="keywordtype">void</span> *data);
-<a name="l00585"></a>00585 
-<a name="l00598"></a>00598 <span class="keywordtype">void</span> *
-<a name="l00599"></a>00599 start_sloppy_manager (<span class="keywordtype">void</span> *data);
-<a name="l00600"></a>00600 
-<a name="l00601"></a>00601 <span class="preprocessor">#ifdef __cplusplus</span>
-<a name="l00602"></a>00602 <span class="preprocessor"></span>}
-<a name="l00603"></a>00603 <span class="preprocessor">#endif</span>
-<a name="l00604"></a>00604 <span class="preprocessor"></span>
-<a name="l00605"></a>00605 <span class="preprocessor">#endif </span><span class="comment">/* SCREAM_H */</span>
+<a name="l00404"></a>00404 <span class="keywordtype">void</span>
+<a name="l00405"></a>00405 remove_db_record (<span class="keyword">struct</span> <a class="code" href="structchannel__record.html">channel_record</a> *rec, <span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
+<a name="l00406"></a>00406 
+<a name="l00416"></a>00416 <span class="keyword">struct </span><a class="code" href="structchannel__record.html">channel_record</a> *
+<a name="l00417"></a>00417 get_channel_by_name (<span class="keyword">const</span> <span class="keywordtype">char</span> *name, <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
+<a name="l00418"></a>00418 
+<a name="l00423"></a><a class="code" href="structcomm__channel.html">00423</a> <span class="keyword">struct </span><a class="code" href="structcomm__channel.html">comm_channel</a>
+<a name="l00424"></a>00424 {
+<a name="l00425"></a><a class="code" href="structcomm__channel.html#dd3a5e4625274170efc8f012d7a25b93">00425</a>   <span class="keyword">struct </span><a class="code" href="structchannel__record.html">channel_record</a> *<a class="code" href="structcomm__channel.html#dd3a5e4625274170efc8f012d7a25b93">channel</a>; 
+<a name="l00426"></a><a class="code" href="structcomm__channel.html#e714600f8548ddb32bcea41514629907">00426</a>   <span class="keywordtype">int</span> *<a class="code" href="structcomm__channel.html#e714600f8548ddb32bcea41514629907">sock</a>; 
+<a name="l00429"></a><a class="code" href="structcomm__channel.html#9efa6416f5be463ccbaa1827505b46fa">00429</a>   pthread_mutex_t *<a class="code" href="structcomm__channel.html#9efa6416f5be463ccbaa1827505b46fa">sock_lock</a>; 
+<a name="l00430"></a><a class="code" href="structcomm__channel.html#cae1700773cd095c0d0c36076b5de86a">00430</a>   <span class="keywordtype">bool</span> *<a class="code" href="structcomm__channel.html#cae1700773cd095c0d0c36076b5de86a">is_registered</a>; 
+<a name="l00434"></a>00434 };
+<a name="l00435"></a>00435 
+<a name="l00446"></a>00446 <span class="keywordtype">bool</span>
+<a name="l00447"></a>00447 probe_ifs (<span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
+<a name="l00448"></a>00448 
+<a name="l00463"></a>00463 <span class="keyword">struct </span><a class="code" href="structchannel__record.html">channel_record</a> *
+<a name="l00464"></a>00464 check_return_routability (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *dest_addr,
+<a name="l00465"></a>00465                           <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db,
+<a name="l00466"></a>00466                           <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structcomm__channel.html">comm_channel</a> *main_channel);
+<a name="l00467"></a>00467 
+<a name="l00477"></a>00477 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00478"></a>00478 get_address (<span class="keywordtype">int</span> <a class="code" href="structchannel__record.html#5812f224f5762d87f4960f6ebd3d4e80">sock</a>, <span class="keyword">struct</span> sockaddr_in *name);
+<a name="l00479"></a>00479 
+<a name="l00498"></a>00498 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00499"></a>00499 update_address (<span class="keywordtype">int</span> <a class="code" href="structchannel__record.html#5812f224f5762d87f4960f6ebd3d4e80">sock</a>,
+<a name="l00500"></a>00500                 uint32_t <span class="keywordtype">id</span>,
+<a name="l00501"></a>00501                 <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *new_addr,
+<a name="l00502"></a>00502                 <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *dest_addr,
+<a name="l00503"></a>00503                 <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structcomm__channel.html">comm_channel</a> *main_channel);
+<a name="l00504"></a>00504 
+<a name="l00510"></a>00510 <span class="keywordtype">void</span>
+<a name="l00511"></a>00511 remove_expired_channels (<span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
+<a name="l00512"></a>00512 
+<a name="l00518"></a>00518 <span class="keywordtype">void</span>
+<a name="l00519"></a>00519 free_channel (<span class="keyword">struct</span> <a class="code" href="structchannel__record.html">channel_record</a> *channel);
+<a name="l00520"></a>00520 
+<a name="l00526"></a>00526 <span class="keywordtype">void</span>
+<a name="l00527"></a>00527 free_channel_db (<span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
+<a name="l00528"></a>00528 
+<a name="l00538"></a>00538 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00539"></a>00539 switch_comm_channel (<span class="keyword">struct</span> <a class="code" href="structcomm__channel.html">comm_channel</a> *main_channel,
+<a name="l00540"></a>00540                      <span class="keyword">struct</span> <a class="code" href="structchannel__record.html">channel_record</a> *new_channel);
+<a name="l00541"></a>00541 
+<a name="l00551"></a>00551 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00552"></a>00552 switch_comm_channel_no_lock (<span class="keyword">struct</span> <a class="code" href="structcomm__channel.html">comm_channel</a> *main_channel,
+<a name="l00553"></a>00553                              <span class="keyword">struct</span> <a class="code" href="structchannel__record.html">channel_record</a> *new_channel);
+<a name="l00554"></a>00554 
+<a name="l00556"></a><a class="code" href="structmanager__data.html">00556</a> <span class="keyword">struct </span><a class="code" href="structmanager__data.html">manager_data</a>
+<a name="l00557"></a>00557 {
+<a name="l00558"></a><a class="code" href="structmanager__data.html#08b5592f1562494b94248ed43464cec5">00558</a>   <span class="keyword">struct </span><a class="code" href="structcomm__channel.html">comm_channel</a> *<a class="code" href="structmanager__data.html#08b5592f1562494b94248ed43464cec5">main_channel</a>; 
+<a name="l00559"></a><a class="code" href="structmanager__data.html#4da422d129032eecda3be7211ada6b10">00559</a>   <span class="keyword">struct </span><a class="code" href="structchannel__db.html">channel_db</a> *<a class="code" href="structmanager__data.html#4da422d129032eecda3be7211ada6b10">channels</a>; 
+<a name="l00560"></a><a class="code" href="structmanager__data.html#e87d7549c81b9f45c69da1579a127ce5">00560</a>   <span class="keywordtype">bool</span> <a class="code" href="structmanager__data.html#e87d7549c81b9f45c69da1579a127ce5">is_stopped</a>; 
+<a name="l00561"></a><a class="code" href="structmanager__data.html#fb2cab6ad035cec7c73c9160200652fc">00561</a>   <span class="keyword">const</span> uint32_t *<a class="code" href="structmanager__data.html#fb2cab6ad035cec7c73c9160200652fc">id</a>; 
+<a name="l00562"></a><a class="code" href="structmanager__data.html#fc4e314fc6bf9082d39c6b8144dfe2ed">00562</a>   <span class="keyword">const</span> <span class="keyword">struct </span>sockaddr_in *<a class="code" href="structmanager__data.html#fc4e314fc6bf9082d39c6b8144dfe2ed">dest_addr</a>; 
+<a name="l00563"></a><a class="code" href="structmanager__data.html#39368434a31fcceccd3c055bcf06feae">00563</a>   <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> <a class="code" href="structmanager__data.html#39368434a31fcceccd3c055bcf06feae">exit_code</a>; 
+<a name="l00564"></a>00564 };
+<a name="l00565"></a>00565 
+<a name="l00578"></a>00578 <span class="keywordtype">void</span>
+<a name="l00579"></a>00579 reset_new_and_modified_flags (<span class="keyword">struct</span> <a class="code" href="structchannel__db.html">channel_db</a> *db);
+<a name="l00580"></a>00580 
+<a name="l00594"></a>00594 <span class="keywordtype">void</span>
+<a name="l00595"></a>00595 start_manager (<span class="keywordtype">bool</span> is_careful,
+<a name="l00596"></a>00596                <span class="keyword">const</span> <span class="keywordtype">char</span> *manager_name,
+<a name="l00597"></a>00597                <span class="keyword">struct</span> <a class="code" href="structmanager__data.html">manager_data</a> *data);
+<a name="l00598"></a>00598 
+<a name="l00610"></a>00610 <span class="keywordtype">void</span> *
+<a name="l00611"></a>00611 start_careful_manager (<span class="keywordtype">void</span> *data);
+<a name="l00612"></a>00612 
+<a name="l00625"></a>00625 <span class="keywordtype">void</span> *
+<a name="l00626"></a>00626 start_sloppy_manager (<span class="keywordtype">void</span> *data);
+<a name="l00627"></a>00627 
+<a name="l00628"></a>00628 <span class="preprocessor">#ifdef __cplusplus</span>
+<a name="l00629"></a>00629 <span class="preprocessor"></span>}
+<a name="l00630"></a>00630 <span class="preprocessor">#endif</span>
+<a name="l00631"></a>00631 <span class="preprocessor"></span>
+<a name="l00632"></a>00632 <span class="preprocessor">#endif </span><span class="comment">/* SCREAM_H */</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Mon Nov 23 16:29:49 2009 for screamer by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Nov 25 04:18:49 2009 for screamer by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

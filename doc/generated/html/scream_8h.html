@@ -103,6 +103,12 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream_8h.html#4767dae6c1a61d0ba57daaa6c85aa868">update_address</a> (int sock, uint32_t id, const struct sockaddr_in *new_addr, const struct sockaddr_in *dest_addr, const struct <a class="el" href="structcomm__channel.html">comm_channel</a> *main_channel)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream_8h.html#fc31114b8cd2a168b6f761f94e20ab5c">remove_expired_channels</a> (struct <a class="el" href="structchannel__db.html">channel_db</a> *db)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream_8h.html#1aafd30b593238d426b97765a41723c2">free_channel</a> (struct <a class="el" href="structchannel__record.html">channel_record</a> *channel)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream_8h.html#14753538f529819af86d579d9f362268">free_channel_db</a> (struct <a class="el" href="structchannel__db.html">channel_db</a> *db)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream_8h.html#c675230e8abbb49e4a161b8e85103c9d">switch_comm_channel</a> (struct <a class="el" href="structcomm__channel.html">comm_channel</a> *main_channel, struct <a class="el" href="structchannel__record.html">channel_record</a> *new_channel)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream_8h.html#938757f9e214e7d8600e986ca935b0f4">switch_comm_channel_no_lock</a> (struct <a class="el" href="structcomm__channel.html">comm_channel</a> *main_channel, struct <a class="el" href="structchannel__record.html">channel_record</a> *new_channel)</td></tr>
@@ -318,6 +324,58 @@ Check all possible communication channels by binding all non-expired addresses i
 
 </div>
 </div><p>
+<a class="anchor" name="1aafd30b593238d426b97765a41723c2"></a><!-- doxytag: member="scream.h::free_channel" ref="1aafd30b593238d426b97765a41723c2" args="(struct channel_record *channel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void free_channel           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structchannel__record.html">channel_record</a> *&nbsp;</td>
+          <td class="paramname"> <em>channel</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Free a channel record.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>channel</em>&nbsp;</td><td>the channel to be freed (no longer valid upon return). </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="14753538f529819af86d579d9f362268"></a><!-- doxytag: member="scream.h::free_channel_db" ref="14753538f529819af86d579d9f362268" args="(struct channel_db *db)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void free_channel_db           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structchannel__db.html">channel_db</a> *&nbsp;</td>
+          <td class="paramname"> <em>db</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Remove and free all channels in the DB.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the DB whose channels are to be removed and freed. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
 <a class="anchor" name="88870ef3df0850a32d734f10d1075769"></a><!-- doxytag: member="scream.h::get_address" ref="88870ef3df0850a32d734f10d1075769" args="(int sock, struct sockaddr_in *name)" -->
 <div class="memitem">
 <div class="memproto">
@@ -471,11 +529,37 @@ Check for an update in the available communication channels.<p>
 <div class="memdoc">
 
 <p>
-Remove a channel record from the DB.<p>
+Remove a channel record from the DB. The removed channel still has its <a class="el" href="structchannel__record.html#27e815045f2a072b4c4a88950792968c">channel_record::next</a> and <a class="el" href="structchannel__record.html#6a213af6dde660a958dbff87d55d4a01">channel_record::prev</a> pointers points to the records in the DB so that it is save to invoke this function while iterating over the DB.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>rec</em>&nbsp;</td><td>the record to be removed. </td></tr>
     <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the DB from which the record is to be removed. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="fc31114b8cd2a168b6f761f94e20ab5c"></a><!-- doxytag: member="scream.h::remove_expired_channels" ref="fc31114b8cd2a168b6f761f94e20ab5c" args="(struct channel_db *db)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void remove_expired_channels           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structchannel__db.html">channel_db</a> *&nbsp;</td>
+          <td class="paramname"> <em>db</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+All expired channels in the DB are removed and freed accordingly.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the DB whose expired channels are to be removed and freed. </td></tr>
   </table>
 </dl>
 
@@ -1380,7 +1464,7 @@ Inform the listener of this screamer's new address so that when the screamer sen
 </div>
 </div><p>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Mon Nov 23 16:29:49 2009 for screamer by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Nov 25 04:18:49 2009 for screamer by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
