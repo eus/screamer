@@ -393,7 +393,10 @@ void
 store_db_record (struct channel_record *rec, struct channel_db *db);
 
 /**
- * Remove a channel record from the DB.
+ * Remove a channel record from the DB. The removed channel still has its
+ * channel_record::next and channel_record::prev pointers points to the
+ * records in the DB so that it is save to invoke this function while iterating
+ * over the DB.
  *
  * @param [in] rec the record to be removed.
  * @param [in] db the DB from which the record is to be removed.
@@ -498,6 +501,30 @@ update_address (int sock,
 		const struct sockaddr_in *new_addr,
 		const struct sockaddr_in *dest_addr,
 		const struct comm_channel *main_channel);
+
+/**
+ * All expired channels in the DB are removed and freed accordingly.
+ *
+ * @param [in] db the DB whose expired channels are to be removed and freed.
+ */
+void
+remove_expired_channels (struct channel_db *db);
+
+/**
+ * Free a channel record. 
+ *
+ * @param [in] channel the channel to be freed (no longer valid upon return).
+ */
+void
+free_channel (struct channel_record *channel);
+
+/**
+ * Remove and free all channels in the DB.
+ *
+ * @param [in] db the DB whose channels are to be removed and freed.
+ */
+void
+free_channel_db (struct channel_db *db);
 
 /**
  * Replace the main communication socket by locking it with its corresponding

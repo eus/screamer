@@ -656,9 +656,19 @@ store_db_record (struct channel_record *rec, struct channel_db *db)
 void
 remove_db_record (struct channel_record *rec, struct channel_db *db)
 {
-  rec->next->prev = rec->prev;
-  rec->prev->next = rec->next;
-  
+  if (rec->next != NULL)
+    {
+      rec->next->prev = rec->prev;
+    }
+  if (db->recs == rec)
+    {
+      db->recs = rec->next;
+    }
+  else
+    {
+      rec->prev->next = rec->next;
+    }
+
   db->db_len--;
 }
 
@@ -770,6 +780,8 @@ probe_ifs (struct channel_db *db)
 	  is_updated = TRUE;
 	}
     }
+
+  freeifaddrs (addrs);
 
   if (num_of_expired_record != 0)
     {
@@ -916,10 +928,56 @@ reset_new_and_modified_flags (struct channel_db *db)
     }
 }
 
+void
+remove_expired_channels (struct channel_db *db)
+{
+  struct channel_record *itr;
+  struct channel_db removed_channels = {
+    .db_len = 0,
+    .recs = NULL,
+  };
+
+  for (itr = db->recs; itr != NULL; itr = itr->next)
+    {
+      if (itr->is_expired == TRUE)
+	{
+	  store_db_record (itr, &removed_channels);
+	  remove_db_record (itr, db);
+	}
+    }
+
+  free_channel_db (&removed_channels);
+}
+
+void
+free_channel (struct channel_record *channel)
+{
+  free (channel->if_name);
+  free (channel);
+}
+
+void
+free_channel_db (struct channel_db *db)
+{
+  struct channel_record *itr = db->recs;
+  struct channel_record *removed_channel;
+
+  while (itr != NULL)
+    {
+      remove_db_record (itr, db);
+      removed_channel = itr;
+      itr = itr->next;
+
+      free_channel (removed_channel);
+    }  
+}
+
 err_code
 switch_comm_channel (struct comm_channel *main_channel,
 		     struct channel_record *new_channel)	
 {
+  struct channel_record *old_channel;
+
   if (pthread_mutex_lock (main_channel->sock_lock) != 0)
     {
       perror ("Cannot lock main_channel->sock_lock");
@@ -933,7 +991,12 @@ switch_comm_channel (struct comm_channel *main_channel,
 	  perror ("Forcibly close *main_channel->sock");
 	}
     }
+  old_channel = main_channel->channel;
   main_channel->channel = new_channel;
+  if (old_channel != NULL)
+    {
+      free_channel (old_channel);
+    }
   *main_channel->sock = new_channel->sock;
 
   if (pthread_mutex_unlock (main_channel->sock_lock) != 0)
@@ -949,6 +1012,8 @@ err_code
 switch_comm_channel_no_lock (struct comm_channel *main_channel,
 			     struct channel_record *new_channel)
 {
+  struct channel_record *old_channel;
+
   if (*main_channel->sock != -1)
     {
       if (close (*main_channel->sock) == -1)
@@ -956,7 +1021,12 @@ switch_comm_channel_no_lock (struct comm_channel *main_channel,
 	  perror ("Forcibly close *main_channel->sock");
 	}
     }
+  old_channel = main_channel->channel;
   main_channel->channel = new_channel;
+  if (old_channel != NULL)
+    {
+      free_channel (old_channel);
+    }
   *main_channel->sock = new_channel->sock;
 
   return SC_ERR_SUCCESS;
@@ -1081,6 +1151,7 @@ start_manager (bool is_careful,
 						   data->channels,
 						   data->main_channel);
 	  reset_new_and_modified_flags (data->channels);
+	  remove_expired_channels (data->channels);
 
 	  if (best_channel == NULL)
 	    {
@@ -1097,6 +1168,7 @@ start_manager (bool is_careful,
   while (data->is_stopped == FALSE)
     {	  
       reset_new_and_modified_flags (data->channels);
+      remove_expired_channels (data->channels);
       sleep (MANAGER_POOL_RATE);
 
       printf ("%s manager probes local interfaces\n", manager_name);

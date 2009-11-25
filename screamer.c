@@ -247,6 +247,8 @@ main (int argc, char *argv[])
 
   pthread_join (manager_thread, (void **) &manager_thread_rc);
 
+  free_channel_db (&db);
+
   if (*manager_thread_rc == SC_ERR_SUCCESS)
     {
       exit (EXIT_SUCCESS);
