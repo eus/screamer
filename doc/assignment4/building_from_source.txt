@@ -1,0 +1,109 @@
+Building from Source
+
+1. On the local computer install the needed base packages:
+
+sudo aptitude install build-essential gawk binutils flex bison autoconf gettext texinfo sharutils subversion libncurses5-dev ncurses-term zlib1g-dev unzip
+
+(I use ubuntu fiesty, if you use another distro that doesn't use apt-get or aptitude…you're on your own to figure out the command).
+
+2.
+
+    *
+      Checkout the source for Kamikaze and the packages:
+
+cd ~
+svn co https://svn.openwrt.org/openwrt/trunk/ kamikaze
+svn co https://svn.openwrt.org/openwrt/packages packages
+ln -s packages/*/* kamikaze/package/
+
+    *
+      Optional step - Include the web interface packages (Webif²). These still have many problems so use at your own risk.
+
+cd ~/kamikaze/package
+svn co http://svn.berlios.de/svnroot/repos/xwrt/trunk/package/webif/
+
+    *
+      Bring up the configuration menu screen:
+
+cd ~/kamikaze
+make package/symlinks
+make menuconfig
+
+3. On your own for a little… choose the packages you want. Make sure you also set:
+
+    *
+      Target System > Broadcom 2.4
+    *
+      Target Profile > Asus wl-500g Premium
+    *
+      Target Images > squashfs and jffs2
+    *
+      Kernel modules > Proprietary BCM43xx-WiFi-driver > include the kmod-brcm-wl-mimo module
+    *
+      Administration > select the webif package if you choose to check it out above
+    *
+      Or, if you don't want to be bothered, download this attachment:config_file and copy it to:
+
+~/kamikaze/.config
+
+4. Make
+
+make
+
+Get some food, come back in 10min-1hr. Anything error out? If not continue on…if so, well, fix it.
+
+5.
+
+cd build_dir/mipsel
+cp -rp root-brcm-2.4 /tmp/root
+cd /tmp/root/etc/config/
+vi network
+
+You can of course substitute your favourite text editor for vi. The network file is new and will be empty. Make it look like this:
+
+config switch eth0
+   option vlan0    "0 1 2 3 4 5u"
+config interface loopback
+   option ifname   "lo"
+   option proto    static
+   option ipaddr   127.0.0.1
+   option netmask  255.0.0.0
+config interface lan
+   option type     bridge
+   option ifname   "eth0 wl0"
+   option proto    static
+   option ipaddr   192.168.1.1
+   option netmask  255.255.255.0
+config interface wan
+   option ifname   "eth1"
+   option proto    dhcp
+
+cd ../../lib/wifi
+vi broadcom.sh
+
+There is a line way down. You need to change it to be:
+
+channel ${channel:-5}
+
+instead of:
+
+${channel:+channel $channel}
+
+6. Phewww if you're still with me and never compiled a openwrt image I salute you. Now time to make that new image and the squashfs
+
+cd ~/kamikaze
+staging_dir/host/bin/mksquashfs-lzma /tmp/root /tmp/squashfs -nopad -noappend -root-owned -le
+staging_dir/host/bin/trx  -o ~/wl500w-openwrt.trx \
+                -f build_dir/linux-brcm-2.4/loader.gz \
+                -f build_dir/linux-brcm-2.4/vmlinux.lzma -a 1024 \
+                -f /tmp/squashfs
+
+If all is well in the world (ie you didn't make any typos) you should now have a new custom made wl500w image sitting in your home directory waiting for you.
+
+7. Tftp the new image to the router: Unplug router, replug it back in while holding in the black reset button. Wait for a slowly blinking power light before releasing the black reset button. The remainder of the TFTP process is described here: OpenWrtViaTftp.
+
+On first install from a stock Asus firmware or to erase all configuration settings, run:
+
+# mtd -r erase $(cat /proc/mtd | sed -n -e 's/^\([^:]*\):.*"rootfs_data"/\1/p' )
+
+8. Make a kamikaze, drink, enjoy.

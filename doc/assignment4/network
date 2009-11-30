@@ -1,0 +1,45 @@
+config switch eth0
+        option vlan0    "0 5"
+        option vlan1    "1 5"
+        option vlan2    "2 5"
+        option vlan3    "3 5"
+
+config interface loopback
+        option ifname   "lo"
+        option proto    static
+        option ipaddr   127.0.0.1
+        option netmask  255.0.0.0
+        
+config interface lan0
+	option ifname "eth0.0"
+	option proto static
+	option ipaddr 192.168.0.1
+	option netmask 255.255.255.0
+
+config interface lan1
+        option ifname   "eth0.1"
+        option proto    static
+        option ipaddr   192.168.1.1
+        option netmask  255.255.255.0
+        
+config interface lan2
+	option ifname "eth0.2"
+	option proto  static
+	option ipaddr 192.168.2.1
+	option netmask 255.255.255.0
+	
+config interface lan3
+	option ifname "eth0.3"
+	option proto static
+	option ipaddr 192.168.3.1
+	option netmask 255.255.255.0
+	
+config interface lan
+	option ifname "wl0"
+	option proto static
+	option ipaddr 192.168.4.1
+	option netmask 255.255.255.0
+	
+config interface wan
+	option ifname "eth1"
+	option proto dhcp

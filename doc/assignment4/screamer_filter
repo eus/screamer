@@ -1,0 +1,20 @@
+#!/bin/sh /etc/rc.common
+
+START=98
+STOP=98
+
+start() {        
+	if [ -f /root/screamer_filter.pid ]; then
+		echo "screamer_filter already started"
+		exit 0
+	fi
+	/root/screamer_filter &
+	echo $! > /root/screamer_filter.pid
+	exit 0
+}                 
+
+stop() {
+	kill -SIGINT `cat /root/screamer_filter.pid`
+	rm /root/screamer_filter.pid
+	exit 0
+}
