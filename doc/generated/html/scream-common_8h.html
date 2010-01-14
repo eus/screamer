@@ -21,32 +21,33 @@
   </div>
 </div>
 <div class="contents">
-<h1>scream-common.h File Reference</h1>Common functions for the scream protocol client and server.  
+<h1>scream-common.h File Reference</h1>Common functions for the AndroidTodo synchronization server.  
 <a href="#_details">More...</a>
 <p>
 <code>#include &lt;inttypes.h&gt;</code><br>
 <code>#include &lt;netinet/in.h&gt;</code><br>
+<code>#include &lt;sqlite3.h&gt;</code><br>
 
 <p>
 <a href="scream-common_8h-source.html">Go to the source code of this file.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Data Structures</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__chunk.html">scream_packet_chunk</a></td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__general.html">scream_packet_general</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__update__address.html">scream_packet_update_address</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__server__client__resp.html">scream_packet_server_client_resp</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__flood.html">scream_packet_flood</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__server__client__data.html">scream_packet_server_client_data</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__client__server__sync.html">scream_packet_client_server_sync</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__client__server__data.html">scream_packet_client_server_data</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__register.html">scream_packet_register</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structscream__packet__result.html">scream_packet_result</a></td></tr>
-
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#bc6954abdafafb921397969367722363">SC_DEFAULT_PORT</a>&nbsp;&nbsp;&nbsp;50001</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#fae8398f82d36bf31ea7cec3d14f911b">SC_MAX_BUFFER</a>&nbsp;&nbsp;&nbsp;2048</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#37cd9a198ec8daac56707b0204b624a2">SC_RETRANSMISSIONS</a>&nbsp;&nbsp;&nbsp;20</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#da3217cf36dccab6bc37579290c0662a">SC_PACKET_TIMEO</a>&nbsp;&nbsp;&nbsp;2</td></tr>
 
@@ -57,15 +58,19 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#ea197baae304eba4a7447937f2f6add2">COMBINE_SEC_USEC</a>(sec, usec)&nbsp;&nbsp;&nbsp;((sec * 1000000ULL) + usec)</td></tr>
 
 <tr><td colspan="2"><br><h2>Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#db62cb8097e822f1aea1342304649745">scream_packet_return_routability</a></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#61f295a7919e518232e95ca66fb2dce9">scream_packet_return_routability_ack</a></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#da060a2cc64bea57f908de7d62d35653">scream_packet_update_address_ack</a></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#7cc743b2e855728376994cf597f4e033">scream_packet_ack</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#18c2749a3694c0329976c7f3a8060cd9">scream_packet_register_ack</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#471042ee689451a99118086cbfe07eb1">scream_packet_reset</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#b1292489c578d6314a7d104ea0f38a1a">scream_packet_reset_ack</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#d411dc850b14b9ad5df78472127f65c7">scream_packet_server_client_sync</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#2a322d8b19739d4dcd7e62af3cdbda29">scream_packet_server_client_resp_ack</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#d648e8f7e166c310ec4f755c018a30e0">scream_packet_client_server_ack</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#5293fe1f54511768d51b89f23e3c62f7">scream_packet_client_server_resp</a></td></tr>
 
 <tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1">bool</a> { <a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1a1e095cc966dbecf6a0d8aad75348d1a">FALSE</a> =  0, 
@@ -91,33 +96,59 @@
 &nbsp;&nbsp;<a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f38524f9980ae937c6ddabb8973a1f101983d">SC_ERR_LOCK</a> =  -12, 
 <a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852d0b6a1a473828e0ebe4efd0ba57a06fd">SC_ERR_UNLOCK</a> =  -13, 
 <a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852c2498d914ccdac180164a42da7ae8115">SC_ERR_SIGNAL</a> =  -14, 
-<a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f385270e6bc5763f61154abf4f4af205ce2c3">SC_ERR_NAME</a> =  -15
+<a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f385270e6bc5763f61154abf4f4af205ce2c3">SC_ERR_NAME</a> =  -15, 
+<br>
+&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852a8b3dad337b1a7cab06f56acc282a083">SC_ERR_DB</a> =  -16
 <br>
  }</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a">scream_packet_type</a> { <br>
 &nbsp;&nbsp;<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a3695d0496229e471d3d1ca140e5b75a5">SC_PACKET_UNKNOWN</a> =  0, 
 <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a9580add8a015d5ffb2b5a8d10ec9524f">SC_PACKET_REGISTER</a>, 
-<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7ab58fe7b07032df962e2884078c59248d">SC_PACKET_FLOOD</a>, 
+<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7ab769a1dcef9b7821c87f0d7c07c568a6">SC_PACKET_REGISTER_ACK</a>, 
+<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a5e9910c876a4462a58fa9cac2994104a">SC_PACKET_SERVER_CLIENT_SYNC</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a055afa304cfba8a06d456f9116c5b379">SC_PACKET_SERVER_CLIENT_RESP</a>, 
+<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a32495f5a338511ea46d60bd3a5b7fb3a">SC_PACKET_SERVER_CLIENT_RESP_ACK</a>, 
+<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7ad9e48e12f37a4d06db8f67ae92a93bdf">SC_PACKET_CLIENT_SERVER_SYNC</a>, 
+<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a0d649afa2d858e0520b282492a8c6a61">SC_PACKET_CLIENT_SERVER_RESP</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a4616601d5fa1cb335975f5ae2f2c2dee">SC_PACKET_CLIENT_SERVER_ACK</a>, 
 <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a9a4300c78e82fab76c741de391d3c74a">SC_PACKET_RESET</a>, 
+<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a4a03822acc3271d45254bc465f3e4443">SC_PACKET_RESET_ACK</a>, 
+<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a0257b71dfabc5513170c4f28616a6356">SC_PACKET_SERVER_CLIENT_DATA</a>, 
 <br>
-&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a516b0f1d973c7b999c68648a4baf6e9d">SC_PACKET_RESULT</a>, 
-<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7ac7d6d9598bfe4c6c384d888d6f289cd9">SC_PACKET_ACK</a>, 
-<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a85d395bc44f2368a386127bb2de955aa">SC_PACKET_RETURN_ROUTABILITY</a>, 
-<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7acfb232a1c8ab815cce33f40c75ed0e57">SC_PACKET_RETURN_ROUTABILITY_ACK</a>, 
-<br>
-&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7accaecb956acc86d7cb76be40679ee409">SC_PACKET_UPDATE_ADDRESS</a>, 
-<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a73e3e1f98a228ba245d221f401f28a95">SC_PACKET_UPDATE_ADDRESS_ACK</a>, 
+&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a0688beb6656c11f1c99be629be2481d0">SC_PACKET_CLIENT_SERVER_DATA</a>, 
 <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a465e52b4dba965783c5563a6553151e6">SC_PACKET_MAX</a>
 <br>
  }</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af">chunk_type</a> { <br>
+&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556afdcb06d260d0c02ca71daf1649febab88">CHUNK_UNKNOWN</a> =  0, 
+<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af6485298a67789bb4df57974b9de8e97f">CHUNK_NEW_TODO</a>, 
+<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af4b25dbb166f52df83a4a103ef4a6f899">CHUNK_UPDATE_TODO</a>, 
+<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af3a44527f3e89c17466a617b51dcf648d">CHUNK_DELETE_TODO</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af8b13cd92882a11b04916d390b949a312">CHUNK_TODO</a>, 
+<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556afc827e8e3b59341dc8fda369e45ac6df6">CHUNK_TODO_ID</a>, 
+<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af9166b6743b282647da198636c8ede7ad">CHUNK_TODO_TITLE</a>, 
+<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af05a845cf8ae0d00e48dfdac084f12188">CHUNK_TODO_DEADLINE</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af138deb9d2263c22c8d7be99624e5d8fc">CHUNK_TODO_PRIORITY</a>, 
+<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af31f129ad174c6465718e59c292672da2">CHUNK_TODO_STATUS</a>, 
+<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af8f3d8de2cd3cfe3f590f8d7ce58e1019">CHUNK_TODO_DESCRIPTION</a>, 
+<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556afcf2ddf49b0f7a50e657a580ffe6d215b">CHUNK_TODO_REVISION</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af050616b1badc26701312167d9c415f91">CHUNK_MAX</a>
+<br>
+ }</td></tr>
+
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1">bool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#da0a43be205c8ad603c8a3092022ce0a">is_scream_packet</a> (const void *buffer, size_t len)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1">bool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#dcd6631f62c2008966d738c50886d7cd">is_sane</a> (const void *buffer, size_t len, size_t expected_len)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#4f804e0aebbf724284c3addcfd121173">get_scream_type_name</a> (<a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a">scream_packet_type</a> type)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#43d6b881c305afb56ae13faf5df60899">send_ack</a> (int sock, const struct sockaddr_in *dest)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#801a6f19525c15b138c37aa372b54293">remove_packet</a> (int sock)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned long long&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#fd91adf50127a4be3b27d39f679bb0ed">get_last_packet_ts</a> (int sockfd)</td></tr>
 
@@ -133,9 +164,13 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#35a1a38d0879235b2742a2d92b96c7c7">unset_timeout</a> (int socket)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#42465686fa5210145dc667a8c0f56e82">sqlite3_perror</a> (sqlite3 *db, const char *message)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="scream-common_8h.html#9dfdc8956c57a21b4e5172da95cd88a6">sqlite3_clean_free</a> (void *ptr_addr)</td></tr>
+
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-Common functions for the scream protocol client and server. 
+Common functions for the AndroidTodo synchronization server. 
 <p>
 <dl class="author" compact><dt><b>Author:</b></dt><dd>Tobias Heer &lt;<a href="mailto:heer@cs.rwth-aachen.de">heer@cs.rwth-aachen.de</a>&gt; <p>
 Tadeus Prastowo &lt;<a href="mailto:eus@member.fsf.org">eus@member.fsf.org</a>&gt; </dd></dl>
@@ -178,21 +213,6 @@ Form a time in microsecond given the second and the microsecond parts.
 Default port number. 
 </div>
 </div><p>
-<a class="anchor" name="fae8398f82d36bf31ea7cec3d14f911b"></a><!-- doxytag: member="scream&#45;common.h::SC_MAX_BUFFER" ref="fae8398f82d36bf31ea7cec3d14f911b" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SC_MAX_BUFFER&nbsp;&nbsp;&nbsp;2048          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Maximum size for the packet buffer. 
-</div>
-</div><p>
 <a class="anchor" name="da3217cf36dccab6bc37579290c0662a"></a><!-- doxytag: member="scream&#45;common.h::SC_PACKET_TIMEO" ref="da3217cf36dccab6bc37579290c0662a" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -206,21 +226,6 @@ Maximum size for the packet buffer.
 
 <p>
 Timeout in seconds. 
-</div>
-</div><p>
-<a class="anchor" name="37cd9a198ec8daac56707b0204b624a2"></a><!-- doxytag: member="scream&#45;common.h::SC_RETRANSMISSIONS" ref="37cd9a198ec8daac56707b0204b624a2" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SC_RETRANSMISSIONS&nbsp;&nbsp;&nbsp;20          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Number of retransmssions. 
 </div>
 </div><p>
 <a class="anchor" name="bd4455cdc385de317b285be207223280"></a><!-- doxytag: member="scream&#45;common.h::SEC_PART" ref="bd4455cdc385de317b285be207223280" args="(t)" -->
@@ -264,19 +269,49 @@ Extract the microsecond component of a time in microsecond.
 </div>
 </div><p>
 <hr><h2>Typedef Documentation</h2>
-<a class="anchor" name="7cc743b2e855728376994cf597f4e033"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_ack" ref="7cc743b2e855728376994cf597f4e033" args="" -->
+<a class="anchor" name="d648e8f7e166c310ec4f755c018a30e0"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_client_server_ack" ref="d648e8f7e166c310ec4f755c018a30e0" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_ack</a>          </td>
+          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_client_server_ack</a>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-An acknowledgement packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_ack::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7ab58fe7b07032df962e2884078c59248d">scream_packet_type::SC_PACKET_FLOOD</a>. 
+Prevent the client to resend its sync data by acknowledging the received data. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_client_server_ack::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a4616601d5fa1cb335975f5ae2f2c2dee">scream_packet_type::SC_PACKET_CLIENT_SERVER_ACK</a>. 
+</div>
+</div><p>
+<a class="anchor" name="5293fe1f54511768d51b89f23e3c62f7"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_client_server_resp" ref="5293fe1f54511768d51b89f23e3c62f7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_client_server_resp</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Start client-to-server synchronization response packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_client_server_resp::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a0d649afa2d858e0520b282492a8c6a61">scream_packet_type::SC_PACKET_CLIENT_SERVER_RESP</a>. 
+</div>
+</div><p>
+<a class="anchor" name="18c2749a3694c0329976c7f3a8060cd9"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_register_ack" ref="18c2749a3694c0329976c7f3a8060cd9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_register_ack</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+A register acknowledgement packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_register_ack::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7ab769a1dcef9b7821c87f0d7c07c568a6">scream_packet_type::SC_PACKET_REGISTER_ACK</a>. 
 </div>
 </div><p>
 <a class="anchor" name="471042ee689451a99118086cbfe07eb1"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_reset" ref="471042ee689451a99118086cbfe07eb1" args="" -->
@@ -291,52 +326,52 @@ An acknowledgement packet. The value of <a class="el" href="structscream__packet
 <div class="memdoc">
 
 <p>
-A reset packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_ack::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a9a4300c78e82fab76c741de391d3c74a">scream_packet_type::SC_PACKET_RESET</a>. 
+A reset packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_reset::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a9a4300c78e82fab76c741de391d3c74a">scream_packet_type::SC_PACKET_RESET</a>. 
 </div>
 </div><p>
-<a class="anchor" name="db62cb8097e822f1aea1342304649745"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_return_routability" ref="db62cb8097e822f1aea1342304649745" args="" -->
+<a class="anchor" name="b1292489c578d6314a7d104ea0f38a1a"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_reset_ack" ref="b1292489c578d6314a7d104ea0f38a1a" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_return_routability</a>          </td>
+          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_reset_ack</a>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-A return routability packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_return_routability::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a85d395bc44f2368a386127bb2de955aa">scream_packet_type::SC_PACKET_RETURN_ROUTABILITY</a>. 
+A reset acknowledgement packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_reset_ack::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a4a03822acc3271d45254bc465f3e4443">scream_packet_type::SC_PACKET_RESET_ACK</a>. 
 </div>
 </div><p>
-<a class="anchor" name="61f295a7919e518232e95ca66fb2dce9"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_return_routability_ack" ref="61f295a7919e518232e95ca66fb2dce9" args="" -->
+<a class="anchor" name="2a322d8b19739d4dcd7e62af3cdbda29"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_server_client_resp_ack" ref="2a322d8b19739d4dcd7e62af3cdbda29" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_return_routability_ack</a>          </td>
+          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_server_client_resp_ack</a>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-A return routability acknowledgment packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_return_routability_ack::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7acfb232a1c8ab815cce33f40c75ed0e57">scream_packet_type::SC_PACKET_RETURN_ROUTABILITY_ACK</a>. 
+Start server-to-client synchronization packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_server_client_resp_ack::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a32495f5a338511ea46d60bd3a5b7fb3a">scream_packet_type::SC_PACKET_SERVER_CLIENT_RESP_ACK</a>. 
 </div>
 </div><p>
-<a class="anchor" name="da060a2cc64bea57f908de7d62d35653"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_update_address_ack" ref="da060a2cc64bea57f908de7d62d35653" args="" -->
+<a class="anchor" name="d411dc850b14b9ad5df78472127f65c7"></a><!-- doxytag: member="scream&#45;common.h::scream_packet_server_client_sync" ref="d411dc850b14b9ad5df78472127f65c7" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_update_address_ack</a>          </td>
+          <td class="memname">typedef <a class="el" href="structscream__packet__general.html">scream_packet_general</a> <a class="el" href="structscream__packet__general.html">scream_packet_server_client_sync</a>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-An update address acknowledgment packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_update_address_ack::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a73e3e1f98a228ba245d221f401f28a95">scream_packet_type::SC_PACKET_UPDATE_ADDRESS_ACK</a>. 
+A server-to-client synchronization request packet. The value of <a class="el" href="structscream__packet__general.html#09f535722b29e45567ae62788ef596ab">scream_packet_server_client_sync::type</a> must be <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a5e9910c876a4462a58fa9cac2994104a">scream_packet_type::SC_PACKET_SERVER_CLIENT_SYNC</a>. 
 </div>
 </div><p>
 <hr><h2>Enumeration Type Documentation</h2>
@@ -358,6 +393,51 @@ Define boolean data type for C. <dl compact><dt><b>Enumerator: </b></dt><dd>
 False. </td></tr>
 <tr><td valign="top"><em><a class="anchor" name="f6a258d8f3ee5206d682d799316314b1a82764c3079aea4e60c80e45befbb839"></a><!-- doxytag: member="TRUE" ref="f6a258d8f3ee5206d682d799316314b1a82764c3079aea4e60c80e45befbb839" args="" -->TRUE</em>&nbsp;</td><td>
 True. </td></tr>
+</table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af"></a><!-- doxytag: member="scream&#45;common.h::chunk_type" ref="b76106a9cbeafd115eb2514a6b0556af" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af">chunk_type</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+AndroidTodo chunk types. <dl compact><dt><b>Enumerator: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556afdcb06d260d0c02ca71daf1649febab88"></a><!-- doxytag: member="CHUNK_UNKNOWN" ref="b76106a9cbeafd115eb2514a6b0556afdcb06d260d0c02ca71daf1649febab88" args="" -->CHUNK_UNKNOWN</em>&nbsp;</td><td>
+Chunk number 0 is reserved. Do not use. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af6485298a67789bb4df57974b9de8e97f"></a><!-- doxytag: member="CHUNK_NEW_TODO" ref="b76106a9cbeafd115eb2514a6b0556af6485298a67789bb4df57974b9de8e97f" args="" -->CHUNK_NEW_TODO</em>&nbsp;</td><td>
+A new todo item to be stored. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af4b25dbb166f52df83a4a103ef4a6f899"></a><!-- doxytag: member="CHUNK_UPDATE_TODO" ref="b76106a9cbeafd115eb2514a6b0556af4b25dbb166f52df83a4a103ef4a6f899" args="" -->CHUNK_UPDATE_TODO</em>&nbsp;</td><td>
+An update for a todo item. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af3a44527f3e89c17466a617b51dcf648d"></a><!-- doxytag: member="CHUNK_DELETE_TODO" ref="b76106a9cbeafd115eb2514a6b0556af3a44527f3e89c17466a617b51dcf648d" args="" -->CHUNK_DELETE_TODO</em>&nbsp;</td><td>
+Delete a todo item. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af8b13cd92882a11b04916d390b949a312"></a><!-- doxytag: member="CHUNK_TODO" ref="b76106a9cbeafd115eb2514a6b0556af8b13cd92882a11b04916d390b949a312" args="" -->CHUNK_TODO</em>&nbsp;</td><td>
+A todo item as stored in the sync server. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556afc827e8e3b59341dc8fda369e45ac6df6"></a><!-- doxytag: member="CHUNK_TODO_ID" ref="b76106a9cbeafd115eb2514a6b0556afc827e8e3b59341dc8fda369e45ac6df6" args="" -->CHUNK_TODO_ID</em>&nbsp;</td><td>
+The ID of a todo. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af9166b6743b282647da198636c8ede7ad"></a><!-- doxytag: member="CHUNK_TODO_TITLE" ref="b76106a9cbeafd115eb2514a6b0556af9166b6743b282647da198636c8ede7ad" args="" -->CHUNK_TODO_TITLE</em>&nbsp;</td><td>
+The title of a todo. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af05a845cf8ae0d00e48dfdac084f12188"></a><!-- doxytag: member="CHUNK_TODO_DEADLINE" ref="b76106a9cbeafd115eb2514a6b0556af05a845cf8ae0d00e48dfdac084f12188" args="" -->CHUNK_TODO_DEADLINE</em>&nbsp;</td><td>
+The deadline of a todo. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af138deb9d2263c22c8d7be99624e5d8fc"></a><!-- doxytag: member="CHUNK_TODO_PRIORITY" ref="b76106a9cbeafd115eb2514a6b0556af138deb9d2263c22c8d7be99624e5d8fc" args="" -->CHUNK_TODO_PRIORITY</em>&nbsp;</td><td>
+The priority of a todo. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af31f129ad174c6465718e59c292672da2"></a><!-- doxytag: member="CHUNK_TODO_STATUS" ref="b76106a9cbeafd115eb2514a6b0556af31f129ad174c6465718e59c292672da2" args="" -->CHUNK_TODO_STATUS</em>&nbsp;</td><td>
+The status of a todo. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af8f3d8de2cd3cfe3f590f8d7ce58e1019"></a><!-- doxytag: member="CHUNK_TODO_DESCRIPTION" ref="b76106a9cbeafd115eb2514a6b0556af8f3d8de2cd3cfe3f590f8d7ce58e1019" args="" -->CHUNK_TODO_DESCRIPTION</em>&nbsp;</td><td>
+The description of a todo. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556afcf2ddf49b0f7a50e657a580ffe6d215b"></a><!-- doxytag: member="CHUNK_TODO_REVISION" ref="b76106a9cbeafd115eb2514a6b0556afcf2ddf49b0f7a50e657a580ffe6d215b" args="" -->CHUNK_TODO_REVISION</em>&nbsp;</td><td>
+The revision of a todo. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="b76106a9cbeafd115eb2514a6b0556af050616b1badc26701312167d9c415f91"></a><!-- doxytag: member="CHUNK_MAX" ref="b76106a9cbeafd115eb2514a6b0556af050616b1badc26701312167d9c415f91" args="" -->CHUNK_MAX</em>&nbsp;</td><td>
+Maximum chunk type number. </td></tr>
 </table>
 </dl>
 
@@ -409,6 +489,8 @@ Screamer cannot unlock the main channel. </td></tr>
 Manager cannot signal the screamer. </td></tr>
 <tr><td valign="top"><em><a class="anchor" name="08b18ac8af0f3462354240d9732f385270e6bc5763f61154abf4f4af205ce2c3"></a><!-- doxytag: member="SC_ERR_NAME" ref="08b18ac8af0f3462354240d9732f385270e6bc5763f61154abf4f4af205ce2c3" args="" -->SC_ERR_NAME</em>&nbsp;</td><td>
 Socket has a problematic name. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="08b18ac8af0f3462354240d9732f3852a8b3dad337b1a7cab06f56acc282a083"></a><!-- doxytag: member="SC_ERR_DB" ref="08b18ac8af0f3462354240d9732f3852a8b3dad337b1a7cab06f56acc282a083" args="" -->SC_ERR_DB</em>&nbsp;</td><td>
+DB error. </td></tr>
 </table>
 </dl>
 
@@ -426,28 +508,34 @@ Socket has a problematic name. </td></tr>
 <div class="memdoc">
 
 <p>
-Screamer packet/message types. <dl compact><dt><b>Enumerator: </b></dt><dd>
+AndroidTodo packet/message types. WARNING: This must be kept in sync with AndroidTodo's TodoSyncCommunication class. <dl compact><dt><b>Enumerator: </b></dt><dd>
 <table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a3695d0496229e471d3d1ca140e5b75a5"></a><!-- doxytag: member="SC_PACKET_UNKNOWN" ref="23fe7074617d7bc1e353028f745e6f7a3695d0496229e471d3d1ca140e5b75a5" args="" -->SC_PACKET_UNKNOWN</em>&nbsp;</td><td>
 Packet number 0 is reserved. Do not use. </td></tr>
 <tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a9580add8a015d5ffb2b5a8d10ec9524f"></a><!-- doxytag: member="SC_PACKET_REGISTER" ref="23fe7074617d7bc1e353028f745e6f7a9580add8a015d5ffb2b5a8d10ec9524f" args="" -->SC_PACKET_REGISTER</em>&nbsp;</td><td>
 Register packet. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7ab58fe7b07032df962e2884078c59248d"></a><!-- doxytag: member="SC_PACKET_FLOOD" ref="23fe7074617d7bc1e353028f745e6f7ab58fe7b07032df962e2884078c59248d" args="" -->SC_PACKET_FLOOD</em>&nbsp;</td><td>
-Flood packet. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7ab769a1dcef9b7821c87f0d7c07c568a6"></a><!-- doxytag: member="SC_PACKET_REGISTER_ACK" ref="23fe7074617d7bc1e353028f745e6f7ab769a1dcef9b7821c87f0d7c07c568a6" args="" -->SC_PACKET_REGISTER_ACK</em>&nbsp;</td><td>
+Register acknowledgement packet. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a5e9910c876a4462a58fa9cac2994104a"></a><!-- doxytag: member="SC_PACKET_SERVER_CLIENT_SYNC" ref="23fe7074617d7bc1e353028f745e6f7a5e9910c876a4462a58fa9cac2994104a" args="" -->SC_PACKET_SERVER_CLIENT_SYNC</em>&nbsp;</td><td>
+Server-to-client synchronization request. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a055afa304cfba8a06d456f9116c5b379"></a><!-- doxytag: member="SC_PACKET_SERVER_CLIENT_RESP" ref="23fe7074617d7bc1e353028f745e6f7a055afa304cfba8a06d456f9116c5b379" args="" -->SC_PACKET_SERVER_CLIENT_RESP</em>&nbsp;</td><td>
+Server-to-client synchronization response. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a32495f5a338511ea46d60bd3a5b7fb3a"></a><!-- doxytag: member="SC_PACKET_SERVER_CLIENT_RESP_ACK" ref="23fe7074617d7bc1e353028f745e6f7a32495f5a338511ea46d60bd3a5b7fb3a" args="" -->SC_PACKET_SERVER_CLIENT_RESP_ACK</em>&nbsp;</td><td>
+Start server-to-client synchronization. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7ad9e48e12f37a4d06db8f67ae92a93bdf"></a><!-- doxytag: member="SC_PACKET_CLIENT_SERVER_SYNC" ref="23fe7074617d7bc1e353028f745e6f7ad9e48e12f37a4d06db8f67ae92a93bdf" args="" -->SC_PACKET_CLIENT_SERVER_SYNC</em>&nbsp;</td><td>
+Client-to-server synchronization request. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a0d649afa2d858e0520b282492a8c6a61"></a><!-- doxytag: member="SC_PACKET_CLIENT_SERVER_RESP" ref="23fe7074617d7bc1e353028f745e6f7a0d649afa2d858e0520b282492a8c6a61" args="" -->SC_PACKET_CLIENT_SERVER_RESP</em>&nbsp;</td><td>
+Start client-to-server synchronization. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a4616601d5fa1cb335975f5ae2f2c2dee"></a><!-- doxytag: member="SC_PACKET_CLIENT_SERVER_ACK" ref="23fe7074617d7bc1e353028f745e6f7a4616601d5fa1cb335975f5ae2f2c2dee" args="" -->SC_PACKET_CLIENT_SERVER_ACK</em>&nbsp;</td><td>
+Client-to-server synchronization completes. </td></tr>
 <tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a9a4300c78e82fab76c741de391d3c74a"></a><!-- doxytag: member="SC_PACKET_RESET" ref="23fe7074617d7bc1e353028f745e6f7a9a4300c78e82fab76c741de391d3c74a" args="" -->SC_PACKET_RESET</em>&nbsp;</td><td>
 Reset packet. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a516b0f1d973c7b999c68648a4baf6e9d"></a><!-- doxytag: member="SC_PACKET_RESULT" ref="23fe7074617d7bc1e353028f745e6f7a516b0f1d973c7b999c68648a4baf6e9d" args="" -->SC_PACKET_RESULT</em>&nbsp;</td><td>
-Result packet. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7ac7d6d9598bfe4c6c384d888d6f289cd9"></a><!-- doxytag: member="SC_PACKET_ACK" ref="23fe7074617d7bc1e353028f745e6f7ac7d6d9598bfe4c6c384d888d6f289cd9" args="" -->SC_PACKET_ACK</em>&nbsp;</td><td>
-Acknowledgement packet. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a85d395bc44f2368a386127bb2de955aa"></a><!-- doxytag: member="SC_PACKET_RETURN_ROUTABILITY" ref="23fe7074617d7bc1e353028f745e6f7a85d395bc44f2368a386127bb2de955aa" args="" -->SC_PACKET_RETURN_ROUTABILITY</em>&nbsp;</td><td>
-Return-routability check packet. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7acfb232a1c8ab815cce33f40c75ed0e57"></a><!-- doxytag: member="SC_PACKET_RETURN_ROUTABILITY_ACK" ref="23fe7074617d7bc1e353028f745e6f7acfb232a1c8ab815cce33f40c75ed0e57" args="" -->SC_PACKET_RETURN_ROUTABILITY_ACK</em>&nbsp;</td><td>
-The acknowledgment packet for a return- routability check. </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7accaecb956acc86d7cb76be40679ee409"></a><!-- doxytag: member="SC_PACKET_UPDATE_ADDRESS" ref="23fe7074617d7bc1e353028f745e6f7accaecb956acc86d7cb76be40679ee409" args="" -->SC_PACKET_UPDATE_ADDRESS</em>&nbsp;</td><td>
-A screamer updates its address for the subsequent communication </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a73e3e1f98a228ba245d221f401f28a95"></a><!-- doxytag: member="SC_PACKET_UPDATE_ADDRESS_ACK" ref="23fe7074617d7bc1e353028f745e6f7a73e3e1f98a228ba245d221f401f28a95" args="" -->SC_PACKET_UPDATE_ADDRESS_ACK</em>&nbsp;</td><td>
-The acknowledgment packet for an address update. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a4a03822acc3271d45254bc465f3e4443"></a><!-- doxytag: member="SC_PACKET_RESET_ACK" ref="23fe7074617d7bc1e353028f745e6f7a4a03822acc3271d45254bc465f3e4443" args="" -->SC_PACKET_RESET_ACK</em>&nbsp;</td><td>
+Result acknowledgement packet. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a0257b71dfabc5513170c4f28616a6356"></a><!-- doxytag: member="SC_PACKET_SERVER_CLIENT_DATA" ref="23fe7074617d7bc1e353028f745e6f7a0257b71dfabc5513170c4f28616a6356" args="" -->SC_PACKET_SERVER_CLIENT_DATA</em>&nbsp;</td><td>
+Todo items from server. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a0688beb6656c11f1c99be629be2481d0"></a><!-- doxytag: member="SC_PACKET_CLIENT_SERVER_DATA" ref="23fe7074617d7bc1e353028f745e6f7a0688beb6656c11f1c99be629be2481d0" args="" -->SC_PACKET_CLIENT_SERVER_DATA</em>&nbsp;</td><td>
+Todo items from client. </td></tr>
 <tr><td valign="top"><em><a class="anchor" name="23fe7074617d7bc1e353028f745e6f7a465e52b4dba965783c5563a6553151e6"></a><!-- doxytag: member="SC_PACKET_MAX" ref="23fe7074617d7bc1e353028f745e6f7a465e52b4dba965783c5563a6553151e6" args="" -->SC_PACKET_MAX</em>&nbsp;</td><td>
 Maximum packet type number. </td></tr>
 </table>
@@ -687,12 +775,12 @@ Convert a type to a printable string.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="da0a43be205c8ad603c8a3092022ce0a"></a><!-- doxytag: member="scream&#45;common.h::is_scream_packet" ref="da0a43be205c8ad603c8a3092022ce0a" args="(const void *buffer, size_t len)" -->
+<a class="anchor" name="dcd6631f62c2008966d738c50886d7cd"></a><!-- doxytag: member="scream&#45;common.h::is_sane" ref="dcd6631f62c2008966d738c50886d7cd" args="(const void *buffer, size_t len, size_t expected_len)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1">bool</a> is_scream_packet           </td>
+          <td class="memname"><a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1">bool</a> is_sane           </td>
           <td>(</td>
           <td class="paramtype">const void *&nbsp;</td>
           <td class="paramname"> <em>buffer</em>, </td>
@@ -701,44 +789,13 @@ Convert a type to a printable string.<p>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&nbsp;</td>
-          <td class="paramname"> <em>len</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Check if a piece of memory is a scream packet.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>buffer</em>&nbsp;</td><td>piece of memory to be checked. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>len</em>&nbsp;</td><td>length of the buffer.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd><a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1a82764c3079aea4e60c80e45befbb839">bool::TRUE</a> if the packet is a <a class="el" href="structscream__packet__general.html">scream_packet_general</a>, <a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1a1e095cc966dbecf6a0d8aad75348d1a">bool::FALSE</a> otherwise. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="43d6b881c305afb56ae13faf5df60899"></a><!-- doxytag: member="scream&#45;common.h::send_ack" ref="43d6b881c305afb56ae13faf5df60899" args="(int sock, const struct sockaddr_in *dest)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_ack           </td>
-          <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>sock</em>, </td>
+          <td class="paramname"> <em>len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>dest</em></td><td>&nbsp;</td>
+          <td class="paramtype">size_t&nbsp;</td>
+          <td class="paramname"> <em>expected_len</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -750,14 +807,41 @@ Check if a piece of memory is a scream packet.<p>
 <div class="memdoc">
 
 <p>
-Send a <a class="el" href="scream-common_8h.html#7cc743b2e855728376994cf597f4e033">scream_packet_ack</a> to the destination.<p>
+Check if a piece of memory is a sane packet.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>sock</em>&nbsp;</td><td>the socket through which the packet is to be sent. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>dest</em>&nbsp;</td><td>the destination of the packet.</td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>buffer</em>&nbsp;</td><td>piece of memory to be checked. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>len</em>&nbsp;</td><td>length of the buffer. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>expected_len</em>&nbsp;</td><td>the expected length of the buffer.</td></tr>
   </table>
 </dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1a82764c3079aea4e60c80e45befbb839">bool::TRUE</a> if the packet has a recognized type and of size expected_len, <a class="el" href="scream-common_8h.html#f6a258d8f3ee5206d682d799316314b1a1e095cc966dbecf6a0d8aad75348d1a">bool::FALSE</a> otherwise. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="801a6f19525c15b138c37aa372b54293"></a><!-- doxytag: member="scream&#45;common.h::remove_packet" ref="801a6f19525c15b138c37aa372b54293" args="(int sock)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void remove_packet           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>sock</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Remove a UDP packet in the front of the buffer of sock.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>sock</em>&nbsp;</td><td>the socket whose first UDP datagram in its buffer will be removed. </td></tr>
+  </table>
+</dl>
 
 </div>
 </div><p>
@@ -798,6 +882,68 @@ Set a receiving timeout on a socket.<p>
 
 </div>
 </div><p>
+<a class="anchor" name="9dfdc8956c57a21b4e5172da95cd88a6"></a><!-- doxytag: member="scream&#45;common.h::sqlite3_clean_free" ref="9dfdc8956c57a21b4e5172da95cd88a6" args="(void *ptr_addr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sqlite3_clean_free           </td>
+          <td>(</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>ptr_addr</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Frees a pointer that is produced by either sqlite3_malloc() or sqlite3_realloc() and NULLified the pointer so that it is safe for reuse.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>ptr_addr</em>&nbsp;</td><td>the address of the pointer to be freed </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="42465686fa5210145dc667a8c0f56e82"></a><!-- doxytag: member="scream&#45;common.h::sqlite3_perror" ref="42465686fa5210145dc667a8c0f56e82" args="(sqlite3 *db, const char *message)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sqlite3_perror           </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3 *&nbsp;</td>
+          <td class="paramname"> <em>db</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>message</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Produces a nice error message identical to perror().<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the database whose latest error is to be produced. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>message</em>&nbsp;</td><td>the message to be printed before the error message. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
 <a class="anchor" name="35a1a38d0879235b2742a2d92b96c7c7"></a><!-- doxytag: member="scream&#45;common.h::unset_timeout" ref="35a1a38d0879235b2742a2d92b96c7c7" args="(int socket)" -->
 <div class="memitem">
 <div class="memproto">
@@ -826,7 +972,7 @@ Unset a receiving timeout on a socket.<p>
 </div>
 </div><p>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Mon Nov 30 09:45:14 2009 for screamer by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Jan 6 21:33:14 2010 for screamer by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

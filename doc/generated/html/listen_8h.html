@@ -36,37 +36,61 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structclient__db.html">client_db</a></td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlistener__info.html">listener_info</a></td></tr>
+
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#9ef2e9d6f4eba8699b87c9eb676344a7">CLIENT_MAX_NUM</a>&nbsp;&nbsp;&nbsp;16</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#9ef2e9d6f4eba8699b87c9eb676344a7">CLIENT_MAX_NUM</a>&nbsp;&nbsp;&nbsp;10</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#766b55be6dacc759548a399b69d94e7a">TIME_TO_DEATH</a>&nbsp;&nbsp;&nbsp;100</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#c40041ff29ef9163ceefd0d10670f31c">VACANT</a>&nbsp;&nbsp;&nbsp;(-1)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#485d31e84cd14a55c30dd89879f21b4f">DIE_AT_ANOTHER_TIME</a>&nbsp;&nbsp;&nbsp;(-1)</td></tr>
+<tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca">comm_state</a> { <br>
+&nbsp;&nbsp;<a class="el" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca929f0327e17604ce9713b2a6117bd603">CLOSED</a> =  0, 
+<a class="el" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca114692bc60cdc669e9e7e22e4f9fdba0">WAIT_SERVER_CLIENT_SYNC</a>, 
+<a class="el" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca779f922277a8b31359e7685145c5692a">WAIT_SERVER_CLIENT_RESP_ACK</a>, 
+<a class="el" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63cad0e11b603cef387ac1c4cb2cdded4b11">WAIT_CLIENT_SERVER_SYNC</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63cae86af7c3a324270ec2d15e762efe246c">WAIT_CLIENT_SERVER_DATA</a>, 
+<a class="el" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca52467fef5ff7c7fd857fe4868501d96d">WAIT_RESET</a>
+<br>
+ }</td></tr>
 
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#8b91cffd770899bbced999f3e5ca1618">listener_handle_packet</a> (const struct sockaddr_in *client_addr, const <a class="el" href="structscream__packet__general.html">scream_packet_general</a> *packet, size_t len, int sock, struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#56cad4f7f444b609a44c1edd7653fa46">listener_handle_packet</a> (const struct sockaddr_in *client_addr, <a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a">scream_packet_type</a> type, int sock, struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#ec133b4b155786027bc06e32e938fc42">register_client</a> (const struct sockaddr_in *client_addr, const <a class="el" href="structscream__packet__register.html">scream_packet_register</a> *packet, struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#a98ac71f00ec450940965e304c2c9146">register_client</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#5596da7ea67727af7317a7567d277d1f">update_client_address</a> (const struct sockaddr_in *client_addr, const <a class="el" href="structscream__packet__update__address.html">scream_packet_update_address</a> *packet, struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#1d86e3e7aed07cff6aae2b6fea50ea88">reset_client</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#dd5eb83a8c3d1c6d9517d50213477866">record_packet</a> (const struct sockaddr_in *client_addr, const <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a> *packet, unsigned long long ts, struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#e4b5140642f6ade08b7519c1cc2de496">send_register_ack</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#a4b3466b7f80ac38d6a1203aa482cdf2">reset_client</a> (int sock, const struct sockaddr_in *client_addr, struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#20c92cbeca1bbe09358f894b822e4878">send_reset_ack</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#3f5926de726bb2ac22b4535e7e516061">send_result</a> (int sock, const struct sockaddr_in *client_addr, const struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#13d5595669b9fd950cc7cf83c736b45b">server_client_sync</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#bee273c1a34fbc88f25d136ecd32efbe">send_return_routability_ack</a> (int sock, const struct sockaddr_in *dest)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#9600ba8c4a01a62b777ccd6ffaf63893">send_server_client_resp</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#8c8b9471866ddf0ca122010265b71426">send_update_address_ack</a> (int sock, const struct sockaddr_in *dest)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#b9a4268a2690419d16b4a93543f3490d">server_client_resp_ack</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#7596b6bd9e2d94203fe12fed9e9b4d31">mark_client_for_unregistering</a> (const struct sockaddr_in *client_addr, struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#3c5814d9e0e958fc4e1d2b6128a08d5c">send_server_client_data</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#31ace544a99797205c9b246b73546cd8">unregister_client</a> (const struct sockaddr_in *client_addr, struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#f829bd034fbac8ef4e0a37b1313b71b7">client_server_sync</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">struct <a class="el" href="structclient__record.html">client_record</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#9535115f68e8eb3bb7bff4914dceedc1">get_empty_slot</a> (const struct sockaddr_in *client_addr, const struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#37126382dc151e4561fb3409e8fe8f7d">send_client_server_resp</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#e25b7ebc8fa6aba4021957d43cc8e6e3">client_server_data</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#df495f91fcda5e825f453d140bef8564">send_client_server_ack</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct <a class="el" href="structclient__record.html">client_record</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#2a91c6d55490b64340c6e31f8302add3">get_empty_slot</a> (const struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct <a class="el" href="structclient__record.html">client_record</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#0840634963b51d21e3c298c8476c7e98">get_client_record_on_id</a> (int32_t id, const struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">struct <a class="el" href="structclient__record.html">client_record</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#fe0554ccbbd75254413e5e44b0afb851">get_client_record</a> (const struct sockaddr_in *addr, const struct <a class="el" href="structclient__db.html">client_db</a> *db)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#1177c548c583aa8777dfd2319093cd6a">retrieve_todos</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#62e339695f26581226341d531df83291">sync_todos</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -80,7 +104,7 @@ This file provides the base functions for the UDP listener. <hr><h2>Define Docum
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CLIENT_MAX_NUM&nbsp;&nbsp;&nbsp;16          </td>
+          <td class="memname">#define CLIENT_MAX_NUM&nbsp;&nbsp;&nbsp;10          </td>
         </tr>
       </table>
 </div>
@@ -90,37 +114,108 @@ This file provides the base functions for the UDP listener. <hr><h2>Define Docum
 The maximum number of clients that the listener can have. 
 </div>
 </div><p>
-<a class="anchor" name="485d31e84cd14a55c30dd89879f21b4f"></a><!-- doxytag: member="listen.h::DIE_AT_ANOTHER_TIME" ref="485d31e84cd14a55c30dd89879f21b4f" args="" -->
+<a class="anchor" name="c40041ff29ef9163ceefd0d10670f31c"></a><!-- doxytag: member="listen.h::VACANT" ref="c40041ff29ef9163ceefd0d10670f31c" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DIE_AT_ANOTHER_TIME&nbsp;&nbsp;&nbsp;(-1)          </td>
+          <td class="memname">#define VACANT&nbsp;&nbsp;&nbsp;(-1)          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-An indication that a client record is still in use. 
+The client record is still vacant. 
 </div>
 </div><p>
-<a class="anchor" name="766b55be6dacc759548a399b69d94e7a"></a><!-- doxytag: member="listen.h::TIME_TO_DEATH" ref="766b55be6dacc759548a399b69d94e7a" args="" -->
+<hr><h2>Enumeration Type Documentation</h2>
+<a class="anchor" name="9903917313a0af6993a37b9a2e1b63ca"></a><!-- doxytag: member="listen.h::comm_state" ref="9903917313a0af6993a37b9a2e1b63ca" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define TIME_TO_DEATH&nbsp;&nbsp;&nbsp;100          </td>
+          <td class="memname">enum <a class="el" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca">comm_state</a>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-The time in second after sending a <a class="el" href="structscream__packet__result.html">scream_packet_result</a> at which the client should be disassociated. 
+The communication state of a synchronization session. <dl compact><dt><b>Enumerator: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="9903917313a0af6993a37b9a2e1b63ca929f0327e17604ce9713b2a6117bd603"></a><!-- doxytag: member="CLOSED" ref="9903917313a0af6993a37b9a2e1b63ca929f0327e17604ce9713b2a6117bd603" args="" -->CLOSED</em>&nbsp;</td><td>
+The session is closed. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="9903917313a0af6993a37b9a2e1b63ca114692bc60cdc669e9e7e22e4f9fdba0"></a><!-- doxytag: member="WAIT_SERVER_CLIENT_SYNC" ref="9903917313a0af6993a37b9a2e1b63ca114692bc60cdc669e9e7e22e4f9fdba0" args="" -->WAIT_SERVER_CLIENT_SYNC</em>&nbsp;</td><td>
+Wait for the server-to-client sync request. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="9903917313a0af6993a37b9a2e1b63ca779f922277a8b31359e7685145c5692a"></a><!-- doxytag: member="WAIT_SERVER_CLIENT_RESP_ACK" ref="9903917313a0af6993a37b9a2e1b63ca779f922277a8b31359e7685145c5692a" args="" -->WAIT_SERVER_CLIENT_RESP_ACK</em>&nbsp;</td><td>
+Wait for the server-to-client sync response acknowledgement. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="9903917313a0af6993a37b9a2e1b63cad0e11b603cef387ac1c4cb2cdded4b11"></a><!-- doxytag: member="WAIT_CLIENT_SERVER_SYNC" ref="9903917313a0af6993a37b9a2e1b63cad0e11b603cef387ac1c4cb2cdded4b11" args="" -->WAIT_CLIENT_SERVER_SYNC</em>&nbsp;</td><td>
+Wait for the client-to-server sync request. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="9903917313a0af6993a37b9a2e1b63cae86af7c3a324270ec2d15e762efe246c"></a><!-- doxytag: member="WAIT_CLIENT_SERVER_DATA" ref="9903917313a0af6993a37b9a2e1b63cae86af7c3a324270ec2d15e762efe246c" args="" -->WAIT_CLIENT_SERVER_DATA</em>&nbsp;</td><td>
+Wait for the client-to-server sync data. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="9903917313a0af6993a37b9a2e1b63ca52467fef5ff7c7fd857fe4868501d96d"></a><!-- doxytag: member="WAIT_RESET" ref="9903917313a0af6993a37b9a2e1b63ca52467fef5ff7c7fd857fe4868501d96d" args="" -->WAIT_RESET</em>&nbsp;</td><td>
+Wait for reset. </td></tr>
+</table>
+</dl>
+
 </div>
 </div><p>
 <hr><h2>Function Documentation</h2>
+<a class="anchor" name="e25b7ebc8fa6aba4021957d43cc8e6e3"></a><!-- doxytag: member="listen.h::client_server_data" ref="e25b7ebc8fa6aba4021957d43cc8e6e3" args="(struct listener_info *info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> client_server_data           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Process a <a class="el" href="structscream__packet__client__server__data.html">scream_packet_client_server_data</a>.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="f829bd034fbac8ef4e0a37b1313b71b7"></a><!-- doxytag: member="listen.h::client_server_sync" ref="f829bd034fbac8ef4e0a37b1313b71b7" args="(struct listener_info *info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> client_server_sync           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Process a <a class="el" href="structscream__packet__client__server__sync.html">scream_packet_client_server_sync</a>.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="fe0554ccbbd75254413e5e44b0afb851"></a><!-- doxytag: member="listen.h::get_client_record" ref="fe0554ccbbd75254413e5e44b0afb851" args="(const struct sockaddr_in *addr, const struct client_db *db)" -->
 <div class="memitem">
 <div class="memproto">
@@ -158,15 +253,15 @@ Get the book-keeping record of a client that has not been disassociated.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="9535115f68e8eb3bb7bff4914dceedc1"></a><!-- doxytag: member="listen.h::get_empty_slot" ref="9535115f68e8eb3bb7bff4914dceedc1" args="(const struct sockaddr_in *client_addr, const struct client_db *db)" -->
+<a class="anchor" name="0840634963b51d21e3c298c8476c7e98"></a><!-- doxytag: member="listen.h::get_client_record_on_id" ref="0840634963b51d21e3c298c8476c7e98" args="(int32_t id, const struct client_db *db)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structclient__record.html">client_record</a>* get_empty_slot           </td>
+          <td class="memname">struct <a class="el" href="structclient__record.html">client_record</a>* get_client_record_on_id           </td>
           <td>(</td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>client_addr</em>, </td>
+          <td class="paramtype">int32_t&nbsp;</td>
+          <td class="paramname"> <em>id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -184,10 +279,37 @@ Get the book-keeping record of a client that has not been disassociated.<p>
 <div class="memdoc">
 
 <p>
+Get the book-keeping record of a client.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>id</em>&nbsp;</td><td>the client ID. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the book-keeping data structure.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>The client book-keeping record or NULL if the client has none. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="2a91c6d55490b64340c6e31f8302add3"></a><!-- doxytag: member="listen.h::get_empty_slot" ref="2a91c6d55490b64340c6e31f8302add3" args="(const struct client_db *db)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structclient__record.html">client_record</a>* get_empty_slot           </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="structclient__db.html">client_db</a> *&nbsp;</td>
+          <td class="paramname"> <em>db</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [read]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
 Get a vacant slot in the DB to track a client.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>client_addr</em>&nbsp;</td><td>the client address. </td></tr>
     <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the book-keeping data structure.</td></tr>
   </table>
 </dl>
@@ -195,7 +317,7 @@ Get a vacant slot in the DB to track a client.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="8b91cffd770899bbced999f3e5ca1618"></a><!-- doxytag: member="listen.h::listener_handle_packet" ref="8b91cffd770899bbced999f3e5ca1618" args="(const struct sockaddr_in *client_addr, const scream_packet_general *packet, size_t len, int sock, struct client_db *db)" -->
+<a class="anchor" name="56cad4f7f444b609a44c1edd7653fa46"></a><!-- doxytag: member="listen.h::listener_handle_packet" ref="56cad4f7f444b609a44c1edd7653fa46" args="(const struct sockaddr_in *client_addr, scream_packet_type type, int sock, struct client_db *db)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -208,14 +330,8 @@ Get a vacant slot in the DB to track a client.<p>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structscream__packet__general.html">scream_packet_general</a> *&nbsp;</td>
-          <td class="paramname"> <em>packet</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&nbsp;</td>
-          <td class="paramname"> <em>len</em>, </td>
+          <td class="paramtype"><a class="el" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a">scream_packet_type</a>&nbsp;</td>
+          <td class="paramname"> <em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -243,8 +359,7 @@ Handle a scream packet according to the state machine.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>client_addr</em>&nbsp;</td><td>the address of the client who sent the packet. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>packet</em>&nbsp;</td><td>a valid <a class="el" href="structscream__packet__general.html">scream_packet_general</a>. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>len</em>&nbsp;</td><td>the length of the packet. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>type</em>&nbsp;</td><td>the type of the first packet in the socket receiving queue. </td></tr>
     <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>sock</em>&nbsp;</td><td>the UDP socket on which the packet was received. </td></tr>
     <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the client book-keeping data structure.</td></tr>
   </table>
@@ -253,375 +368,324 @@ Handle a scream packet according to the state machine.<p>
 
 </div>
 </div><p>
-<a class="anchor" name="7596b6bd9e2d94203fe12fed9e9b4d31"></a><!-- doxytag: member="listen.h::mark_client_for_unregistering" ref="7596b6bd9e2d94203fe12fed9e9b4d31" args="(const struct sockaddr_in *client_addr, struct client_db *db)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> mark_client_for_unregistering           </td>
-          <td>(</td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>client_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="structclient__db.html">client_db</a> *&nbsp;</td>
-          <td class="paramname"> <em>db</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Set an absolute time after which the client slot in the book-keeping data structure can be reused.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>client_addr</em>&nbsp;</td><td>the client address. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the book-keeping data structure.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="dd5eb83a8c3d1c6d9517d50213477866"></a><!-- doxytag: member="listen.h::record_packet" ref="dd5eb83a8c3d1c6d9517d50213477866" args="(const struct sockaddr_in *client_addr, const scream_packet_flood *packet, unsigned long long ts, struct client_db *db)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> record_packet           </td>
-          <td>(</td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>client_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a> *&nbsp;</td>
-          <td class="paramname"> <em>packet</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned long long&nbsp;</td>
-          <td class="paramname"> <em>ts</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="structclient__db.html">client_db</a> *&nbsp;</td>
-          <td class="paramname"> <em>db</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Process a <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a>. If this is the first <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a> from the client, the timestamp and the sequence number are simply recorded in the DB. If this is the subsequent <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a>, the delta in the timestamp of the previous and current <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a> are recorded in the form of maximum and minimum latencies. The current <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a>'s timestamp is recorded as the previous timestamp. The current <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a>'s sequence number is only recorded if it is greater than the last recorded sequence number. The out-of-order flag is set if the current <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a>'s sequence number is less than the last recorded sequence number. Upon recording the sequence number of the current <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a>, the delta of the current and last recorded sequence number is calculated. If the delta is greater than 1, the total number as well as the maximum width of the gap that has been so far is updated.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>client_addr</em>&nbsp;</td><td>the client address. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>packet</em>&nbsp;</td><td>the current <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a>. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>ts</em>&nbsp;</td><td>the timestamp of the current <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a>. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the book-keeping data structure.</td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="ec133b4b155786027bc06e32e938fc42"></a><!-- doxytag: member="listen.h::register_client" ref="ec133b4b155786027bc06e32e938fc42" args="(const struct sockaddr_in *client_addr, const scream_packet_register *packet, struct client_db *db)" -->
+<a class="anchor" name="a98ac71f00ec450940965e304c2c9146"></a><!-- doxytag: member="listen.h::register_client" ref="a98ac71f00ec450940965e304c2c9146" args="(struct listener_info *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> register_client           </td>
           <td>(</td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>client_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structscream__packet__register.html">scream_packet_register</a> *&nbsp;</td>
-          <td class="paramname"> <em>packet</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="structclient__db.html">client_db</a> *&nbsp;</td>
-          <td class="paramname"> <em>db</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Process a <a class="el" href="structscream__packet__register.html">scream_packet_register</a>. If the client is not already registered, a new record is created. If the new record cannot be created because the DB is full, the <a class="el" href="structscream__packet__register.html">scream_packet_register</a> will be ignored. If the new record can be created, the sleep time and the number of <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a> to be sent are recorded. If the client is already registered, an <a class="el" href="scream-common_8h.html#7cc743b2e855728376994cf597f4e033">scream_packet_ack</a> will be sent.<p>
+Process a <a class="el" href="structscream__packet__register.html">scream_packet_register</a>. If the client is not already registered, a new record is created. If the new record cannot be created because the DB is full, the <a class="el" href="structscream__packet__register.html">scream_packet_register</a> will be ignored.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>client_addr</em>&nbsp;</td><td>the address of the client. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>packet</em>&nbsp;</td><td>the <a class="el" href="structscream__packet__register.html">scream_packet_register</a> containing the client's sleep time, the number of <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a> to be sent and the client's ID. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the book-keeping structure to track the client.</td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="a4b3466b7f80ac38d6a1203aa482cdf2"></a><!-- doxytag: member="listen.h::reset_client" ref="a4b3466b7f80ac38d6a1203aa482cdf2" args="(int sock, const struct sockaddr_in *client_addr, struct client_db *db)" -->
+<a class="anchor" name="1d86e3e7aed07cff6aae2b6fea50ea88"></a><!-- doxytag: member="listen.h::reset_client" ref="1d86e3e7aed07cff6aae2b6fea50ea88" args="(struct listener_info *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> reset_client           </td>
           <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>sock</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>client_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="structclient__db.html">client_db</a> *&nbsp;</td>
-          <td class="paramname"> <em>db</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Process a <a class="el" href="scream-common_8h.html#471042ee689451a99118086cbfe07eb1">scream_packet_type::scream_packet_reset</a>. After determining whether or not there are some missing/out-of-order packets at the end, the flooding data of the client is sent to the client and the corresponding book-keeping entry is marked to be disassociated within <a class="el" href="listen_8h.html#766b55be6dacc759548a399b69d94e7a">TIME_TO_DEATH</a>.<p>
+Process a <a class="el" href="scream-common_8h.html#471042ee689451a99118086cbfe07eb1">scream_packet_type::scream_packet_reset</a>.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>sock</em>&nbsp;</td><td>the socket through which the <a class="el" href="structscream__packet__result.html">scream_packet_result</a> is sent. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>client_addr</em>&nbsp;</td><td>the address of the client. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the book-keeping structure to track the client.</td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="3f5926de726bb2ac22b4535e7e516061"></a><!-- doxytag: member="listen.h::send_result" ref="3f5926de726bb2ac22b4535e7e516061" args="(int sock, const struct sockaddr_in *client_addr, const struct client_db *db)" -->
+<a class="anchor" name="1177c548c583aa8777dfd2319093cd6a"></a><!-- doxytag: member="listen.h::retrieve_todos" ref="1177c548c583aa8777dfd2319093cd6a" args="(struct listener_info *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_result           </td>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> retrieve_todos           </td>
           <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>sock</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>client_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const struct <a class="el" href="structclient__db.html">client_db</a> *&nbsp;</td>
-          <td class="paramname"> <em>db</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Send <a class="el" href="structscream__packet__result.html">scream_packet_result</a> to the client who sent <a class="el" href="scream-common_8h.html#471042ee689451a99118086cbfe07eb1">scream_packet_reset</a>. The <a class="el" href="structscream__packet__result.html">scream_packet_result</a> contains the number of received <a class="el" href="structscream__packet__flood.html">scream_packet_flood</a>, the maximum width of the gap, the number of gaps, out-of-order flag, minimum latency, maximum latency, and average latency.<p>
+Populate field <a class="el" href="structclient__record.html#d2aa708b9f17d7b69060c9cc38e83973">client_record::data</a> and <a class="el" href="structclient__record.html#e8bce6875c68dcb6bcbfe8c9e240d0b8">client_record::len</a> of <a class="el" href="structlistener__info.html#3587c5290cb740d10a794d49097f5486">listener_info::client_db_rec</a> with the user's todo items.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>sock</em>&nbsp;</td><td>the socket through which the <a class="el" href="structscream__packet__result.html">scream_packet_result</a> is sent. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>client_addr</em>&nbsp;</td><td>the client address. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the book-keeping data structure.</td></tr>
+    <tr><td valign="top"><tt>[in,out]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the fields to be populated as well as the information needed to populate them.</td></tr>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="bee273c1a34fbc88f25d136ecd32efbe"></a><!-- doxytag: member="listen.h::send_return_routability_ack" ref="bee273c1a34fbc88f25d136ecd32efbe" args="(int sock, const struct sockaddr_in *dest)" -->
+<a class="anchor" name="df495f91fcda5e825f453d140bef8564"></a><!-- doxytag: member="listen.h::send_client_server_ack" ref="df495f91fcda5e825f453d140bef8564" args="(struct listener_info *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_return_routability_ack           </td>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_client_server_ack           </td>
           <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>sock</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>dest</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Send a <a class="el" href="scream-common_8h.html#61f295a7919e518232e95ca66fb2dce9">scream_packet_return_routability_ack</a> to the destination.<p>
+Send a <a class="el" href="scream-common_8h.html#d648e8f7e166c310ec4f755c018a30e0">scream_packet_client_server_ack</a> to the destination.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>sock</em>&nbsp;</td><td>the socket through which the packet is to be sent. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>dest</em>&nbsp;</td><td>the destination of the packet.</td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="8c8b9471866ddf0ca122010265b71426"></a><!-- doxytag: member="listen.h::send_update_address_ack" ref="8c8b9471866ddf0ca122010265b71426" args="(int sock, const struct sockaddr_in *dest)" -->
+<a class="anchor" name="37126382dc151e4561fb3409e8fe8f7d"></a><!-- doxytag: member="listen.h::send_client_server_resp" ref="37126382dc151e4561fb3409e8fe8f7d" args="(struct listener_info *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_update_address_ack           </td>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_client_server_resp           </td>
           <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>sock</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>dest</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Send a <a class="el" href="scream-common_8h.html#da060a2cc64bea57f908de7d62d35653">scream_packet_update_address_ack</a> to the destination.<p>
+Send a <a class="el" href="scream-common_8h.html#5293fe1f54511768d51b89f23e3c62f7">scream_packet_client_server_resp</a> to the destination.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>sock</em>&nbsp;</td><td>the socket through which the packet is to be sent. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>dest</em>&nbsp;</td><td>the destination of the packet.</td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="31ace544a99797205c9b246b73546cd8"></a><!-- doxytag: member="listen.h::unregister_client" ref="31ace544a99797205c9b246b73546cd8" args="(const struct sockaddr_in *client_addr, struct client_db *db)" -->
+<a class="anchor" name="e4b5140642f6ade08b7519c1cc2de496"></a><!-- doxytag: member="listen.h::send_register_ack" ref="e4b5140642f6ade08b7519c1cc2de496" args="(struct listener_info *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> unregister_client           </td>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_register_ack           </td>
           <td>(</td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>client_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype">struct <a class="el" href="structclient__db.html">client_db</a> *&nbsp;</td>
-          <td class="paramname"> <em>db</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Disassociate a client upon receiving a <a class="el" href="scream-common_8h.html#7cc743b2e855728376994cf597f4e033">scream_packet_ack</a> from the client.<p>
+Send a <a class="el" href="scream-common_8h.html#18c2749a3694c0329976c7f3a8060cd9">scream_packet_register_ack</a> to the destination.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>client_addr</em>&nbsp;</td><td>the client address. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the book-keeping data structure.</td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
 
 </div>
 </div><p>
-<a class="anchor" name="5596da7ea67727af7317a7567d277d1f"></a><!-- doxytag: member="listen.h::update_client_address" ref="5596da7ea67727af7317a7567d277d1f" args="(const struct sockaddr_in *client_addr, const scream_packet_update_address *packet, struct client_db *db)" -->
+<a class="anchor" name="20c92cbeca1bbe09358f894b822e4878"></a><!-- doxytag: member="listen.h::send_reset_ack" ref="20c92cbeca1bbe09358f894b822e4878" args="(struct listener_info *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> update_client_address           </td>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_reset_ack           </td>
           <td>(</td>
-          <td class="paramtype">const struct sockaddr_in *&nbsp;</td>
-          <td class="paramname"> <em>client_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structscream__packet__update__address.html">scream_packet_update_address</a> *&nbsp;</td>
-          <td class="paramname"> <em>packet</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="structclient__db.html">client_db</a> *&nbsp;</td>
-          <td class="paramname"> <em>db</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Update a client address.<p>
+Send a <a class="el" href="scream-common_8h.html#b1292489c578d6314a7d104ea0f38a1a">scream_packet_reset_ack</a> to the destination.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>client_addr</em>&nbsp;</td><td>the address of the client. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>packet</em>&nbsp;</td><td>the <a class="el" href="structscream__packet__update__address.html">scream_packet_update_address</a> containing the client's ID, the new IPv4 address and the new port. </td></tr>
-    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the book-keeping structure to track the client.</td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="3c5814d9e0e958fc4e1d2b6128a08d5c"></a><!-- doxytag: member="listen.h::send_server_client_data" ref="3c5814d9e0e958fc4e1d2b6128a08d5c" args="(struct listener_info *info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_server_client_data           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Send a <a class="el" href="structscream__packet__server__client__data.html">scream_packet_server_client_data</a> to the destination.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="9600ba8c4a01a62b777ccd6ffaf63893"></a><!-- doxytag: member="listen.h::send_server_client_resp" ref="9600ba8c4a01a62b777ccd6ffaf63893" args="(struct listener_info *info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> send_server_client_resp           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Send a <a class="el" href="structscream__packet__server__client__resp.html">scream_packet_server_client_resp</a> to the destination.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="b9a4268a2690419d16b4a93543f3490d"></a><!-- doxytag: member="listen.h::server_client_resp_ack" ref="b9a4268a2690419d16b4a93543f3490d" args="(struct listener_info *info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> server_client_resp_ack           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Process a <a class="el" href="scream-common_8h.html#2a322d8b19739d4dcd7e62af3cdbda29">scream_packet_server_client_resp_ack</a>.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="13d5595669b9fd950cc7cf83c736b45b"></a><!-- doxytag: member="listen.h::server_client_sync" ref="13d5595669b9fd950cc7cf83c736b45b" args="(struct listener_info *info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> server_client_sync           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Process a <a class="el" href="scream-common_8h.html#d411dc850b14b9ad5df78472127f65c7">scream_packet_server_client_sync</a>.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the listener's info.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="62e339695f26581226341d531df83291"></a><!-- doxytag: member="listen.h::sync_todos" ref="62e339695f26581226341d531df83291" args="(struct listener_info *info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> sync_todos           </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlistener__info.html">listener_info</a> *&nbsp;</td>
+          <td class="paramname"> <em>info</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Sync the user's todo items with data provided in field <a class="el" href="structclient__record.html#d2aa708b9f17d7b69060c9cc38e83973">client_record::data</a> of <a class="el" href="structlistener__info.html#3587c5290cb740d10a794d49097f5486">listener_info::client_db_rec</a>.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>info</em>&nbsp;</td><td>the information needed to sync the user's todo.</td></tr>
   </table>
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
@@ -629,7 +693,7 @@ Update a client address.<p>
 </div>
 </div><p>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Mon Nov 30 09:45:14 2009 for screamer by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Jan 6 21:33:14 2010 for screamer by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>

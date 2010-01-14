@@ -21,7 +21,7 @@
   </div>
 <h1>listen.h</h1><a href="listen_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/******************************************************************************</span>
 <a name="l00002"></a>00002 <span class="comment"> * Copyright (C) 2008  Tobias Heer &lt;heer@cs.rwth-aachen.de&gt;                   *</span>
-<a name="l00003"></a>00003 <span class="comment"> * Copyright (C) 2009  Tadeus Prastowo &lt;eus@member.fsf.org&gt;                   *</span>
+<a name="l00003"></a>00003 <span class="comment"> * Copyright (C) 2009, 2010  Tadeus Prastowo &lt;eus@member.fsf.org&gt;             *</span>
 <a name="l00004"></a>00004 <span class="comment"> *                                                                            *</span>
 <a name="l00005"></a>00005 <span class="comment"> * Permission is hereby granted, free of charge, to any person obtaining      *</span>
 <a name="l00006"></a>00006 <span class="comment"> * a copy of this software and associated documentation files (the            *</span>
@@ -51,111 +51,112 @@
 <a name="l00038"></a>00038 <span class="preprocessor"></span>
 <a name="l00039"></a>00039 <span class="preprocessor">#include &lt;time.h&gt;</span> <span class="comment">/* time (...)*/</span>
 <a name="l00040"></a>00040 <span class="preprocessor">#include &lt;netinet/in.h&gt;</span>
-<a name="l00041"></a>00041 <span class="preprocessor">#include "<a class="code" href="scream-common_8h.html" title="Common functions for the scream protocol client and server.">scream-common.h</a>"</span> <span class="comment">/* common headers and definitions */</span>
+<a name="l00041"></a>00041 <span class="preprocessor">#include "<a class="code" href="scream-common_8h.html" title="Common functions for the AndroidTodo synchronization server.">scream-common.h</a>"</span> <span class="comment">/* common headers and definitions */</span>
 <a name="l00042"></a>00042 
-<a name="l00044"></a><a class="code" href="listen_8h.html#9ef2e9d6f4eba8699b87c9eb676344a7">00044</a> <span class="preprocessor">#define CLIENT_MAX_NUM 16</span>
+<a name="l00044"></a><a class="code" href="listen_8h.html#9ef2e9d6f4eba8699b87c9eb676344a7">00044</a> <span class="preprocessor">#define CLIENT_MAX_NUM 10</span>
 <a name="l00045"></a>00045 <span class="preprocessor"></span>
-<a name="l00050"></a><a class="code" href="listen_8h.html#766b55be6dacc759548a399b69d94e7a">00050</a> <span class="preprocessor">#define TIME_TO_DEATH 100</span>
-<a name="l00051"></a>00051 <span class="preprocessor"></span>
-<a name="l00053"></a><a class="code" href="structclient__record.html">00053</a> <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a>
-<a name="l00054"></a>00054 {
-<a name="l00055"></a><a class="code" href="structclient__record.html#343bf76b1a6c9cdb47b1bc6de92d968d">00055</a>   time_t <a class="code" href="structclient__record.html#343bf76b1a6c9cdb47b1bc6de92d968d">died_at</a>; 
-<a name="l00056"></a><a class="code" href="structclient__record.html#7e11673cc3457affe92b5ad501fdbc36">00056</a>   uint32_t <a class="code" href="structclient__record.html#7e11673cc3457affe92b5ad501fdbc36">id</a>; 
-<a name="l00057"></a><a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">00057</a>   <span class="keyword">struct </span>sockaddr_in <a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>; 
-<a name="l00058"></a><a class="code" href="structclient__record.html#201598ae742907abf72e17092794353f">00058</a>   <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="structclient__record.html#201598ae742907abf72e17092794353f">sleep_time</a>; 
-<a name="l00059"></a><a class="code" href="structclient__record.html#e3dddec64c2c09d219f634aa59d49f3d">00059</a>   <span class="keywordtype">unsigned</span> <a class="code" href="structclient__record.html#e3dddec64c2c09d219f634aa59d49f3d">amount</a>; 
-<a name="l00060"></a><a class="code" href="structclient__record.html#0f192b885467474e6272c1adad4b95ab">00060</a>   <span class="keywordtype">int</span> <a class="code" href="structclient__record.html#0f192b885467474e6272c1adad4b95ab">max_gap</a>; 
-<a name="l00061"></a><a class="code" href="structclient__record.html#b12ba238830dd8e8dd8ca25cd3ec8330">00061</a>   <span class="keywordtype">int</span> <a class="code" href="structclient__record.html#b12ba238830dd8e8dd8ca25cd3ec8330">num_of_gaps</a>; 
-<a name="l00062"></a><a class="code" href="structclient__record.html#3e124e3cde8928657abd9e46ec7ee35d">00062</a>   <span class="keywordtype">bool</span> <a class="code" href="structclient__record.html#3e124e3cde8928657abd9e46ec7ee35d">is_out_of_order</a>; 
-<a name="l00063"></a><a class="code" href="structclient__record.html#65dd00198a893452362bc74c45700679">00063</a>   <span class="keywordtype">int</span> <a class="code" href="structclient__record.html#65dd00198a893452362bc74c45700679">recvd_packets</a>; 
-<a name="l00064"></a>00064   <span class="keyword">struct</span>
-<a name="l00065"></a>00065   {
-<a name="l00066"></a><a class="code" href="structclient__record.html#f84822e5963e983d4861b41281485a7b">00066</a>     <span class="keywordtype">bool</span> <a class="code" href="structclient__record.html#f84822e5963e983d4861b41281485a7b">is_set</a>; 
-<a name="l00067"></a><a class="code" href="structclient__record.html#6a3ba94f08d9904ce6d97f79f2d30c5e">00067</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="structclient__record.html#6a3ba94f08d9904ce6d97f79f2d30c5e">delta</a>; 
-<a name="l00068"></a>00068   } <a class="code" href="structclient__record.html#b8b9799a90ebfa02f2edd302b66f04d7">min_latency</a>; 
-<a name="l00069"></a>00069   <span class="keyword">struct</span>
-<a name="l00070"></a>00070   {
-<a name="l00071"></a>00071     <span class="keywordtype">bool</span> <a class="code" href="structclient__record.html#f84822e5963e983d4861b41281485a7b">is_set</a>; 
-<a name="l00072"></a>00072     <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="structclient__record.html#6a3ba94f08d9904ce6d97f79f2d30c5e">delta</a>; 
-<a name="l00073"></a>00073   } <a class="code" href="structclient__record.html#74c8b1f30c043319b50b039f96657bef">max_latency</a>; 
-<a name="l00074"></a><a class="code" href="structclient__record.html#23ff96aec55db71d87d733105067fd3b">00074</a>   <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="structclient__record.html#23ff96aec55db71d87d733105067fd3b">total_latency</a>; 
-<a name="l00078"></a>00078   <span class="keyword">struct</span>
-<a name="l00079"></a>00079   {
-<a name="l00080"></a><a class="code" href="structclient__record.html#a5863b0c09c82128b5568586126c42ad">00080</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="structclient__record.html#a5863b0c09c82128b5568586126c42ad">ts</a>; 
-<a name="l00081"></a><a class="code" href="structclient__record.html#02425100dbda38b6f866c4e23a5d5625">00081</a>     uint16_t <a class="code" href="structclient__record.html#02425100dbda38b6f866c4e23a5d5625">seq</a>; 
-<a name="l00082"></a>00082   } <a class="code" href="structclient__record.html#8ed275d3a1d4afd90ae1ab5b196e19d7">prev_packet</a>; 
-<a name="l00083"></a>00083 }; 
-<a name="l00084"></a>00084 
-<a name="l00086"></a><a class="code" href="listen_8h.html#485d31e84cd14a55c30dd89879f21b4f">00086</a> <span class="preprocessor">#define DIE_AT_ANOTHER_TIME (-1)</span>
-<a name="l00087"></a>00087 <span class="preprocessor"></span>
-<a name="l00089"></a><a class="code" href="structclient__db.html">00089</a> <span class="keyword">struct </span><a class="code" href="structclient__db.html">client_db</a>
-<a name="l00090"></a>00090 {
-<a name="l00091"></a><a class="code" href="structclient__db.html#20bbc4f895a2c4f376f0c470de5633d8">00091</a>   <span class="keywordtype">size_t</span> <a class="code" href="structclient__db.html#20bbc4f895a2c4f376f0c470de5633d8">len</a>; 
-<a name="l00092"></a><a class="code" href="structclient__db.html#51f52cd1f1e9f86cde0ea13dd622a303">00092</a>   <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a> *<a class="code" href="structclient__db.html#51f52cd1f1e9f86cde0ea13dd622a303">recs</a>; 
-<a name="l00093"></a>00093 };
-<a name="l00094"></a>00094 
-<a name="l00106"></a>00106 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00107"></a>00107 listener_handle_packet (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
-<a name="l00108"></a>00108                         <span class="keyword">const</span> <a class="code" href="structscream__packet__general.html">scream_packet_general</a> *packet,
-<a name="l00109"></a>00109                         <span class="keywordtype">size_t</span> len,
-<a name="l00110"></a>00110                         <span class="keywordtype">int</span> sock,
-<a name="l00111"></a>00111                         <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00112"></a>00112 
-<a name="l00130"></a>00130 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00131"></a>00131 register_client (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
-<a name="l00132"></a>00132                  <span class="keyword">const</span> <a class="code" href="structscream__packet__register.html">scream_packet_register</a> *packet,
-<a name="l00133"></a>00133                  <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00134"></a>00134 
-<a name="l00145"></a>00145 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00146"></a>00146 update_client_address (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
-<a name="l00147"></a>00147                        <span class="keyword">const</span> <a class="code" href="structscream__packet__update__address.html">scream_packet_update_address</a> *packet,
-<a name="l00148"></a>00148                        <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00149"></a>00149 
-<a name="l00174"></a>00174 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00175"></a>00175 record_packet (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
-<a name="l00176"></a>00176                <span class="keyword">const</span> <a class="code" href="structscream__packet__flood.html">scream_packet_flood</a> *packet,
-<a name="l00177"></a>00177                <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="structclient__record.html#a5863b0c09c82128b5568586126c42ad">ts</a>,
-<a name="l00178"></a>00178                <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00179"></a>00179 
-<a name="l00194"></a>00194 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00195"></a>00195 reset_client (<span class="keywordtype">int</span> sock,
-<a name="l00196"></a>00196               <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
-<a name="l00197"></a>00197               <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00198"></a>00198 
-<a name="l00213"></a>00213 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00214"></a>00214 send_result (<span class="keywordtype">int</span> sock,
-<a name="l00215"></a>00215              <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
-<a name="l00216"></a>00216              <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00217"></a>00217 
-<a name="l00226"></a>00226 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00227"></a>00227 send_return_routability_ack (<span class="keywordtype">int</span> sock, <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *dest);
-<a name="l00228"></a>00228 
-<a name="l00237"></a>00237 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00238"></a>00238 send_update_address_ack (<span class="keywordtype">int</span> sock, <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *dest);
-<a name="l00239"></a>00239 
-<a name="l00249"></a>00249 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00250"></a>00250 mark_client_for_unregistering (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
-<a name="l00251"></a>00251                                <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00252"></a>00252 
-<a name="l00261"></a>00261 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
-<a name="l00262"></a>00262 unregister_client (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
-<a name="l00263"></a>00263                    <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00264"></a>00264 
-<a name="l00273"></a>00273 <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a> *
-<a name="l00274"></a>00274 get_empty_slot (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
-<a name="l00275"></a>00275                 <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00276"></a>00276 
-<a name="l00285"></a>00285 <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a> *
-<a name="l00286"></a>00286 get_client_record (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *addr,
-<a name="l00287"></a>00287                    <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
-<a name="l00288"></a>00288 
-<a name="l00289"></a>00289 <span class="preprocessor">#ifdef __cplusplus</span>
-<a name="l00290"></a>00290 <span class="preprocessor"></span>}
-<a name="l00291"></a>00291 <span class="preprocessor">#endif</span>
-<a name="l00292"></a>00292 <span class="preprocessor"></span>
-<a name="l00293"></a>00293 <span class="preprocessor">#endif </span><span class="comment">/* LISTEN_H */</span>
+<a name="l00047"></a><a class="code" href="listen_8h.html#c40041ff29ef9163ceefd0d10670f31c">00047</a> <span class="preprocessor">#define VACANT (-1)</span>
+<a name="l00048"></a>00048 <span class="preprocessor"></span>
+<a name="l00050"></a><a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca">00050</a> <span class="keyword">enum</span> <a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca">comm_state</a>
+<a name="l00051"></a>00051 {
+<a name="l00052"></a><a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca929f0327e17604ce9713b2a6117bd603">00052</a>   <a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca929f0327e17604ce9713b2a6117bd603">CLOSED</a> = 0, 
+<a name="l00053"></a><a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca114692bc60cdc669e9e7e22e4f9fdba0">00053</a>   <a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca114692bc60cdc669e9e7e22e4f9fdba0">WAIT_SERVER_CLIENT_SYNC</a>, 
+<a name="l00054"></a><a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca779f922277a8b31359e7685145c5692a">00054</a>   <a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca779f922277a8b31359e7685145c5692a">WAIT_SERVER_CLIENT_RESP_ACK</a>, 
+<a name="l00058"></a><a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63cad0e11b603cef387ac1c4cb2cdded4b11">00058</a>   <a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63cad0e11b603cef387ac1c4cb2cdded4b11">WAIT_CLIENT_SERVER_SYNC</a>, 
+<a name="l00059"></a><a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63cae86af7c3a324270ec2d15e762efe246c">00059</a>   <a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63cae86af7c3a324270ec2d15e762efe246c">WAIT_CLIENT_SERVER_DATA</a>, 
+<a name="l00060"></a><a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca52467fef5ff7c7fd857fe4868501d96d">00060</a>   <a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca52467fef5ff7c7fd857fe4868501d96d">WAIT_RESET</a>, 
+<a name="l00061"></a>00061 };
+<a name="l00062"></a>00062 
+<a name="l00064"></a><a class="code" href="structclient__record.html">00064</a> <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a>
+<a name="l00065"></a>00065 {
+<a name="l00066"></a><a class="code" href="structclient__record.html#71e4a45224d5e890e2cb61641573f2ab">00066</a>   int32_t <a class="code" href="structclient__record.html#71e4a45224d5e890e2cb61641573f2ab">id</a>; 
+<a name="l00067"></a><a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">00067</a>   <span class="keyword">struct </span>sockaddr_in <a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>; 
+<a name="l00068"></a><a class="code" href="structclient__record.html#f51bf228770879e97b68fbcbced93a83">00068</a>   <span class="keyword">enum</span> <a class="code" href="listen_8h.html#9903917313a0af6993a37b9a2e1b63ca">comm_state</a> <a class="code" href="structclient__record.html#f51bf228770879e97b68fbcbced93a83">state</a>; 
+<a name="l00069"></a><a class="code" href="structclient__record.html#d2aa708b9f17d7b69060c9cc38e83973">00069</a>   <span class="keywordtype">void</span> *<a class="code" href="structclient__record.html#d2aa708b9f17d7b69060c9cc38e83973">data</a>; 
+<a name="l00073"></a><a class="code" href="structclient__record.html#e8bce6875c68dcb6bcbfe8c9e240d0b8">00073</a>   <span class="keywordtype">size_t</span> <a class="code" href="structclient__record.html#e8bce6875c68dcb6bcbfe8c9e240d0b8">len</a>; 
+<a name="l00074"></a>00074 }; 
+<a name="l00075"></a>00075 
+<a name="l00077"></a><a class="code" href="structclient__db.html">00077</a> <span class="keyword">struct </span><a class="code" href="structclient__db.html">client_db</a>
+<a name="l00078"></a>00078 {
+<a name="l00079"></a><a class="code" href="structclient__db.html#20bbc4f895a2c4f376f0c470de5633d8">00079</a>   <span class="keywordtype">size_t</span> <a class="code" href="structclient__db.html#20bbc4f895a2c4f376f0c470de5633d8">len</a>; 
+<a name="l00080"></a><a class="code" href="structclient__db.html#51f52cd1f1e9f86cde0ea13dd622a303">00080</a>   <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a> *<a class="code" href="structclient__db.html#51f52cd1f1e9f86cde0ea13dd622a303">recs</a>; 
+<a name="l00081"></a><a class="code" href="structclient__db.html#1525f11a36b143361d8def2473b14c20">00081</a>   sqlite3 *<a class="code" href="structclient__db.html#1525f11a36b143361d8def2473b14c20">todo_db</a>; 
+<a name="l00082"></a>00082 };
+<a name="l00083"></a>00083 
+<a name="l00094"></a>00094 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00095"></a>00095 listener_handle_packet (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *<a class="code" href="structclient__record.html#b1705b3fe3066824b90337884005c758">client_addr</a>,
+<a name="l00096"></a>00096                         <a class="code" href="scream-common_8h.html#23fe7074617d7bc1e353028f745e6f7a">scream_packet_type</a> type,
+<a name="l00097"></a>00097                         <span class="keywordtype">int</span> sock,
+<a name="l00098"></a>00098                         <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
+<a name="l00099"></a>00099 
+<a name="l00101"></a><a class="code" href="structlistener__info.html">00101</a> <span class="keyword">struct </span><a class="code" href="structlistener__info.html">listener_info</a>
+<a name="l00102"></a>00102 {
+<a name="l00103"></a><a class="code" href="structlistener__info.html#40ce9a44d92552262a75c8defddc7300">00103</a>   <span class="keywordtype">int</span> <a class="code" href="structlistener__info.html#40ce9a44d92552262a75c8defddc7300">sock</a>; 
+<a name="l00107"></a><a class="code" href="structlistener__info.html#fb0892392726513b5843998aa6616fea">00107</a>   <span class="keyword">const</span> <span class="keyword">struct </span>sockaddr_in *<a class="code" href="structlistener__info.html#fb0892392726513b5843998aa6616fea">client_addr</a>; 
+<a name="l00111"></a><a class="code" href="structlistener__info.html#3587c5290cb740d10a794d49097f5486">00111</a>   <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a> *<a class="code" href="structlistener__info.html#3587c5290cb740d10a794d49097f5486">client_db_rec</a>; 
+<a name="l00116"></a><a class="code" href="structlistener__info.html#b2d95655cf458f5f34ee11b604dc3492">00116</a>   <span class="keyword">struct </span><a class="code" href="structclient__db.html">client_db</a> *<a class="code" href="structlistener__info.html#b2d95655cf458f5f34ee11b604dc3492">db</a>; 
+<a name="l00117"></a>00117 };
+<a name="l00118"></a>00118 
+<a name="l00129"></a>00129 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00130"></a>00130 register_client (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00131"></a>00131 
+<a name="l00139"></a>00139 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00140"></a>00140 reset_client (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00141"></a>00141 
+<a name="l00149"></a>00149 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00150"></a>00150 send_register_ack (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00151"></a>00151 
+<a name="l00159"></a>00159 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00160"></a>00160 send_reset_ack (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00161"></a>00161 
+<a name="l00169"></a>00169 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00170"></a>00170 server_client_sync (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00171"></a>00171 
+<a name="l00179"></a>00179 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00180"></a>00180 send_server_client_resp (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00181"></a>00181 
+<a name="l00189"></a>00189 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00190"></a>00190 server_client_resp_ack (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00191"></a>00191 
+<a name="l00199"></a>00199 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00200"></a>00200 send_server_client_data (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00201"></a>00201 
+<a name="l00209"></a>00209 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00210"></a>00210 client_server_sync (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00211"></a>00211 
+<a name="l00219"></a>00219 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00220"></a>00220 send_client_server_resp (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00221"></a>00221 
+<a name="l00229"></a>00229 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00230"></a>00230 client_server_data (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00231"></a>00231 
+<a name="l00239"></a>00239 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00240"></a>00240 send_client_server_ack (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00241"></a>00241 
+<a name="l00249"></a>00249 <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a> *
+<a name="l00250"></a>00250 get_empty_slot (<span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
+<a name="l00251"></a>00251 
+<a name="l00260"></a>00260 <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a> *
+<a name="l00261"></a>00261 get_client_record_on_id (int32_t <span class="keywordtype">id</span>,
+<a name="l00262"></a>00262                          <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
+<a name="l00263"></a>00263 
+<a name="l00272"></a>00272 <span class="keyword">struct </span><a class="code" href="structclient__record.html">client_record</a> *
+<a name="l00273"></a>00273 get_client_record (<span class="keyword">const</span> <span class="keyword">struct</span> sockaddr_in *addr,
+<a name="l00274"></a>00274                    <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structclient__db.html">client_db</a> *db);
+<a name="l00275"></a>00275 
+<a name="l00285"></a>00285 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00286"></a>00286 retrieve_todos (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00287"></a>00287 
+<a name="l00296"></a>00296 <a class="code" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>
+<a name="l00297"></a>00297 sync_todos (<span class="keyword">struct</span> <a class="code" href="structlistener__info.html">listener_info</a> *info);
+<a name="l00298"></a>00298 
+<a name="l00299"></a>00299 <span class="preprocessor">#ifdef __cplusplus</span>
+<a name="l00300"></a>00300 <span class="preprocessor"></span>}
+<a name="l00301"></a>00301 <span class="preprocessor">#endif</span>
+<a name="l00302"></a>00302 <span class="preprocessor"></span>
+<a name="l00303"></a>00303 <span class="preprocessor">#endif </span><span class="comment">/* LISTEN_H */</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Mon Nov 30 09:45:14 2009 for screamer by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Jan 6 21:33:14 2010 for screamer by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
