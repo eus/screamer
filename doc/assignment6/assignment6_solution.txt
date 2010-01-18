@@ -1,3 +1,6 @@
+[NOTE] This todo synchronization server can be used with the supplied todo.c that acts as an implementation model for the Android Todo program that can be checked out with the following git command:
+git clone git://github.com/eus/android_todo.git 
+
 My understanding to the problem is that a person can have multiple Android devices, the person only works with one Android device at a time, and the person always synchronizes the local data in the current Android device before the person uses another Android device. Such a synchronization can only happen at most once before switching over. A pristine Android device that the person uses for the very first time must always be synchronized first.
 
 The rule must be like that. Otherwise, the following three scenarios will occur:
