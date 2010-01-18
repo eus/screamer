@@ -1074,6 +1074,7 @@ sync_update_todo (sqlite3 *db, sqlite3_stmt *update_stmt, uint16_t chunk_len,
 	      sqlite3_perror (db, "Cannot bind CHUNK_TODO_TITLE");
 	      goto err_db;
 	    }
+	  fprintf (stderr, "\tTITLE is updated\n");
 	  break;
 	case CHUNK_TODO_DEADLINE:
 	  if (sqlite3_bind_blob (update_stmt, 2, field->datum,
@@ -1082,6 +1083,7 @@ sync_update_todo (sqlite3 *db, sqlite3_stmt *update_stmt, uint16_t chunk_len,
 	      sqlite3_perror (db, "Cannot bind CHUNK_TODO_DEADLINE");
 	      goto err_db;
 	    }
+	  fprintf (stderr, "\tDEADLINE is updated\n");
 	  break;
 	case CHUNK_TODO_PRIORITY:
 	  int_val = ntohl (*((int *) field->datum));
@@ -1090,6 +1092,7 @@ sync_update_todo (sqlite3 *db, sqlite3_stmt *update_stmt, uint16_t chunk_len,
 	      sqlite3_perror (db, "Cannot bind CHUNK_TODO_PRIORITY");
 	      goto err_db;
 	    }
+	  fprintf (stderr, "\tPRIORITY is updated\n");
 	  break;
 	case CHUNK_TODO_STATUS:
 	  if (sqlite3_bind_blob (update_stmt, 4, field->datum,
@@ -1098,6 +1101,7 @@ sync_update_todo (sqlite3 *db, sqlite3_stmt *update_stmt, uint16_t chunk_len,
 	      sqlite3_perror (db, "Cannot bind CHUNK_TODO_STATUS");
 	      goto err_db;
 	    }
+	  fprintf (stderr, "\tSTATUS is updated\n");
 	  break;
 	case CHUNK_TODO_DESCRIPTION:
 	  if (sqlite3_bind_blob (update_stmt, 5, field->datum,
@@ -1106,6 +1110,7 @@ sync_update_todo (sqlite3 *db, sqlite3_stmt *update_stmt, uint16_t chunk_len,
 	      sqlite3_perror (db, "Cannot bind CHUNK_TODO_DESCRIPTION");
 	      goto err_db;
 	    }
+	  fprintf (stderr, "\tDESCRIPTION is updated\n");
 	  break;
 	default:
 	  fprintf (stderr, "Invalid field type for CHUNK_UPDATE_TODO\n");
