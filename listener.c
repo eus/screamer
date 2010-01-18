@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2008  Tobias Heer <heer@cs.rwth-aachen.de>                   *
- * Copyright (C) 2009  Tadeus Prastowo <eus@member.fsf.org>                   *
+ * Copyright (C) 2009, 2010  Tadeus Prastowo <eus@member.fsf.org>             *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining      *
  * a copy of this software and associated documentation files (the            *
@@ -28,6 +28,7 @@
 #include <unistd.h> /* getopt (...) */
 #include <string.h> /* memcpy (...), bzero (...) */
 #include <signal.h>
+#include <sqlite3.h>
 #include "listen.h"
 #include "scream-common.h"
 
@@ -52,18 +53,25 @@ int
 main (const int argc,  char * const argv[])
 {
   struct sigaction sigint_action = { .sa_handler = terminate };
-  struct client_record flood_records[CLIENT_MAX_NUM];
+  struct client_record client_records[CLIENT_MAX_NUM];
   struct client_db db = {
     .len = CLIENT_MAX_NUM,
-    .recs = flood_records,
+    .recs = client_records,
+    .todo_db = NULL,
   };
   uint16_t port = 0;
   int err = SC_ERR_SUCCESS;
   int sock;
+  int i;
   int c;
+  char *err_msg = NULL;
   struct sockaddr_in server_addr, client_addr;
 
-  bzero (flood_records, sizeof (flood_records));
+  bzero (client_records, sizeof (client_records));
+  for (i = 0; i < CLIENT_MAX_NUM; i++)
+    {
+      client_records[i].id = VACANT;
+    }
 
   if (sigaction (SIGINT, &sigint_action, NULL) == -1)
     {
@@ -106,6 +114,36 @@ main (const int argc,  char * const argv[])
       port = (uint16_t) SC_DEFAULT_PORT;
     }
 
+  /* open in-memory DB */
+  if (sqlite3_open ("./db_repo", &db.todo_db))
+    {
+      sqlite3_perror (db.todo_db, "Cannot open DB");
+      if (sqlite3_close (db.todo_db))
+	{
+	  sqlite3_perror (db.todo_db, "Cannot close DB");
+	}
+      exit (EXIT_FAILURE);
+    }
+  if (sqlite3_exec (db.todo_db,
+		    "create table if not exists todo (client_id integer not null,"
+		    " id integer not null primary key autoincrement, title blob not null,"
+		    " deadline blob not null, priority integer not null,"
+		    " status blob not null, description blob not null,"
+		    " revision integer not null)",
+		    NULL,
+		    NULL,
+		    &err_msg))
+    {
+      fprintf (stderr, "Cannot create todo table: %s\n", err_msg);
+      sqlite3_free (err_msg);
+      if (sqlite3_close (db.todo_db))
+	{
+	  sqlite3_perror (db.todo_db, "Cannot close DB");
+	}
+      exit (EXIT_FAILURE);
+    }
+  sqlite3_clean_free (&err_msg);
+
   /* open socket */
   if ((sock = socket (AF_INET, SOCK_DGRAM, 0)) == -1)
     {
@@ -127,15 +165,15 @@ main (const int argc,  char * const argv[])
   else
     {
       socklen_t len = sizeof (client_addr);
-      char buffer[SC_MAX_BUFFER];
+      scream_packet_general packet;
       ssize_t bytes_received;
 
-      while (!is_terminated && (err == SC_ERR_SUCCESS || err == SC_ERR_STATE))
+      while (!is_terminated && err != SC_ERR_RECV)
 	{
 	  bytes_received = recvfrom (sock,
-				     buffer,
-				     SC_MAX_BUFFER,
-				     0,
+				     &packet,
+				     sizeof (packet),
+				     MSG_PEEK,
 				     (struct sockaddr *) &client_addr,
 				     &len);
 	  
@@ -150,22 +188,39 @@ main (const int argc,  char * const argv[])
 	    {
 	      fprintf (stderr, "Invalid sender address\n");
 	      err = SC_ERR_WRONGSENDER;
+	      remove_packet(sock);
 	      continue;
 	    }
 
-	  /* check if the received data is actually a scream packet */
-	  if (is_scream_packet (buffer, bytes_received) == TRUE)
+	  if (is_sane (&packet, bytes_received, sizeof (packet))
+	      == FALSE)
 	    {
-	      err = listener_handle_packet (&client_addr,
-					    (scream_packet_general *) buffer,
-					    bytes_received,
-					    sock,
-					    &db);
+	      err = SC_ERR_PACKET;
+	      remove_packet(sock);
+	      continue;
 	    }
+
+	  err = listener_handle_packet (&client_addr,
+					packet.type,
+					sock,
+					&db);
+	}
+    }
+
+  for (i = 0; i < CLIENT_MAX_NUM; i++)
+    {
+      if (client_records[i].data != NULL)
+	{
+	  free (client_records[i].data);
+	  client_records[i].data = NULL;
 	}
     }
 
   close (sock);
+  if (sqlite3_close (db.todo_db))
+    {
+      sqlite3_perror (db.todo_db, "Cannot close DB");
+    }
 
   exit (EXIT_SUCCESS);
 }

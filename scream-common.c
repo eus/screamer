@@ -33,15 +33,11 @@
 #include "scream-common.h"
 
 bool
-is_scream_packet (const void *buffer, size_t len)
+is_sane (const void *buffer, size_t len, size_t expected_len)
 {
   const scream_packet_general *packet = buffer;
-  size_t expected_size = sizeof (scream_packet_general);
 
-  assert (buffer != NULL);
-
-  /* check packet for consistency */
-  if (len < expected_size)
+  if (len < expected_len)
     {
       fprintf (stderr, "Packet too small\n");
       return FALSE;
@@ -50,43 +46,6 @@ is_scream_packet (const void *buffer, size_t len)
   if (packet->type <= 0 || packet->type >= SC_PACKET_MAX)
     {
       fprintf (stderr, "Packet type out of bounds\n");
-      return FALSE;
-    }
-
-  switch (packet->type)
-    {
-    case SC_PACKET_REGISTER:
-      expected_size = sizeof (scream_packet_register);
-      break;
-    case SC_PACKET_FLOOD:
-      expected_size = sizeof (scream_packet_flood);
-      break;
-    case SC_PACKET_RESET:
-      expected_size = sizeof (scream_packet_reset);
-      break;
-    case SC_PACKET_RESULT:
-      expected_size = sizeof (scream_packet_result);
-      break;
-    case SC_PACKET_ACK:
-      expected_size = sizeof (scream_packet_ack);
-      break;
-    case SC_PACKET_RETURN_ROUTABILITY:
-      expected_size = sizeof (scream_packet_return_routability);
-      break;
-    case SC_PACKET_RETURN_ROUTABILITY_ACK:
-      expected_size = sizeof (scream_packet_return_routability_ack);
-      break;
-    case SC_PACKET_UPDATE_ADDRESS:
-      expected_size = sizeof (scream_packet_update_address);
-      break;
-    case SC_PACKET_UPDATE_ADDRESS_ACK:
-      expected_size = sizeof (scream_packet_update_address_ack);
-      break;
-    }
-
-  if (len < expected_size)
-    {
-      fprintf (stderr, "Packet too small\n");
       return FALSE;
     }
 
@@ -100,39 +59,47 @@ get_scream_type_name (const scream_packet_type type)
     {
     case SC_PACKET_REGISTER:
       return "REGISTER";
-    case SC_PACKET_FLOOD:
-      return "FLOOD";
+    case SC_PACKET_REGISTER_ACK:
+      return "REGISTER ACK";
+    case SC_PACKET_SERVER_CLIENT_SYNC:
+      return "SERVER CLIENT SYNC";
+    case SC_PACKET_SERVER_CLIENT_RESP:
+      return "SERVER CLIENT RESP";
+    case SC_PACKET_SERVER_CLIENT_RESP_ACK:
+      return "SERVER CLIENT RESP ACK";
+    case SC_PACKET_CLIENT_SERVER_SYNC:
+      return "CLIENT SERVER SYNC";
+    case SC_PACKET_CLIENT_SERVER_RESP:
+      return "CLIENT SERVER RESP";
+    case SC_PACKET_CLIENT_SERVER_ACK:
+      return "CLIENT SERVER ACK";
     case SC_PACKET_RESET:
       return "RESET";
-    case SC_PACKET_ACK:
-      return "ACK";
-    case SC_PACKET_RETURN_ROUTABILITY:
-      return "RETURN ROUTABILITY";
-    case SC_PACKET_RETURN_ROUTABILITY_ACK:
-      return "RETURN ROUTABILITY ACK";
-    case SC_PACKET_UPDATE_ADDRESS:
-      return "UPDATE ADDRESS";
-    case SC_PACKET_UPDATE_ADDRESS_ACK:
-      return "UPDATE ADDRESS ACK";
-    case SC_PACKET_RESULT:
-      return "RESULT";
+    case SC_PACKET_RESET_ACK:
+      return "RESET ACK";
+    case SC_PACKET_SERVER_CLIENT_DATA:
+      return "SERVER CLIENT DATA";
+    case SC_PACKET_CLIENT_SERVER_DATA:
+      return "CLIENT SERVER DATA";
     default:
       return "UNKNOWN";
     }
 }
 
-err_code
-send_ack (int sock, const struct sockaddr_in *dest)
+void
+remove_packet(int sock)
 {
-  scream_packet_ack packet = { .type = SC_PACKET_ACK };
-
-  if (sendto (sock, &packet, sizeof (packet), 0,
-	      (struct sockaddr *) dest, sizeof (*dest)) == -1)
+  char buffer;
+  if (recvfrom (sock,
+		&buffer,
+		sizeof (buffer),
+		0,
+		NULL,
+		NULL) == -1)
     {
-      return SC_ERR_SEND;
+		
+      perror ("Error in removing packet");
     }
-
-  return SC_ERR_SUCCESS;
 }
 
 unsigned long long
@@ -260,4 +227,18 @@ unset_timeout (int socket)
   struct timeval timeout = {0};
 
   return set_timeout (socket, &timeout);
+}
+
+void
+sqlite3_perror (sqlite3 *db, const char *message)
+{
+  fprintf (stderr, "%s: %s\n", message, sqlite3_errmsg(db));
+}
+
+void
+sqlite3_clean_free (void *ptr_addr)
+{
+  void **p = (void **) ptr_addr;
+  sqlite3_free (*p);
+  *p = NULL;
 }

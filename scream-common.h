@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2008  Tobias Heer <heer@cs.rwth-aachen.de>                   *
- * Copyright (C) 2009  Tadeus Prastowo (eus@member.fsf.org)                   *
+ * Copyright (C) 2009, 2010  Tadeus Prastowo (eus@member.fsf.org)             *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining      *
  * a copy of this software and associated documentation files (the            *
@@ -22,7 +22,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.                                            *
  **************************************************************************//**
  * @file scream-common.h                                                     
- * @brief Common functions for the scream protocol client and server.
+ * @brief Common functions for the AndroidTodo synchronization server.
  * @author Tobias Heer <heer@cs.rwth-aachen.de>
  * @author Tadeus Prastowo <eus@member.fsf.org>
  ******************************************************************************/
@@ -36,6 +36,7 @@ extern "C" {
 
 #include <inttypes.h> /* uint_X types */
 #include <netinet/in.h>
+#include <sqlite3.h>
 
 /** Define boolean data type for C. */
 typedef enum bool
@@ -47,12 +48,6 @@ typedef enum bool
 
 /** Default port number. **/
 #define SC_DEFAULT_PORT 50001
-
-/** Maximum size for the packet buffer. **/
-#define SC_MAX_BUFFER 2048
-
-/** Number of retransmssions. */
-#define SC_RETRANSMISSIONS 20
 
 /** Timeout in seconds. */
 #define SC_PACKET_TIMEO 2
@@ -85,34 +80,74 @@ typedef enum
     SC_ERR_UNLOCK = -13, /**< Screamer cannot unlock the main channel. */
     SC_ERR_SIGNAL = -14, /**< Manager cannot signal the screamer. */
     SC_ERR_NAME = -15, /**< Socket has a problematic name. */
+    SC_ERR_DB = -16, /**< DB error. */
 
   } err_code;
 
-/** Screamer packet/message types. */
+/**
+ * AndroidTodo packet/message types.
+ * WARNING: This must be kept in sync with AndroidTodo's TodoSyncCommunication
+ * class.
+ */
 typedef enum
   {
     SC_PACKET_UNKNOWN = 0, /**< Packet number 0 is reserved. Do not use. */
     SC_PACKET_REGISTER, /**< Register packet. */
-    SC_PACKET_FLOOD, /**< Flood packet. */
-    SC_PACKET_RESET, /**< Reset packet. */
-    SC_PACKET_RESULT, /**< Result packet. */
-    SC_PACKET_ACK, /**< Acknowledgement packet. */
-    SC_PACKET_RETURN_ROUTABILITY, /**< Return-routability check packet. */
-    SC_PACKET_RETURN_ROUTABILITY_ACK, /**<
-				       * The acknowledgment packet for a return-
-				       * routability check.
-				       */
-    SC_PACKET_UPDATE_ADDRESS, /**<
-			       * A screamer updates its address for the
-			       * subsequent communication
-			       */
-    SC_PACKET_UPDATE_ADDRESS_ACK, /**<
-				   * The acknowledgment packet for an
-				   * address update.
+    SC_PACKET_REGISTER_ACK, /**< Register acknowledgement packet. */
+    SC_PACKET_SERVER_CLIENT_SYNC, /**<
+				   * Server-to-client synchronization
+				   * request.
 				   */
+    SC_PACKET_SERVER_CLIENT_RESP, /**<
+				   * Server-to-client synchronization
+				   * response.
+				   */
+    SC_PACKET_SERVER_CLIENT_RESP_ACK, /**<
+				       * Start server-to-client
+				       * synchronization.
+				       */
+    SC_PACKET_CLIENT_SERVER_SYNC, /**<
+				   * Client-to-server synchronization
+				   * request.
+				   */
+    SC_PACKET_CLIENT_SERVER_RESP, /**< Start client-to-server synchronization. */
+    SC_PACKET_CLIENT_SERVER_ACK, /**<
+				  * Client-to-server synchronization
+				  * completes.
+				  */
+    SC_PACKET_RESET, /**< Reset packet. */
+    SC_PACKET_RESET_ACK, /**< Result acknowledgement packet. */
+    SC_PACKET_SERVER_CLIENT_DATA, /**< Todo items from server. */
+    SC_PACKET_CLIENT_SERVER_DATA, /**< Todo items from client. */
     SC_PACKET_MAX, /**< Maximum packet type number. */
 
   } scream_packet_type;
+
+/** AndroidTodo chunk types. */
+typedef enum
+  {
+    CHUNK_UNKNOWN = 0, /**< Chunk number 0 is reserved. Do not use. */
+    CHUNK_NEW_TODO, /**< A new todo item to be stored. */
+    CHUNK_UPDATE_TODO, /**< An update for a todo item. */
+    CHUNK_DELETE_TODO, /**< Delete a todo item. */
+    CHUNK_TODO, /**< A todo item as stored in the sync server. */
+    CHUNK_TODO_ID, /**< The ID of a todo. */
+    CHUNK_TODO_TITLE, /**< The title of a todo. */
+    CHUNK_TODO_DEADLINE, /**< The deadline of a todo. */
+    CHUNK_TODO_PRIORITY, /**< The priority of a todo. */
+    CHUNK_TODO_STATUS, /**< The status of a todo. */
+    CHUNK_TODO_DESCRIPTION, /**< The description of a todo. */
+    CHUNK_TODO_REVISION, /**< The revision of a todo. */
+    CHUNK_MAX, /**< Maximum chunk type number. */
+  } chunk_type;
+
+/** A chunk of datum. */
+typedef struct
+{
+  uint8_t type; /**< The type of datum. */
+  uint16_t len; /**< The length of datum. */
+  char datum[0]; /**< The datum. */  
+} __attribute__((__packed__)) scream_packet_chunk;
 
 /** A general packet. */
 typedef struct
@@ -121,108 +156,119 @@ typedef struct
 } __attribute__((__packed__)) scream_packet_general;
 
 /**
- * A return routability packet.
- * The value of scream_packet_return_routability::type must be
- * scream_packet_type::SC_PACKET_RETURN_ROUTABILITY.
+ * A register acknowledgement packet.
+ * The value of scream_packet_register_ack::type must be
+ * scream_packet_type::SC_PACKET_REGISTER_ACK.
  */
-typedef scream_packet_general scream_packet_return_routability;
-
-/**
- * A return routability acknowledgment packet.
- * The value of scream_packet_return_routability_ack::type must be
- * scream_packet_type::SC_PACKET_RETURN_ROUTABILITY_ACK.
- */
-typedef scream_packet_general scream_packet_return_routability_ack;
-
-/** An update address packet. */
-typedef struct
-{
-  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_UPDATE_ADDRESS. */
-  uint32_t id; /**< The client ID. */
-  uint32_t sin_addr; /**< The new IPv4 address. */
-  uint16_t sin_port; /**< The new port. */
-} __attribute__((__packed__)) scream_packet_update_address;
-
-/**
- * An update address acknowledgment packet.
- * The value of scream_packet_update_address_ack::type must be
- * scream_packet_type::SC_PACKET_UPDATE_ADDRESS_ACK.
- */
-typedef scream_packet_general scream_packet_update_address_ack;
-
-/**
- * An acknowledgement packet.
- * The value of scream_packet_ack::type must be
- * scream_packet_type::SC_PACKET_FLOOD.
- */
-typedef scream_packet_general scream_packet_ack;
+typedef scream_packet_general scream_packet_register_ack;
 
 /**
  * A reset packet.
- * The value of scream_packet_ack::type must be
+ * The value of scream_packet_reset::type must be
  * scream_packet_type::SC_PACKET_RESET.
  */
 typedef scream_packet_general scream_packet_reset;
 
-/** A flood packet. */
+/**
+ * A reset acknowledgement packet.
+ * The value of scream_packet_reset_ack::type must be
+ * scream_packet_type::SC_PACKET_RESET_ACK.
+ */
+typedef scream_packet_general scream_packet_reset_ack;
+
+/**
+ * A server-to-client synchronization request packet.
+ * The value of scream_packet_server_client_sync::type must be
+ * scream_packet_type::SC_PACKET_SERVER_CLIENT_SYNC.
+ */
+typedef scream_packet_general scream_packet_server_client_sync;
+
+/**
+ * A server-to-client synchronization response packet.
+ * The value of scream_packet_server_client_resp::type must be
+ * scream_packet_type::SC_PACKET_SERVER_CLIENT_RESP.
+ */
 typedef struct
 {
-  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_FLOOD. */
-  uint16_t seq; /**< Sequence numbers. */
-  uint8_t data[0]; /**< Flood data. */
-} __attribute__((__packed__)) scream_packet_flood;
+  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_SERVER_CLIENT_RESP. */
+  uint32_t len; /**< The length of items that follows. */
+} __attribute__((__packed__)) scream_packet_server_client_resp;
+
+/**
+ * Start server-to-client synchronization packet.
+ * The value of scream_packet_server_client_resp_ack::type must be
+ * scream_packet_type::SC_PACKET_SERVER_CLIENT_RESP_ACK.
+ */
+typedef scream_packet_general scream_packet_server_client_resp_ack;
+
+/**
+ * A server-to-client synchronization data packet.
+ * The value of scream_packet_server_client_data::type must be
+ * scream_packet_type::SC_PACKET_SERVER_CLIENT_DATA.
+ */
+typedef struct
+{
+  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_SERVER_CLIENT_DATA. */
+  scream_packet_chunk data[0]; /**< The data that follows. */
+} __attribute__((__packed__)) scream_packet_server_client_data;
+
+/**
+ * A client-to-server synchronization request packet.
+ * The value of scream_packet_client_server_sync::type must be
+ * scream_packet_type::SC_PACKET_CLIENT_SERVER_SYNC.
+ */
+typedef struct
+{
+  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_CLIENT_SERVER_SYNC. */
+  uint32_t len; /**< The length of items that follows. */
+} __attribute__((__packed__)) scream_packet_client_server_sync;
+
+/**
+ * A client-to-server synchronization data packet.
+ * The value of scream_packet_client_server_data::type must be
+ * scream_packet_type::SC_PACKET_CLIENT_SERVER_DATA.
+ */
+typedef struct
+{
+  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_CLIENT_SERVER_DATA. */
+  scream_packet_chunk data[0]; /**< The data that follows. */
+} __attribute__((__packed__)) scream_packet_client_server_data;
+
+/**
+ * Prevent the client to resend its sync data by acknowledging the received
+ * data. The value of scream_packet_client_server_ack::type must be
+ * scream_packet_type::SC_PACKET_CLIENT_SERVER_ACK.
+ */
+typedef scream_packet_general scream_packet_client_server_ack;
+
+/**
+ * Start client-to-server synchronization response packet.
+ * The value of scream_packet_client_server_resp::type must be
+ * scream_packet_type::SC_PACKET_CLIENT_SERVER_RESP.
+ */
+typedef scream_packet_general scream_packet_client_server_resp;
 
 /** A register packet. */
 typedef struct
 {
-  uint8_t type;        /**< Must be scream_packet_type::SC_PACKET_REGISTER. */
-  struct
-  {
-    uint32_t sec; /**< The second part of the delay. */
-    uint32_t usec; /**< The microsecond part of the delay. */
-  } sleep_time; /**< Delay between FLOOD sends in microsecond. */
-  uint32_t amount;     /**< The number of FLOOD packets to be sent. */
+  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_REGISTER. */
   uint32_t id; /**< The client ID. */
 } __attribute__((__packed__)) scream_packet_register;
-
-/** A result packet. */
-typedef struct
-{
-  uint8_t type; /**< Must be scream_packet_type::SC_PACKET_RESULT. */
-  uint32_t recvd_packets; /**< The number of received FLOOD packets. */
-  uint32_t max_gap; /**< The number of lost packets in the widest gap. */
-  uint32_t num_of_gaps; /**< The number of gaps. */
-  uint8_t is_out_of_order; /**< There is an out-of-order delivery. */
-  struct
-  {
-    uint32_t sec; /**< The second part of the latency. */
-    uint32_t usec; /**< The microsecond part of the latency. */
-  } max_latency;    /**< The maximum delay between two sends. */
-  struct
-  {
-    uint32_t sec; /**< The second part of the latency. */
-    uint32_t usec; /**< The microsecond part of the latency. */
-  } min_latency; /**< The minimum delay between two sends. */
-  struct
-  {
-    uint32_t sec; /**< The second part of the latency. */
-    uint32_t usec; /**< The microsecond part of the latency. */
-  } avg_latency; /**< The average delay between sends. */
-} __attribute__((__packed__)) scream_packet_result;
 
 /* Common functions */
 
 /**
- * Check if a piece of memory is a scream packet.
+ * Check if a piece of memory is a sane packet.
  *
  * @param [in] buffer piece of memory to be checked.
  * @param [in] len length of the buffer.
+ * @param [in] expected_len the expected length of the buffer.
  *
- * @return #bool::TRUE if the packet is a ::scream_packet_general,
- *         #bool::FALSE otherwise.
+ * @return #bool::TRUE if the packet has a recognized type and of size
+ *         expected_len, #bool::FALSE otherwise.
  */
 bool
-is_scream_packet (const void *buffer, size_t len);
+is_sane (const void *buffer, size_t len, size_t expected_len);
 
 /**
  * Convert a type to a printable string.
@@ -235,15 +281,12 @@ const char *
 get_scream_type_name (scream_packet_type type);
 
 /**
- * Send a ::scream_packet_ack to the destination.
+ * Remove a UDP packet in the front of the buffer of sock.
  *
- * @param [in] sock the socket through which the packet is to be sent.
- * @param [in] dest the destination of the packet.
- *
- * @return An error code.
+ * @param [in] sock the socket whose first UDP datagram in its buffer will be removed.
  */
-err_code
-send_ack (int sock, const struct sockaddr_in *dest);
+void
+remove_packet(int sock);
 
 /**
  * Return the timestamp in microsecond of the last received packet.
@@ -328,6 +371,24 @@ set_timeout (int socket, const struct timeval *timeout);
  */
 err_code
 unset_timeout (int socket);
+
+/**
+ * Produces a nice error message identical to perror().
+ *
+ * @param [in] db the database whose latest error is to be produced.
+ * @param [in] message the message to be printed before the error message.
+ */
+void
+sqlite3_perror (sqlite3 *db, const char *message);
+
+/**
+ * Frees a pointer that is produced by either sqlite3_malloc() or
+ * sqlite3_realloc() and NULLified the pointer so that it is safe for reuse.
+ *
+ * @param [in] ptr_addr the address of the pointer to be freed
+ */
+void
+sqlite3_clean_free (void *ptr_addr);
 
 #ifdef __cplusplus
 }

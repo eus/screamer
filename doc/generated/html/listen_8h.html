@@ -92,6 +92,12 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#62e339695f26581226341d531df83291">sync_todos</a> (struct <a class="el" href="structlistener__info.html">listener_info</a> *info)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#7e77c380e90ff48a7d3fe6ffabde95d7">sync_create_todo</a> (sqlite3 *db, sqlite3_stmt *insert_stmt, uint16_t chunk_len, void *chunk)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#caabb618bc153e5d80b89c338c31d354">sync_delete_todo</a> (sqlite3 *db, sqlite3_stmt *delete_stmt, uint16_t chunk_len, void *chunk)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="listen_8h.html#38606a9be9382df621aeb9d02624f330">sync_update_todo</a> (sqlite3 *db, sqlite3_stmt *update_stmt, uint16_t chunk_len, void *chunk)</td></tr>
+
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 UDP logging program functions. 
@@ -665,6 +671,108 @@ Process a <a class="el" href="scream-common_8h.html#d411dc850b14b9ad5df78472127f
 
 </div>
 </div><p>
+<a class="anchor" name="7e77c380e90ff48a7d3fe6ffabde95d7"></a><!-- doxytag: member="listen.h::sync_create_todo" ref="7e77c380e90ff48a7d3fe6ffabde95d7" args="(sqlite3 *db, sqlite3_stmt *insert_stmt, uint16_t chunk_len, void *chunk)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> sync_create_todo           </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3 *&nbsp;</td>
+          <td class="paramname"> <em>db</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_stmt *&nbsp;</td>
+          <td class="paramname"> <em>insert_stmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&nbsp;</td>
+          <td class="paramname"> <em>chunk_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>chunk</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Parse client-server data chunk whose type is <a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af6485298a67789bb4df57974b9de8e97f">CHUNK_NEW_TODO</a>.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the synchronization DB. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>insert_stmt</em>&nbsp;</td><td>the prepared statement used to insert a new todo. This will be reset and cleared of the bindings upon return. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>chunk_len</em>&nbsp;</td><td>the length of the <a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af6485298a67789bb4df57974b9de8e97f">CHUNK_NEW_TODO</a>. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>chunk</em>&nbsp;</td><td>the chunk whose fields are to be parsed.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="caabb618bc153e5d80b89c338c31d354"></a><!-- doxytag: member="listen.h::sync_delete_todo" ref="caabb618bc153e5d80b89c338c31d354" args="(sqlite3 *db, sqlite3_stmt *delete_stmt, uint16_t chunk_len, void *chunk)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> sync_delete_todo           </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3 *&nbsp;</td>
+          <td class="paramname"> <em>db</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_stmt *&nbsp;</td>
+          <td class="paramname"> <em>delete_stmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&nbsp;</td>
+          <td class="paramname"> <em>chunk_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>chunk</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Parse client-server data chunk whose type is <a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af3a44527f3e89c17466a617b51dcf648d">CHUNK_DELETE_TODO</a>.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the synchronization DB. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>delete_stmt</em>&nbsp;</td><td>the prepared statement used to delete a todo. This will be reset and cleared of the bindings upon return. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>chunk_len</em>&nbsp;</td><td>the length of the <a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af3a44527f3e89c17466a617b51dcf648d">CHUNK_DELETE_TODO</a>. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>chunk</em>&nbsp;</td><td>the chunk whose fields are to be parsed.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
 <a class="anchor" name="62e339695f26581226341d531df83291"></a><!-- doxytag: member="listen.h::sync_todos" ref="62e339695f26581226341d531df83291" args="(struct listener_info *info)" -->
 <div class="memitem">
 <div class="memproto">
@@ -692,8 +800,59 @@ Sync the user's todo items with data provided in field <a class="el" href="struc
 
 </div>
 </div><p>
+<a class="anchor" name="38606a9be9382df621aeb9d02624f330"></a><!-- doxytag: member="listen.h::sync_update_todo" ref="38606a9be9382df621aeb9d02624f330" args="(sqlite3 *db, sqlite3_stmt *update_stmt, uint16_t chunk_len, void *chunk)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="scream-common_8h.html#08b18ac8af0f3462354240d9732f3852">err_code</a> sync_update_todo           </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3 *&nbsp;</td>
+          <td class="paramname"> <em>db</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_stmt *&nbsp;</td>
+          <td class="paramname"> <em>update_stmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&nbsp;</td>
+          <td class="paramname"> <em>chunk_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>chunk</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Wed Jan 6 21:33:14 2010 for screamer by&nbsp;
+<div class="memdoc">
+
+<p>
+Parse client-server data chunk whose type is <a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af4b25dbb166f52df83a4a103ef4a6f899">CHUNK_UPDATE_TODO</a>.<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>db</em>&nbsp;</td><td>the synchronization DB. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>update_stmt</em>&nbsp;</td><td>the prepared statement used to update a todo. This will be reset and cleared of the bindings upon return. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>chunk_len</em>&nbsp;</td><td>the length of the <a class="el" href="scream-common_8h.html#b76106a9cbeafd115eb2514a6b0556af4b25dbb166f52df83a4a103ef4a6f899">CHUNK_UPDATE_TODO</a>. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>chunk</em>&nbsp;</td><td>the chunk whose fields are to be parsed.</td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>An error code. </dd></dl>
+
+</div>
+</div><p>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon Jan 18 19:40:01 2010 for screamer by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.8 </small></address>
 </body>
